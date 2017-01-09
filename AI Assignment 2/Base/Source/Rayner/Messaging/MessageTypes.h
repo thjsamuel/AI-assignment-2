@@ -1,0 +1,14 @@
+#ifndef MESSAGE_TYPES_H
+#define MESSAGE_TYPES_H
+
+enum Message_Type
+{
+	MSG_ORDER_FOOD_1, // fastest
+
+	MSG_ORDER_TAKEN,
+	MSG_COLLECT_ORDER,
+	MSG_ORDER_ARRIVED,
+	MSG_CLEAN,
+};
+
+#endif // MESSAGE_TYPES_H

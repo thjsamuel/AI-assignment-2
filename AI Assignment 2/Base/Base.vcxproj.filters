@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Rayner">
+      <UniqueIdentifier>{648b8b2b-991c-4628-8ad8-b61d403da44e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rayner\Messaging">
+      <UniqueIdentifier>{efcc0759-8002-4904-934a-6152be7383ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rayner\Chef">
+      <UniqueIdentifier>{3d6669b4-7914-4c97-97da-c952b27ba9a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rayner\Cleaner">
+      <UniqueIdentifier>{6195b045-d555-4df3-a1e0-b260380a300b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rayner\Customer">
+      <UniqueIdentifier>{12c284a7-2ca8-4a1a-b9c9-c32f76dd9a16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rayner\Waiter">
+      <UniqueIdentifier>{f536448b-3e24-4f79-b2ce-82e0f883a2e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Samuel">
+      <UniqueIdentifier>{e67348b8-357b-4a3c-8a7f-d3ed73eb7a6f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MeshBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadTGA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadOBJ.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneAssignment1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Messaging\MessageDispatcher.cpp">
+      <Filter>Rayner\Messaging</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Chef\Chef.cpp">
+      <Filter>Rayner\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Chef\State_Chef_Idle.cpp">
+      <Filter>Rayner\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Chef\State_Cook.cpp">
+      <Filter>Rayner\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Cleaner\Cleaner.cpp">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Cleaner\State_Clean.cpp">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Cleaner\State_Cleaner_GlobalState.cpp">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Cleaner\State_Cleaner_GoToilet.cpp">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Cleaner\State_Cleaner_Idle.cpp">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Cleaner\State_EmptyTrashbag.cpp">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Cleaner\State_EmptyTrashbin.cpp">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Customer\Customer.cpp">
+      <Filter>Rayner\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Customer\State_Customer_Idle.cpp">
+      <Filter>Rayner\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Customer\State_Eat.cpp">
+      <Filter>Rayner\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Customer\State_FindSeat.cpp">
+      <Filter>Rayner\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Customer\State_Leave.cpp">
+      <Filter>Rayner\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Customer\State_OrderFood.cpp">
+      <Filter>Rayner\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Customer\State_QueueUp.cpp">
+      <Filter>Rayner\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Customer\State_ReturnTray.cpp">
+      <Filter>Rayner\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\BaseGameEntity.cpp">
+      <Filter>Rayner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\EntityManager.cpp">
+      <Filter>Rayner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\EntityNames.cpp">
+      <Filter>Rayner</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Waiter\State_Serve.cpp">
+      <Filter>Rayner\Waiter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Waiter\State_TakeOrder.cpp">
+      <Filter>Rayner\Waiter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Waiter\State_Waiter_GlobalState.cpp">
+      <Filter>Rayner\Waiter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Waiter\State_Waiter_GoToilet.cpp">
+      <Filter>Rayner\Waiter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Waiter\State_Waiter_Idle.cpp">
+      <Filter>Rayner\Waiter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rayner\Waiter\Waiter.cpp">
+      <Filter>Rayner\Waiter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Samuel\S_Chef.cpp">
+      <Filter>Samuel</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Samuel\S_Customer.cpp">
+      <Filter>Samuel</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Samuel\S_Waiter.cpp">
+      <Filter>Samuel</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Samuel\StateFactory.cpp">
+      <Filter>Samuel</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Geometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MeshBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadTGA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadOBJ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneAssignment1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Messaging\MessageDispatcher.h">
+      <Filter>Rayner\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Messaging\MessageTypes.h">
+      <Filter>Rayner\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Messaging\Telegram.h">
+      <Filter>Rayner\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Chef\Chef.h">
+      <Filter>Rayner\Chef</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Chef\State_Chef_Idle.h">
+      <Filter>Rayner\Chef</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Chef\State_Cook.h">
+      <Filter>Rayner\Chef</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Cleaner\Cleaner.h">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Cleaner\State_Clean.h">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Cleaner\State_Cleaner_GlobalState.h">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Cleaner\State_Cleaner_GoToilet.h">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Cleaner\State_Cleaner_Idle.h">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Cleaner\State_EmptyTrashbag.h">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Cleaner\State_EmptyTrashbin.h">
+      <Filter>Rayner\Cleaner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Customer\Customer.h">
+      <Filter>Rayner\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Customer\State_Customer_Idle.h">
+      <Filter>Rayner\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Customer\State_Eat.h">
+      <Filter>Rayner\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Customer\State_FindSeat.h">
+      <Filter>Rayner\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Customer\State_Leave.h">
+      <Filter>Rayner\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Customer\State_OrderFood.h">
+      <Filter>Rayner\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Customer\State_QueueUp.h">
+      <Filter>Rayner\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Customer\State_ReturnTray.h">
+      <Filter>Rayner\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\BaseGameEntity.h">
+      <Filter>Rayner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\EntityManager.h">
+      <Filter>Rayner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\EntityNames.h">
+      <Filter>Rayner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Locations.h">
+      <Filter>Rayner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\MyTimer.h">
+      <Filter>Rayner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\State.h">
+      <Filter>Rayner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\StateMachine.h">
+      <Filter>Rayner</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Waiter\State_Serve.h">
+      <Filter>Rayner\Waiter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Waiter\State_TakeOrder.h">
+      <Filter>Rayner\Waiter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Waiter\State_Waiter_GlobalState.h">
+      <Filter>Rayner\Waiter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Waiter\State_Waiter_GoToilet.h">
+      <Filter>Rayner\Waiter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Waiter\State_Waiter_Idle.h">
+      <Filter>Rayner\Waiter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rayner\Waiter\Waiter.h">
+      <Filter>Rayner\Waiter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Samuel\Character.h">
+      <Filter>Samuel</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Samuel\MyVector.h">
+      <Filter>Samuel</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Samuel\Object.h">
+      <Filter>Samuel</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Samuel\S_Chef.h">
+      <Filter>Samuel</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Samuel\S_Customer.h">
+      <Filter>Samuel</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Samuel\S_State.h">
+      <Filter>Samuel</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Samuel\S_Waiter.h">
+      <Filter>Samuel</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Samuel\StateFactory.h">
+      <Filter>Samuel</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
