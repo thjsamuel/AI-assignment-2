@@ -19,21 +19,23 @@ CState_Leave* CState_Leave::GetInstance()
 
 void CState_Leave::Enter(CCustomer* customer, double dt)
 {
-
+	targetPos = BEFORE_ENTRANCE;
+	bAtBeforeEntrance = false;
+	bAtEntrance = false;
 }
 
 void CState_Leave::Execute(CCustomer* customer, double dt)
 {
-	static Vector3 targetPos = BEFORE_ENTRANCE;
+	/*static Vector3 targetPos = BEFORE_ENTRANCE;
 	static bool bAtBeforeEntrance = false;
-	static bool bAtEntrance = false;
+	static bool bAtEntrance = false;*/
 	customer->SetSeatedStatus(false);
 
 	float dist = (targetPos - customer->GetPosition()).LengthSquared();
 
 	if (targetPos == BEFORE_ENTRANCE)
 	{
-		if (dist <= 100)
+		if (dist <= 25)
 		{
 			bAtBeforeEntrance = true;
 			targetPos = ENTRANCE;
@@ -41,7 +43,7 @@ void CState_Leave::Execute(CCustomer* customer, double dt)
 	}
 	else if (targetPos == ENTRANCE && bAtBeforeEntrance == true)
 	{
-		if (dist <= 100)
+		if (dist <= 25)
 		{
 			bAtEntrance = true;
 			targetPos = EXIT;
@@ -49,7 +51,7 @@ void CState_Leave::Execute(CCustomer* customer, double dt)
 	}
 	else if (targetPos == EXIT)
 	{
-		if (dist <= 100)
+		if (dist <= 25)
 		{
 			//targetPos = BEFORE_ENTRANCE;
 			customer->SetExitStatus(true);

@@ -3,7 +3,7 @@
 
 #include "Vector3.h"
 
-#define ENTRANCE			Vector3(20, 10)
+#define ENTRANCE			Vector3(20, 5)
 #define BEFORE_ENTRANCE		Vector3(20, 30)
 #define EXIT				Vector3(150, 10)
 

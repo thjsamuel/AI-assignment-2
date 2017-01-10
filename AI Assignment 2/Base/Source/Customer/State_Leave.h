@@ -17,6 +17,10 @@ public:
 
 private:
 	CState_Leave();
+
+	Vector3 targetPos;
+	bool bAtBeforeEntrance;
+	bool bAtEntrance;
 };
 
 #endif // STATE_LEAVE_H
