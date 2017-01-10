@@ -8,6 +8,7 @@
 
 CState_Chef_Idle::CState_Chef_Idle()
 {
+	bAtSpot = false;
 }
 
 CState_Chef_Idle* CState_Chef_Idle::GetInstance()
@@ -19,13 +20,25 @@ CState_Chef_Idle* CState_Chef_Idle::GetInstance()
 
 void CState_Chef_Idle::Enter(CChef* chef, double dt)
 {
-
+	bAtSpot = false;
 }
 
 void CState_Chef_Idle::Execute(CChef* chef, double dt)
 {
-	static bool moveLeft = true;
-	static bool moveRight = false;
+	if (chef->GetPosition() != Vector3(40, 85, 0) && bAtSpot == false)
+	{
+		Vector3 targetPos = Vector3(40, 85, 0);
+		Vector3 dir = (targetPos - chef->GetPosition()).Normalized();
+		chef->position += dir * dt * 25;
+	}
+	else
+	{
+		if (bAtSpot == false)
+		{
+			chef->SetPosition(40, 85, 0);
+			bAtSpot = true;
+		}
+	}
 }
 
 void CState_Chef_Idle::Exit(CChef* chef, double dt)

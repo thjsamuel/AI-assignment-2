@@ -5,6 +5,7 @@
 #include "../Messaging/MessageTypes.h"
 #include "../EntityNames.h"
 #include "../MyTimer.h"
+#include "../Locations.h"
 
 CMyTimer* timer = CMyTimer::GetInstance();
 
@@ -12,6 +13,10 @@ CState_Cook::CState_Cook()
 {
 	finishedCookingTime = 0.0;
 	isTimerSet = false;
+
+	moveTimer = 0.0;
+	bAtStove = false;
+	bAtFridge = false;
 }
 
 CState_Cook* CState_Cook::GetInstance()
@@ -52,10 +57,50 @@ void CState_Cook::Execute(CChef* chef, double dt)
 				isTimerSet = false;
 			}
 		}
+
+		// Move around
+		static Vector3 targetPos = STOVE;
+
+		if (moveTimer >= 2.5f)
+		{
+			if (bAtStove == true)
+			{
+				targetPos = FRIDGE;
+				bAtStove = false;
+			}
+			else if (bAtFridge == true)
+			{
+				targetPos = STOVE;
+				bAtFridge = false;
+			}
+
+			moveTimer = 0.0;
+		}
+		
+		Vector3 dir = (targetPos - chef->GetPosition()).Normalized();
+		float dist = (targetPos - chef->GetPosition()).LengthSquared();
+
+		if (dist >= 25)
+		{
+			chef->position += dir * dt * 25;
+		}
+		else
+		{
+			if (targetPos == STOVE)
+				bAtStove = true;
+			else if (targetPos == FRIDGE)
+				bAtFridge = true;
+			moveTimer += dt;
+		}
 	}
 
 	else
+	{
+		bAtStove = false;
+		bAtFridge = false;
+		moveTimer = 0.0;
 		chef->GetFSM()->ChangeState(CState_Chef_Idle::GetInstance());
+	}
 }
 
 void CState_Cook::Exit(CChef* chef, double dt)

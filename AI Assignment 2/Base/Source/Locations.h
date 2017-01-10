@@ -7,6 +7,9 @@
 #define BEFORE_ENTRANCE		Vector3(20, 30)
 #define EXIT				Vector3(150, 10)
 
+#define STOVE				Vector3(5, 85)
+#define FRIDGE				Vector3(25, 89)
+
 #define COUNTER				Vector3(40, 70)
 
 #define BEFORE_TRASHBIN		Vector3(93, 70)

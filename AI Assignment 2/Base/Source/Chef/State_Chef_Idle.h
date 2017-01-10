@@ -18,6 +18,7 @@ public:
 
 private:
 	CState_Chef_Idle();
+	bool bAtSpot;
 };
 
 #endif // STATE_CHEF_IDLE

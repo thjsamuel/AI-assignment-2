@@ -21,6 +21,10 @@ private:
 
 	bool isTimerSet;
 	double finishedCookingTime;
+
+	double moveTimer;
+	bool bAtStove;
+	bool bAtFridge;
 };
 
 #endif // STATE_COOK_H

@@ -1,0 +1,4 @@
+Customer - add line up
+Waiter - add arranging of tables, two types of roles, inside and outside
+They can take up the role of cashiers, its flexible
+Make everyone go to the loo

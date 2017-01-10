@@ -24,7 +24,7 @@ void CState_Waiter_GlobalState::Enter(CWaiter* waiter, double dt)
 
 void CState_Waiter_GlobalState::Execute(CWaiter* waiter, double dt)
 {
-	std::cout << waiter->GetUnservedCount() << std::endl;
+	//std::cout << waiter->GetUnservedCount() << std::endl;
 
 	if ((rand() % 5000 + 1) == 1 && 
 		!waiter->GetFSM()->IsInState(*CState_Waiter_GoToilet::GetInstance()) && 
