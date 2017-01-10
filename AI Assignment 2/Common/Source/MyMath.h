@@ -23,8 +23,8 @@ Math namespace
 /******************************************************************************/
 namespace Math
 {
-
-	const float	EPSILON    =	0.00001f;  ///Used for error checking
+    const float	EPS = 1.f; // Used for checking small marginal difference between two float values
+	const float	EPSILON    = 0.00001f;  ///Used for error checking
 	const float	PI         = 3.1415926535897932384626433832795f;
 	const float TWO_PI     = PI * 2.0f;
 	const float HALF_PI    = PI / 2.0f;

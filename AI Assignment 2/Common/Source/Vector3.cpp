@@ -12,7 +12,7 @@ Struct to define a 3D vector
 
 bool Vector3::IsEqual(float a, float b) const
 {
-	return a - b <= Math::EPSILON && b - a <= Math::EPSILON;
+	return a - b <= Math::EPS && b - a <= Math::EPS;
 }
 
 /******************************************************************************/

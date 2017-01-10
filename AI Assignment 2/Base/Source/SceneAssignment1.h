@@ -51,6 +51,9 @@ private:
 	CChef* chef;
 	CCleaner* cleaner;
 
+    // a list of customers
+    std::vector<CCustomer*> customer_list;
+
 	// For Debugging
 	Vector3 debugPos;
 };

@@ -3,6 +3,8 @@
 
 #include "Vector3.h"
 #include "Messaging\Telegram.h"
+#include <map>
+using std::map;
 
 class CBaseGameEntity
 {
@@ -46,6 +48,7 @@ public:
 	void SetDone(const bool bDone); // finished eating
 	bool GetDoneStatus() const;
 
+    map<const int, Vector3> waypoints;
 //protected:
 	Vector3 position;
 

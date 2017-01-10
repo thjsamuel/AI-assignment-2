@@ -35,7 +35,9 @@ void SceneAssignment1::Init()
 	entityMgr->RegisterEntity(cleaner);
 
 	customer = new CCustomer(entityMgr->GetEntityMap().size(), SEAT_1, true);
+    customer->waypoints[0] = ENTRANCE;
 	entityMgr->RegisterEntity(customer);
+    customer_list.push_back(customer);
 
 	// For Debugging
 	debugPos = Vector3(0, -10, 0);
@@ -210,16 +212,24 @@ void SceneAssignment1::GenerateCustomers()
 		theSeatPos = SEAT_8;
 	else if (bSeat9Taken == false)
 		theSeatPos = SEAT_9;
-
-	// No queuing up for now, no time + can't be bothered
-
 	
 		if (!bSeat1Taken || !bSeat2Taken || !bSeat3Taken || !bSeat4Taken || !bSeat5Taken || !bSeat6Taken || !bSeat7Taken || !bSeat8Taken || !bSeat9Taken)
 		{
 			if ((rand() % 500 + 1) == 1)
 			{
+                const int away_distance = 20;
 				CCustomer* theCustomer = new CCustomer(entityMgr->GetEntityMap().size(), theSeatPos, true);
-				entityMgr->RegisterEntity(theCustomer);
+                if (customer_list.size() > 0)
+                    if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
+                    {
+                        Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
+                        behind_pos.x += away_distance;
+                        theCustomer->waypoints[0] = behind_pos;
+                    }
+                    else // nobody is queueing up
+                        theCustomer->waypoints[0] = ENTRANCE;
+                entityMgr->RegisterEntity(theCustomer);
+                customer_list.push_back(theCustomer);
 			}
 		}
 
