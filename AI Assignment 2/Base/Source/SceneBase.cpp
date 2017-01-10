@@ -141,22 +141,6 @@ void SceneBase::Init()
 	meshList[GEO_SEAT] = MeshBuilder::GenerateQuad("seat", Color(1, 1, 1), 1.f);
 	meshList[GEO_SEAT]->textureID = LoadTGA("Image//seat.tga");
 
-    meshList[GEO_FLOOR] = MeshBuilder::GenerateQuad("floor", Color(1, 1, 1), 1.f);
-    meshList[GEO_FLOOR]->textureID = LoadTGA("Image//floor.tga");
-
-    /*SAMUEL AI*/
-    meshList[GEO_CUSTOMER] = MeshBuilder::GenerateSphere("customer", Color(0, 1, 0), 10, 10, 1.f);
-    meshList[GEO_CUSTOMERHUNGRY] = MeshBuilder::GenerateSphere("not hungry customer", Color(1, 1, 0), 10, 10, 1.f);
-    meshList[GEO_CUSTOMERANGRY] = MeshBuilder::GenerateSphere("angry customer", Color(1, 0, 0), 10, 10, 1.f);
-    meshList[GEO_SWAITER] = MeshBuilder::GenerateSphere("waiter", Color(1, 0, 1), 10, 10, 1.f);
-    meshList[GEO_SCHEF] = MeshBuilder::GenerateSphere("chef", Color(1, 1, 1), 10, 10, 1.f);
-    meshList[GEO_TABLE] = MeshBuilder::GenerateQuad("round table", Color(1, 1, 1), 1.f);
-    meshList[GEO_TABLE]->textureID = LoadTGA("Image//table.tga");
-    meshList[GEO_CHEFTABLE] = MeshBuilder::GenerateCube("chef table", Color(0.5, 1, 1), 2.f);
-    meshList[GEO_DOOR] = MeshBuilder::GenerateCube("door", Color(0.8, 0.2, 0.2), 2.f);
-    meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0, 0, 0), 2.f);
-    /**/
-
 	bLightEnabled = false;
 }
 

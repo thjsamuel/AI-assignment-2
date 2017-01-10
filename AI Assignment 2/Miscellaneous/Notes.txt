@@ -1,0 +1,156 @@
+
+
+- Big asteroids break into smaller asteroids when hit
+- If player lives <= 0, game over
+- game over and menu screen
+
+- can increase difficulty with friendly spawn time
+- dinosaur can respawn wtf
+- bullet asteroid collision not working properly
+- red box will not go away after asteroid is destroyed
+- red box only appears around 1 asteroid at a time
+- some objects disappear and reappear after getting hit etc earth, healthpack
+- playership and asteroids can only kill certain friendlies (bug)
+- there is an asteroid at (0, 0)
+- if change scale of asteroid, all asteroid sizes will also be changed 
+- Translate z axis for every asteroid rendered
+ 
+
+SceneAsteroid is my SceneAssignment
+
+Level 1
+- Save Earth from asteroids
+- Don't shoot friendlies trying to return to Earth
+- Don't shoot friendlies trying to leave Earth
+- Difficulty increases
+- If asteroids hit Earth, transition into level 2 
+
+Level 2
+- Use real life image as background
+- Save dinosaurs from falling asteroids
+- Wind affects missiles but doesn't affect falling asteroids
+
+Every asteroid/object spawn, add 0.001 to z axis of object
+
+Like slither.io, collect food so that missile bigger etc
+
+/***********************Code*********************************/
+
+for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
+	{
+		GameObject *go = (GameObject *)*it;
+		if (go->active)
+		{
+			//Exercise 12: handle collision between GO_SHIP and GO_ASTEROID using simple distance-based check
+			go->pos += go->vel * dt;
+			if (go->type == GameObject::GO_ASTEROID)
+			{
+				go->pos += go->vel * dt; // think must leave this here else no random vel
+				float distSquared = (go->pos - m_ship->pos).LengthSquared();
+				float combinedRadiusSquared = (go->scale.x + m_ship->scale.x) * (go->scale.x + m_ship->scale.x);
+				if (distSquared <= combinedRadiusSquared)
+				{
+					m_ship->pos.Set(m_worldWidth * 0.5f, m_worldHeight * 0.5f, 0);
+					m_ship->vel.SetZero();
+					--m_lives;
+					if (m_lives == 0)
+					{
+						m_lives = 3;
+						m_score = 0;
+					}
+
+					go->active = false;
+				}
+
+				//Exercise 13: asteroids should wrap around the screen like the ship
+				if (go->pos.x > m_worldWidth)
+					go->pos.x -= m_worldWidth;
+				else if (go->pos.x < 0)
+					go->pos.x += m_worldWidth;
+				if (go->pos.y > m_worldHeight)
+					go->pos.y -= m_worldHeight;
+				else if (go->pos.y < 0)
+					go->pos.y += m_worldHeight;
+			}
+
+			// Health packs
+			if (go->type == GameObject::GO_HEALTHPACK)
+			{
+				// Health pack functions here
+
+				float distSquared = (go->pos - m_ship->pos).LengthSquared();
+				float combinedRadiusSquared = (go->scale.x + m_ship->scale.x) * (go->scale.x + m_ship->scale.x);
+				if (distSquared <= combinedRadiusSquared)
+				{
+					++m_lives;
+					go->active = false;
+				}
+
+			}
+
+		}
+
+		//Exercise 16: unspawn bullets when they leave screen
+		if (go->type == GameObject::GO_BULLET)
+		{
+			if (go->pos.x > m_worldWidth || go->pos.x < 0 || go->pos.y > m_worldHeight || go->pos.y < 0)
+				go->active = false;
+
+			//Exercise 18: collision check between GO_BULLET and GO_ASTEROID
+			for (std::vector<GameObject *>::iterator it2 = m_goList.begin(); it2 != m_goList.end(); ++it2)
+			{
+				GameObject *go2 = (GameObject *)*it2;
+
+				if (go2->type == GameObject::GO_ASTEROID && go2->active == true)
+				{
+					float distSquared = (go->pos - go2->pos).LengthSquared();
+					float combinedRadiusSquared = (go->scale.x + go2->scale.x) * (go->scale.x + go2->scale.x);
+					if (distSquared <= combinedRadiusSquared)
+					{
+						//go2->pos.Set(m_worldWidth * 0.5f, m_worldHeight * 0.5f, 0);
+						//go2->vel.SetZero();
+						++m_score;
+						go->active = false;
+						go2->active = false;
+					}
+				}
+			}
+		}
+		// Exercise 20
+		if (go->type == GameObject::GO_MISSILE)
+		{
+			GameObject *nearestObject = nullptr;
+			float closest = 100000.f;
+			for (std::vector<GameObject *>::iterator it2 = m_goList.begin(); it2 != m_goList.end(); ++it2)
+			{				GameObject *go2 = *it2;
+
+				if (go2->type == GameObject::GO_ASTEROID && go2->active == true)
+				{
+					float distSquared = (go->pos - go2->pos).LengthSquared();
+					if (distSquared < closest)
+					{
+						closest = distSquared;
+						nearestObject = go2;
+					}
+					float combinedRadiusSquared = (go->scale.x + go2->scale.x) * (go->scale.x + go2->scale.x);
+					if (distSquared < combinedRadiusSquared)
+					{
+						++m_score;
+						go->active = false;
+						go2->active = false;
+						// break; // without break, thriple kill etc
+					}
+				}
+			}
+			if (nearestObject) // true
+			{
+				go->vel = (nearestObject->pos - go->pos).Normalize(); // add physics
+				go->vel *= MISSILE_SPEED;
+			}
+		}
+
+		if (go->type == GameObject::GO_ENEMYSHIP)
+		{
+			// Enemy ship functions here
+		}
+	}

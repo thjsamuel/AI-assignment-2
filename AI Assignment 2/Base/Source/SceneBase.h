@@ -50,7 +50,6 @@ public:
 		GEO_TRIANGLE,
 		GEO_WALL,
 		GEO_PILLAR,
-        GEO_FLOOR,
 
 		GEO_HAPPY_CUSTOMER,
 		GEO_HAPPY_CUSTOMER_INVERT,
@@ -62,17 +61,6 @@ public:
 		GEO_CLEANER,
 		GEO_CLEANER_INVERT,
 		GEO_SEAT,
-
-        /*SAMUEL AI*/
-        GEO_CUSTOMER,
-        GEO_CUSTOMERHUNGRY,
-        GEO_CUSTOMERANGRY,
-        GEO_SWAITER,
-        GEO_SCHEF,
-        GEO_TABLE,
-        GEO_CHEFTABLE,
-        GEO_DOOR,
-        /**/
 
 		NUM_GEOMETRY,
 	};
