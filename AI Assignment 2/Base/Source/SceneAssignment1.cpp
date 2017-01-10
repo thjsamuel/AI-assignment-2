@@ -361,7 +361,14 @@ void SceneAssignment1::RenderLocationNames()
 	std::ostringstream ss;
 	ss.str("");
 	ss << "Kitchen";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 20, 50);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 13, 50);
+
+	ss.str("");
+	ss << "Store";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 37, 52);
+	ss.str("");
+	ss << "room";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 37.5, 50);
 
 	ss.str("");
 	ss << "Trash bin";
@@ -425,19 +432,26 @@ void SceneAssignment1::RenderRestaurant()
 
 	// kitchen
 	modelStack.PushMatrix();
-	modelStack.Translate(40, 75, 0);
-	modelStack.Scale(80, 3, 3);
+	modelStack.Translate(25, 75, 0);
+	modelStack.Scale(58, 3, 3);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
 	// divider 1
+	modelStack.PushMatrix();
+	modelStack.Translate(55, 87, 0);
+	modelStack.Scale(3, 27, 3);
+	RenderMesh(meshList[GEO_WALL], false);
+	modelStack.PopMatrix();
+
+	// divider 2
 	modelStack.PushMatrix();
 	modelStack.Translate(80, 87, 0);
 	modelStack.Scale(3, 27, 3);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
-	// divider 2
+	// divider 3
 	modelStack.PushMatrix();
 	modelStack.Translate(105, 87, 0);
 	modelStack.Scale(3, 27, 3);

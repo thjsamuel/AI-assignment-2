@@ -7,7 +7,7 @@
 #define BEFORE_ENTRANCE		Vector3(20, 30)
 #define EXIT				Vector3(150, 10)
 
-#define COUNTER				Vector3(55, 70)
+#define COUNTER				Vector3(40, 70)
 
 #define BEFORE_TRASHBIN		Vector3(93, 70)
 #define TRASHBIN			Vector3(93, 91.8)

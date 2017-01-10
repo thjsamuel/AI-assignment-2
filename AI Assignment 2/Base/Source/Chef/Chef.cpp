@@ -8,7 +8,7 @@ CChef::CChef(int ID)
 
 	orderList = new std::queue<ORDER_INFO>();
 
-	SetPosition(60, 85, 0);
+	SetPosition(40, 85, 0);
 }
 
 CChef::~CChef()
