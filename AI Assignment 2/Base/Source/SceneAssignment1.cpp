@@ -34,7 +34,9 @@ void SceneAssignment1::Init()
 	cleaner = new CCleaner(ENT_CLEANER);
 	entityMgr->RegisterEntity(cleaner);
 
-	customer = new CCustomer(entityMgr->GetEntityMap().size(), SEAT_1, true);
+	entityMgr->SetLatestID(entityMgr->GetEntityMap().size());
+
+	customer = new CCustomer(entityMgr->GetNextID(), SEAT_1, true);
     customer->waypoints[0] = ENTRANCE;
 	entityMgr->RegisterEntity(customer);
     customer_list.push_back(customer);
@@ -166,31 +168,34 @@ void SceneAssignment1::GenerateCustomers()
 	static bool bSeatSelected = false;
 	Vector3 theSeatPos;
 
-	for (int i = 3; i < entityMgr->GetEntityMap().size(); i++)
+	for (int i = 4; i <= entityMgr->GetLatestID(); i++)
 	{
-		if (entityMgr->GetEntityMap()[i]->GetDoneStatus() == false)
+		if (entityMgr->GetEntityMap()[i] != NULL)
 		{
-			CloseSeat(i, SEAT_1, bSeat1Taken);
-			CloseSeat(i, SEAT_2, bSeat2Taken);
-			CloseSeat(i, SEAT_3, bSeat3Taken);
-			CloseSeat(i, SEAT_4, bSeat4Taken);
-			CloseSeat(i, SEAT_5, bSeat5Taken);
-			CloseSeat(i, SEAT_6, bSeat6Taken);
-			CloseSeat(i, SEAT_7, bSeat7Taken);
-			CloseSeat(i, SEAT_8, bSeat8Taken);
-			CloseSeat(i, SEAT_9, bSeat9Taken);
-		}
-		else
-		{
-			FreeSeat(i, SEAT_1, bSeat1Taken);
-			FreeSeat(i, SEAT_2, bSeat2Taken);
-			FreeSeat(i, SEAT_3, bSeat3Taken);
-			FreeSeat(i, SEAT_4, bSeat4Taken);
-			FreeSeat(i, SEAT_5, bSeat5Taken);
-			FreeSeat(i, SEAT_6, bSeat6Taken);
-			FreeSeat(i, SEAT_7, bSeat7Taken);
-			FreeSeat(i, SEAT_8, bSeat8Taken);
-			FreeSeat(i, SEAT_9, bSeat9Taken);
+			if (entityMgr->GetEntityMap()[i]->GetDoneStatus() == false)
+			{
+				CloseSeat(i, SEAT_1, bSeat1Taken);
+				CloseSeat(i, SEAT_2, bSeat2Taken);
+				CloseSeat(i, SEAT_3, bSeat3Taken);
+				CloseSeat(i, SEAT_4, bSeat4Taken);
+				CloseSeat(i, SEAT_5, bSeat5Taken);
+				CloseSeat(i, SEAT_6, bSeat6Taken);
+				CloseSeat(i, SEAT_7, bSeat7Taken);
+				CloseSeat(i, SEAT_8, bSeat8Taken);
+				CloseSeat(i, SEAT_9, bSeat9Taken);
+			}
+			else
+			{
+				FreeSeat(i, SEAT_1, bSeat1Taken);
+				FreeSeat(i, SEAT_2, bSeat2Taken);
+				FreeSeat(i, SEAT_3, bSeat3Taken);
+				FreeSeat(i, SEAT_4, bSeat4Taken);
+				FreeSeat(i, SEAT_5, bSeat5Taken);
+				FreeSeat(i, SEAT_6, bSeat6Taken);
+				FreeSeat(i, SEAT_7, bSeat7Taken);
+				FreeSeat(i, SEAT_8, bSeat8Taken);
+				FreeSeat(i, SEAT_9, bSeat9Taken);
+			}
 		}
 	}
 
@@ -218,16 +223,19 @@ void SceneAssignment1::GenerateCustomers()
 			if ((rand() % 500 + 1) == 1)
 			{
                 const int away_distance = 20;
-				CCustomer* theCustomer = new CCustomer(entityMgr->GetEntityMap().size(), theSeatPos, true);
-                if (customer_list.size() > 0)
-                    if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
-                    {
-                        Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
-                        behind_pos.x += away_distance;
-                        theCustomer->waypoints[0] = behind_pos;
-                    }
-                    else // nobody is queueing up
-                        theCustomer->waypoints[0] = ENTRANCE;
+				CCustomer* theCustomer = new CCustomer(entityMgr->GetNextID(), theSeatPos, true);
+				if (customer_list.size() > 0)
+				{
+					if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
+					{
+						Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
+						behind_pos.x += away_distance;
+						theCustomer->waypoints[0] = behind_pos;
+					}
+					else // nobody is queueing up
+						theCustomer->waypoints[0] = ENTRANCE;
+				}
+
                 entityMgr->RegisterEntity(theCustomer);
                 customer_list.push_back(theCustomer);
 			}
@@ -301,13 +309,16 @@ void SceneAssignment1::Update(double dt)
 	GenerateCustomers();
 
 	// Update customers
-	for (int i = 3; i < entityMgr->GetEntityMap().size(); i++)
+	for (int i = 4; i <= entityMgr->GetLatestID(); i++)
 	{
 		// other way: when exited, remove from entity manager
 		// bad way: make a virtual function to set and get exited status just for customer's use, since cannot use dynamic_cast
 		// when exited == true, don't update and render
-		if (entityMgr->GetEntityMap()[i]->GetExitStatus() == false)
-			entityMgr->GetEntityMap()[i]->Update(dt);
+		if (entityMgr->GetEntityMap()[i] != NULL)
+		{
+			if (entityMgr->GetEntityMap()[i]->GetExitStatus() == false)
+				entityMgr->GetEntityMap()[i]->Update(dt);
+		}
 	}
 
 	//customer->Update(dt);
@@ -482,18 +493,21 @@ void SceneAssignment1::RenderRestaurant()
 
 void SceneAssignment1::RenderEntities()
 {
-	for (int i = 3; i < entityMgr->GetEntityMap().size(); i++)
+	for (int i = 4; i <= entityMgr->GetLatestID(); i++)
 	{
-		if (entityMgr->GetEntityMap()[i]->GetExitStatus() == false)
+		if (entityMgr->GetEntityMap()[i] != NULL)
 		{
-			modelStack.PushMatrix();
-			modelStack.Translate(entityMgr->GetEntityMap()[i]->GetPosition().x, entityMgr->GetEntityMap()[i]->GetPosition().y, entityMgr->GetEntityMap()[i]->GetPosition().z);
-			modelStack.Scale(10, 10, 10);
-			if (entityMgr->GetEntityMap()[i]->GetSpriteInvertStatus() == false)
-				RenderMesh(meshList[GEO_HAPPY_CUSTOMER], false);
-			else
-				RenderMesh(meshList[GEO_HAPPY_CUSTOMER_INVERT], false);
-			modelStack.PopMatrix();
+			if (entityMgr->GetEntityMap()[i]->GetExitStatus() == false)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(entityMgr->GetEntityMap()[i]->GetPosition().x, entityMgr->GetEntityMap()[i]->GetPosition().y, entityMgr->GetEntityMap()[i]->GetPosition().z);
+				modelStack.Scale(10, 10, 10);
+				if (entityMgr->GetEntityMap()[i]->GetSpriteInvertStatus() == false)
+					RenderMesh(meshList[GEO_HAPPY_CUSTOMER], false);
+				else
+					RenderMesh(meshList[GEO_HAPPY_CUSTOMER_INVERT], false);
+				modelStack.PopMatrix();
+			}
 		}
 	}
 
@@ -546,13 +560,16 @@ void SceneAssignment1::RenderEntities_States()
 	float y4 = 2.5f + cleaner->GetPosition().y * 0.6f;
 	RenderTextOnScreen(meshList[GEO_TEXT], cleaner->GetStateInText(), Color(1, 1, 1), 2.5, x4, y4);
 
-	for (int i = 3; i < entityMgr->GetEntityMap().size(); i++)
+	for (int i = 4; i <= entityMgr->GetLatestID(); i++)
 	{
-		if (entityMgr->GetEntityMap()[i]->GetExitStatus() == false)
+		if (entityMgr->GetEntityMap()[i] != NULL)
 		{
-			float x = -4.f + entityMgr->GetEntityMap()[i]->GetPosition().x * 0.6f;
-			float y = -0.5f + entityMgr->GetEntityMap()[i]->GetPosition().y * 0.6f;
-			RenderTextOnScreen(meshList[GEO_TEXT], entityMgr->GetEntityMap()[i]->GetStateInText(), Color(1, 1, 1), 2.5, x, y);
+			if (entityMgr->GetEntityMap()[i]->GetExitStatus() == false)
+			{
+				float x = -4.f + entityMgr->GetEntityMap()[i]->GetPosition().x * 0.6f;
+				float y = -0.5f + entityMgr->GetEntityMap()[i]->GetPosition().y * 0.6f;
+				RenderTextOnScreen(meshList[GEO_TEXT], entityMgr->GetEntityMap()[i]->GetStateInText(), Color(1, 1, 1), 2.5, x, y);
+			}
 		}
 	}
 }
@@ -603,7 +620,7 @@ void SceneAssignment1::Render()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 3);
 
 	//RenderTextOnScreen(meshList[GEO_TEXT], "Restaurant", Color(0, 1, 0), 3, 0, 0);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(chef->GetOrderList()->size()), Color(0, 1, 0), 3, 0, 0);
+	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(/*chef->GetOrderList()->size()*/entityMgr->GetLatestID()), Color(0, 1, 0), 3, 0, 0);
 
 	RenderTextOnScreen(meshList[GEO_TEXT], "debugPos: (" + std::to_string(debugPos.x) + ", " + std::to_string(debugPos.y) + ")", Color(0, 1, 0), 3, 20, 3);
 
@@ -624,7 +641,7 @@ void SceneAssignment1::Exit()
 	}
 
 	// Delete customers
-	for (int i = 3; i < entityMgr->GetEntityMap().size(); i++)
+	for (int i = 4; i < entityMgr->GetEntityMap().size(); i++)
 	{
 		entityMgr->GetEntityMap()[i] = NULL;
 		delete entityMgr->GetEntityMap()[i];

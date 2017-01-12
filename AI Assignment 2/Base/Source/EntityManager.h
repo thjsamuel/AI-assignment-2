@@ -18,9 +18,15 @@ public:
 	CBaseGameEntity* GetEntityFromID(int ID) const;
 	EntityMap GetEntityMap() const;
 
+	void SetLatestID(unsigned int m_ID);
+	unsigned int GetLatestID();
+
+	unsigned int GetNextID();
+
 private:
 	// pointers to entities are cross referenced by their ID
 	EntityMap m_EntityMap;
+	unsigned int m_ID;
 
 	CEntityManager();
 };

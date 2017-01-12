@@ -20,10 +20,10 @@ void CState_QueueUp::Enter(CCustomer* customer, double dt)
 
 void CState_QueueUp::Execute(CCustomer* customer, double dt)
 {
-	//if (customer->GetPosition().x >= ENTRANCE.x)
-	//	customer->position.x -= 25.f * dt;
-	//else
-	//	customer->GetFSM()->ChangeState(CState_FindSeat::GetInstance(), dt);
+	if (customer->GetPosition().x >= ENTRANCE.x)
+		customer->position.x -= 25.f * dt;
+	else
+		customer->GetFSM()->ChangeState(CState_FindSeat::GetInstance(), dt);
 
     Vector3 des = customer->waypoints[0]; // First waypoint in the map is always customer's queue up spot 
 

@@ -55,7 +55,7 @@ void CState_Leave::Execute(CCustomer* customer, double dt)
 		{
 			//targetPos = BEFORE_ENTRANCE;
 			customer->SetExitStatus(true);
-			//CEntityManager::GetInstance()->RemoveEntity(customer); // may cause problems
+			CEntityManager::GetInstance()->RemoveEntity(customer);
 		}
 	}
 
