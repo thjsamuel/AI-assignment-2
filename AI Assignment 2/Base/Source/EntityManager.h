@@ -21,12 +21,17 @@ public:
 	void SetLatestID(unsigned int m_ID);
 	unsigned int GetLatestID();
 
+	void SetStillHereID(unsigned int stillHereID);
+	unsigned int GetStillHereID();
+	void IncrementStillHereID();
+
 	unsigned int GetNextID();
 
 private:
 	// pointers to entities are cross referenced by their ID
 	EntityMap m_EntityMap;
 	unsigned int m_ID;
+	unsigned int m_stillHereID;
 
 	CEntityManager();
 };

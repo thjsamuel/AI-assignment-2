@@ -5,6 +5,7 @@
 
 CEntityManager::CEntityManager() 
 		: m_ID(0)
+		, m_stillHereID(0)
 {
 }
 
@@ -50,6 +51,21 @@ void CEntityManager::SetLatestID(unsigned int m_ID)
 unsigned int CEntityManager::GetLatestID()
 {
 	return m_ID;
+}
+
+void CEntityManager::SetStillHereID(unsigned int stillHereID)
+{
+	m_stillHereID = stillHereID;
+}
+
+unsigned int CEntityManager::GetStillHereID()
+{
+	return m_stillHereID;
+}
+
+void CEntityManager::IncrementStillHereID()
+{
+	m_stillHereID++;
 }
 
 unsigned int CEntityManager::GetNextID()
