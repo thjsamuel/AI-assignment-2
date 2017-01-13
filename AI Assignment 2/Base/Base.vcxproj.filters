@@ -28,6 +28,9 @@
     <Filter Include="Messaging">
       <UniqueIdentifier>{efcc0759-8002-4904-934a-6152be7383ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AStar">
+      <UniqueIdentifier>{e39b96c6-a6ce-41a7-ad3f-44904f48f7db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -149,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="Source\Customer\State_Leave.cpp">
       <Filter>Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AStar\TestGrid.cpp">
+      <Filter>AStar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="Source\Customer\State_Leave.h">
       <Filter>Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AStar\TestGrid.h">
+      <Filter>AStar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

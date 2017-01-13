@@ -6,6 +6,7 @@
 #include "EntityNames.h"
 #include "Messaging\MessageDispatcher.h"
 #include "Locations.h"
+#include "AStar\TestGrid.h"
 
 CMyTimer* clock_ = CMyTimer::GetInstance();
 
@@ -590,6 +591,20 @@ void SceneAssignment1::Render()
 		if (go->active)
 		{
 			RenderGO(go);
+		}
+	}
+
+	for (float x = 3; x < (m_worldWidth - 3); x += 5.f)
+	{
+		for (float y = 3; y < (m_worldHeight - 3); y += 5.f)
+		{
+			//CTestGrid* grid = new CTestGrid();
+
+			/*modelStack.PushMatrix();
+			modelStack.Translate(x, y, 0);
+			modelStack.Scale(0.5, 0.5, 0.5);
+			RenderMesh(meshList[GEO_BALL], false);
+			modelStack.PopMatrix();*/
 		}
 	}
 
