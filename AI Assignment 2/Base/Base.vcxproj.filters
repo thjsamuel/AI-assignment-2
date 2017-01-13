@@ -156,10 +156,7 @@
     <ClCompile Include="Source\Waiter\State_Arrange.cpp">
       <Filter>Waiter</Filter>
     </ClCompile>
-    <ClInclude Include="Source\AStar\TestGrid.h">
-      <Filter>AStar</Filter>
-    </ClInclude>
-    <ClCompile Include="Source\AStar\TestGrid.cpp">
+    <ClCompile Include="Source\AStar\Node.cpp">
       <Filter>AStar</Filter>
     </ClCompile>
   </ItemGroup>
@@ -318,6 +315,9 @@
       <Filter>Waiter</Filter>
     </ClInclude>
     <ClInclude Include="Source\AStar\TestGrid.h">
+      <Filter>AStar</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AStar\Node.h">
       <Filter>AStar</Filter>
     </ClInclude>
   </ItemGroup>

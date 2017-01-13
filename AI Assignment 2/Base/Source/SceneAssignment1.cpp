@@ -6,7 +6,6 @@
 #include "EntityNames.h"
 #include "Messaging\MessageDispatcher.h"
 #include "Locations.h"
-#include "AStar\TestGrid.h"
 
 CMyTimer* clock_ = CMyTimer::GetInstance();
 
@@ -43,12 +42,27 @@ void SceneAssignment1::Init()
 
 	entityMgr = CEntityManager::GetInstance();
 
+	//Calculating aspect ratio
+	m_worldHeight = 100.f;
+	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
+
+	// AStar
+	//grid = 0;
+	gridSize = Vector3(m_worldWidth, m_worldHeight, 0);
+
+	nodeRadius = 3.f;
+	nodeDiameter = nodeRadius * 2;
+	gridSizeX = (int)(gridSize.x / nodeDiameter);
+	gridSizeY = (int)(gridSize.y / nodeDiameter);
+
+	CreateGrid();
+
     // yeah it is trashy hardcode, working on it
     storage_tables = 5;
 	waiter = new CWaiter(ENT_WAITER);
     /*The following is waiter arrange state code*/
     SetAreaWithWaypoint(Vector3(0, 0, 0), Vector3(50, 100, 0), waiter->waypoints, storage_tables);
-    waiter->tables_left = storage_tables; // waiter knows how much tables there are
+    waiter->tables_left = storage_tables; // waiter knows how many tables there are
     /**/
 	entityMgr->RegisterEntity(waiter);
 
@@ -76,28 +90,26 @@ void SceneAssignment1::Init()
 
 	m_objectCount = 0;
 
-	//Calculating aspect ratio
-	m_worldHeight = 100.f;
-	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
-
-	for (int x = 4; x < (int)(m_worldWidth - 3); x += 5.f)
-	{
-		for (int y = 3; y < (int)(m_worldHeight - 3); y += 5.f)
-		{
-			CTestGrid* grid = new CTestGrid();
-			grid->SetPosition(Vector3(x, y, 0));
-			gridList.push_back(grid);
-
-			/*modelStack.PushMatrix();
-			modelStack.Translate(x, y, 0);
-			modelStack.Scale(0.5, 0.5, 0.5);
-			RenderMesh(meshList[GEO_BALL], false);
-			modelStack.PopMatrix();*/
-		}
-	}
-
 	InitFurniturePosition();
 	AddSeatsToList();
+}
+
+void SceneAssignment1::CreateGrid()
+{
+	grid = new CNode*[gridSizeX];
+	for (int i = 0; i < gridSizeX; i++)
+		grid[i] = new CNode[gridSizeY];
+
+	Vector3 worldBottomLeft = Vector3(0, 0, 0) - Vector3(1, 0, 0) * (gridSize.x / 2) - Vector3(0, 1, 0) * (gridSize.y / 2);
+
+	for (int x = 0; x < gridSizeX; x++)
+	{
+		for (int y = 0; y < gridSizeY; y++)
+		{
+			Vector3 position = Vector3(1, 0, 0) * (x * nodeDiameter + nodeRadius) + Vector3(0, 1, 0) * (y * nodeDiameter + nodeRadius);
+			grid[x][y] = CNode(true, Vector3(position.x, position.y, 0));
+		}
+	}
 }
 
 void SceneAssignment1::InitFurniturePosition()
@@ -392,38 +404,29 @@ void SceneAssignment1::Update(double dt)
 	if (Application::IsKeyPressed(VK_RIGHT))
 		debugPos.x += 20 * dt;
 
-	//for (int i = 0; i < gridList.size(); i++)
-	//{
-	//	for (std::vector<Vector3>::iterator it = seatList.begin(); it < seatList.end(); it++)
-	//	{
-	//		float dist = (gridList[i]->GetPosition() - (*it)).LengthSquared();
-
-	//		if (dist <= 25.f)
-	//			gridList[i]->bCollided = true;
-	//		/*else
-	//			gridList[i]->bCollided = false;*/
-	//	}
-	//}
-
-	for (int i = 0; i < gridList.size(); i++)
+	for (int x = 0; x < gridSizeX; x++)
 	{
-		for (std::vector<Furniture*>::iterator it = furnitureList.begin(); it < furnitureList.end(); it++)
+		for (int y = 0; y < gridSizeY; y++)
 		{
-			Vector3 w0 = (*it)->position;//go2->pos;
-			Vector3 b1 = gridList[i]->GetPosition();
-			Vector3 N = Vector3(1, 0, 0); //go2->normal;
-			Vector3 dir = w0 - b1;
-			if (dir.Dot(N) < 0)
-				N = -N;
-
-			float r = 0.5f; // go->scale.x;
-			float h = (*it)->scale.x;
-			float l = (*it)->scale.y;
-			Vector3 NP = Vector3(-N.y, N.x);
-			if (abs((dir).Dot(N)) < r + h * 0.5f
-				&& abs((dir).Dot(NP)) < l * 0.5f)
+			for (std::vector<Furniture*>::iterator it = furnitureList.begin(); it < furnitureList.end(); it++)
 			{
-				gridList[i]->bCollided = true;
+				Vector3 w0 = (*it)->position;//go2->pos;
+				Vector3 b1 = grid[x][y].GetPosition();
+				Vector3 N = Vector3(1, 0, 0); //go2->normal;
+				Vector3 dir = w0 - b1;
+				if (dir.Dot(N) < 0)
+					N = -N;
+
+				float r = 0.5f; // go->scale.x;
+				float h = (*it)->scale.x;
+				float l = (*it)->scale.y;
+				Vector3 NP = Vector3(-N.y, N.x);
+
+				if (abs((dir).Dot(N)) < r + h * 0.5f
+					&& abs((dir).Dot(NP)) < l * 0.5f)
+				{
+					grid[x][y].SetWalkable(false);
+				}
 			}
 		}
 	}
@@ -703,7 +706,7 @@ void SceneAssignment1::Render()
 		}
 	}
 
-	for (int i = 0; i < gridList.size(); i++)
+	/*for (int i = 0; i < gridList.size(); i++)
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(gridList[i]->GetPosition().x, gridList[i]->GetPosition().y, 2);
@@ -713,6 +716,21 @@ void SceneAssignment1::Render()
 		else
 			RenderMesh(meshList[GEO_BALL2], false);
 		modelStack.PopMatrix();
+	}*/
+
+	for (int x = 0; x < gridSizeX; x++)
+	{
+		for (int y = 0; y < gridSizeY; y++)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(grid[x][y].GetPosition().x, grid[x][y].GetPosition().y, 2);
+			modelStack.Scale(0.5, 0.5, 0.5);
+			if (grid[x][y].GetWalkable() == true)
+				RenderMesh(meshList[GEO_BALL], false);
+			else
+				RenderMesh(meshList[GEO_BALL2], false);
+			modelStack.PopMatrix();
+		}
 	}
 
 	//On screen text
