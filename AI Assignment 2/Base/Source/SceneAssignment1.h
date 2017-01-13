@@ -53,6 +53,7 @@ public:
 	void FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 
 	void CreateGrid();
+	CNode* GetCurrentNode(Vector3 position);
 
 protected:
 	//Physics

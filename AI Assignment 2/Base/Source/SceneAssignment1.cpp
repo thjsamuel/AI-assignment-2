@@ -81,7 +81,7 @@ void SceneAssignment1::Init()
     customer_list.push_back(customer);
 
 	// For Debugging
-	debugPos = Vector3(0, -10, 0);
+	debugPos = Vector3(0, 0, 0);
 
 	//Physics code here
 	m_speed = 1.f;
@@ -349,6 +349,17 @@ void SceneAssignment1::GenerateCustomers()
 	//std::cout << seatNum << std::endl;
 }
 
+CNode* SceneAssignment1::GetCurrentNode(Vector3 position)
+{
+	float percentX = (position.x) / gridSize.x;
+	float percentY = (position.y) / gridSize.y;
+
+	int x = (int)((gridSizeX) * percentX);
+	int y = (int)((gridSizeY) * percentY);
+
+	return &grid[x][y];
+}
+
 void SceneAssignment1::Update(double dt)
 {
 	SceneBase::Update(dt);
@@ -430,6 +441,9 @@ void SceneAssignment1::Update(double dt)
 			}
 		}
 	}
+
+	// Test
+	GetCurrentNode(debugPos)->SetWalkable(false);
 }
 
 void SceneAssignment1::AddSeatsToList()
@@ -643,11 +657,11 @@ void SceneAssignment1::RenderEntities()
 		RenderMesh(meshList[GEO_CLEANER_INVERT], false);
 	modelStack.PopMatrix();
 
-	// For Debugging
+	// For debugging
 	modelStack.PushMatrix();
 	modelStack.Translate(debugPos.x, debugPos.y, debugPos.z);
-	modelStack.Scale(3, 3, 3);
-	RenderMesh(meshList[GEO_BALL], false);
+	modelStack.Scale(1, 1, 1);
+	RenderMesh(meshList[GEO_BALL3], false);
 	modelStack.PopMatrix();
 }
 
