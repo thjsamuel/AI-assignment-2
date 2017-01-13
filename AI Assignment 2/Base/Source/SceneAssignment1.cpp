@@ -18,6 +18,23 @@ SceneAssignment1::~SceneAssignment1()
 {
 }
 
+// Takes two diagonal vertice representing min and max and fill the area between min and max with waypoints, used by waiter to place tables randomly only in a certain area
+// The container you pass in is the waiter's waypoints to follow, so basically you just make him go random places
+void SetAreaWithWaypoint(const Vector3 min, const Vector3 max, map<const int, Vector3>& container, const int containerSize)
+{
+    float xmin = min.x; int xmax = max.x; int ymin = min.y; int ymax = max.y; // get X and Y coordinate values of min and max points on the screen
+    for (int i = 0; i < containerSize; ++i)
+    {
+        container[i].Set(Math::RandFloatMinMax(xmin, xmax), Math::RandFloatMinMax(ymin, ymax)); // Set positions inside the map structures with random points in the allocated area
+        for (int j = 0; j < i; ++j)
+            while (container[i] != container[j] == false) // This just reduces the chances of two waypoints being placed in the same spot
+            {
+                container[i].Set(Math::RandFloatMinMax(xmin, xmax), Math::RandFloatMinMax(ymin, ymax));
+            }
+    }
+    // Increase min and max for more space
+}
+
 void SceneAssignment1::Init()
 {
 	srand(time(NULL));
@@ -26,7 +43,13 @@ void SceneAssignment1::Init()
 
 	entityMgr = CEntityManager::GetInstance();
 
+    // yeah it is trashy hardcode, working on it
+    storage_tables = 5;
 	waiter = new CWaiter(ENT_WAITER);
+    /*The following is waiter arrange state code*/
+    SetAreaWithWaypoint(Vector3(0, 0, 0), Vector3(50, 100, 0), waiter->waypoints, storage_tables);
+    waiter->tables_left = storage_tables; // waiter knows how much tables there are
+    /**/
 	entityMgr->RegisterEntity(waiter);
 
 	chef = new CChef(ENT_CHEF);

@@ -1,4 +1,22 @@
-Customer - add line up
+Customer - add line up - done
 Waiter - add arranging of tables, two types of roles, inside and outside
 They can take up the role of cashiers, its flexible
 Make everyone go to the loo
+
+Priorities:
+To do messageboarding and changing of roles by week 14
+Waiter outside puts up message of how many waiters there are
+Waiter outside becomes waiter inside
+All staff can work as Cashier
+
+Complex Things to do:
+Possibly flocking
+Following the wall to place chairs, following the wall to sit
+a star
+Food menu
+
+Samuel Task list:
+Customer queue up, come as a group, similar to flocking but try to do workable one first
+
+Rayner Task list:
+Waiter place chairs according to how many customers there are, hardcode chairs positions relative to the tables

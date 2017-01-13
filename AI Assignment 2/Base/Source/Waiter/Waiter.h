@@ -5,6 +5,7 @@
 #include "State_Waiter_Idle.h"
 #include "State_TakeOrder.h"
 #include "State_Serve.h"
+#include "State_Arrange.h"
 #include "State_Waiter_GoToilet.h"
 #include "State_Waiter_GlobalState.h"
 #include "../StateMachine.h"
@@ -48,6 +49,7 @@ public:
 	void SetTakeOrderLateStatus(bool bTakeOrderLate);
 	bool GetTakeOrderLateStatus();
 
+    int tables_left;
 private:
 	CStateMachine<CWaiter>* m_pStateMachine;
 	std::queue <Telegram>* msgQueue;
