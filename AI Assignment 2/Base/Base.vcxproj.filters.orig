@@ -153,12 +153,14 @@
     <ClCompile Include="Source\Customer\State_Leave.cpp">
       <Filter>Customer</Filter>
     </ClCompile>
+<<<<<<< .merge_file_a15320
     <ClCompile Include="Source\Waiter\State_Arrange.cpp">
       <Filter>Waiter</Filter>
-    </ClCompile>
-    <ClInclude Include="Source\AStar\TestGrid.h">
+=======
+    <ClCompile Include="Source\AStar\TestGrid.cpp">
       <Filter>AStar</Filter>
-    </ClInclude>
+>>>>>>> .merge_file_a10868
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -311,11 +313,13 @@
     <ClInclude Include="Source\Customer\State_Leave.h">
       <Filter>Customer</Filter>
     </ClInclude>
+<<<<<<< .merge_file_a15320
     <ClInclude Include="Source\Waiter\State_Arrange.h">
       <Filter>Waiter</Filter>
-    </ClInclude>
+=======
     <ClInclude Include="Source\AStar\TestGrid.h">
       <Filter>AStar</Filter>
+>>>>>>> .merge_file_a10868
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -34,8 +34,9 @@ void CState_QueueUp::Execute(CCustomer* customer, double dt)
         customer->position -= direction * (float)(25 * dt); // move towards destination
     }
 
-    //if (customer->position == des)
-        //customer->GetFSM()->ChangeState(CState_FindSeat::GetInstance(), dt);
+    // This code basically does the same thing as  your above one
+    if (customer->position == des)
+        customer->GetFSM()->ChangeState(CState_FindSeat::GetInstance(), dt);
 }
 
 void CState_QueueUp::Exit(CCustomer* customer, double dt)

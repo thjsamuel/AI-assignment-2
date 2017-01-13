@@ -30,7 +30,7 @@ void CState_TakeOrder::Execute(CWaiter* waiter, double dt)
 
 	// Cannot use size, it skips the previous customers
 	// Start from 3
-	static unsigned int currentSize = 3;
+	static unsigned int currentSize = 4;
 	static CBaseGameEntity* customer = entityMgr->GetEntityFromID(currentSize);
 
 	if (customer->GetSeatedStatus() == true)
@@ -82,11 +82,11 @@ void CState_TakeOrder::Execute(CWaiter* waiter, double dt)
 				NO_EXTRA_INFO);
 
 			// After taking order of 1 customer, check if there's another customer
-			if (entityMgr->GetEntityMap().size() - 1 > currentSize)
+			if (entityMgr->GetLatestID() - 1 > currentSize)
 			{
 				customer = entityMgr->GetEntityFromID(currentSize);
 			}
-			else if (entityMgr->GetEntityMap().size() - 1 <= currentSize)
+			else if (entityMgr->GetLatestID() - 1 <= currentSize)
 			{
 				waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
 			}

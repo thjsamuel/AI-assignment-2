@@ -27,7 +27,7 @@ void CState_Serve::Enter(CWaiter* waiter, double dt)
 void CState_Serve::Execute(CWaiter* waiter, double dt)
 {
 	CEntityManager* entityMgr = CEntityManager::GetInstance();
-	static unsigned int currentSize = 3;
+	static unsigned int currentSize = 4;
 	static CBaseGameEntity* customer = entityMgr->GetEntityFromID(currentSize);
 
 	Vector3 targetPos = COUNTER;
@@ -93,7 +93,7 @@ void CState_Serve::Execute(CWaiter* waiter, double dt)
 				NO_EXTRA_INFO);
 
 			// After serving to 1 customer, check if there's another customer
-			if (entityMgr->GetEntityMap().size() - 1 > currentSize)
+			if (entityMgr->GetLatestID() - 1 > currentSize)
 			{
 				//currentSize++;
 				//customer = entityMgr->GetEntityFromID(currentSize);
@@ -102,7 +102,7 @@ void CState_Serve::Execute(CWaiter* waiter, double dt)
 
 				waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
 			}
-			else if (entityMgr->GetEntityMap().size() - 1 <= currentSize)
+			else if (entityMgr->GetLatestID() - 1 <= currentSize)
 			{
 				waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
 				//bServed = true;

@@ -3,7 +3,9 @@
 
 #include <cassert>
 
-CEntityManager::CEntityManager()
+CEntityManager::CEntityManager() 
+		: m_ID(0)
+		, m_stillHereID(0)
 {
 }
 
@@ -39,4 +41,35 @@ CBaseGameEntity* CEntityManager::GetEntityFromID(int id) const
 std::map<int, CBaseGameEntity*> CEntityManager::GetEntityMap() const
 {
 	return m_EntityMap;
+}
+
+void CEntityManager::SetLatestID(unsigned int m_ID)
+{
+	this->m_ID = m_ID;
+}
+
+unsigned int CEntityManager::GetLatestID()
+{
+	return m_ID;
+}
+
+void CEntityManager::SetStillHereID(unsigned int stillHereID)
+{
+	m_stillHereID = stillHereID;
+}
+
+unsigned int CEntityManager::GetStillHereID()
+{
+	return m_stillHereID;
+}
+
+void CEntityManager::IncrementStillHereID()
+{
+	m_stillHereID++;
+}
+
+unsigned int CEntityManager::GetNextID()
+{
+	++m_ID;
+	return m_ID;
 }
