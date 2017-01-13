@@ -46,6 +46,7 @@ public:
 		GEO_AXES,
 		GEO_TEXT,
 		GEO_BALL,
+		GEO_BALL2,
 		GEO_CUBE,
 		GEO_TRIANGLE,
 		GEO_WALL,

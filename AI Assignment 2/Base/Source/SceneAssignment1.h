@@ -9,6 +9,21 @@
 #include "Chef\Chef.h"
 #include "Customer\Customer.h"
 #include "EntityManager.h"
+#include "AStar\TestGrid.h"
+
+struct Furniture
+{
+	Furniture(const Vector3& position, const Vector3& scale) 
+	{ 
+		this->position = position;
+		this->scale = scale;
+	};
+
+	~Furniture();
+
+	Vector3 position;
+	Vector3 scale;
+};
 
 class SceneAssignment1 : public SceneBase
 {
@@ -27,6 +42,8 @@ public:
 	void RenderEntities();
 	void RenderEntities_States();
 	void RenderSeat(Vector3 position, unsigned int side);
+	void AddSeatsToList();
+	void InitFurniturePosition();
 
 	GameObject* FetchGO();
 
@@ -54,8 +71,26 @@ private:
     // a list of customers
     std::vector<CCustomer*> customer_list;
 
+	// List of grids
+	std::vector<CTestGrid*> gridList;
+
+	// List of seats
+	std::vector<Vector3> seatList;
+
+	// List of furniture
+	std::vector<Furniture*> furnitureList;
+
 	// For Debugging
 	Vector3 debugPos;
+
+	Furniture* leftWall;
+	Furniture* rightWall;
+	Furniture* frontWall;
+	Furniture* backWall;
+	Furniture* kitchen;
+	Furniture* divider1;
+	Furniture* divider2;
+	Furniture* divider3;
 };
 
 #endif // SCENE_ASSIGNMENT_1_H

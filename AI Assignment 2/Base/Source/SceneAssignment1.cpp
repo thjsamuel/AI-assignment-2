@@ -57,8 +57,45 @@ void SceneAssignment1::Init()
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
-	/*m_worldHeight = 190.f;
-	m_worldWidth = m_worldHeight * (float) 133  / 190;*/
+	for (int x = 4; x < (int)(m_worldWidth - 3); x += 5.f)
+	{
+		for (int y = 3; y < (int)(m_worldHeight - 3); y += 5.f)
+		{
+			CTestGrid* grid = new CTestGrid();
+			grid->SetPosition(Vector3(x, y, 0));
+			gridList.push_back(grid);
+
+			/*modelStack.PushMatrix();
+			modelStack.Translate(x, y, 0);
+			modelStack.Scale(0.5, 0.5, 0.5);
+			RenderMesh(meshList[GEO_BALL], false);
+			modelStack.PopMatrix();*/
+		}
+	}
+
+	InitFurniturePosition();
+	AddSeatsToList();
+}
+
+void SceneAssignment1::InitFurniturePosition()
+{
+	leftWall = new Furniture(Vector3(1.5, 60, 0), Vector3(3, 85, 3));
+	rightWall = new Furniture(Vector3(132, 60, 0), Vector3(3, 85, 3));
+	frontWall = new Furniture(Vector3(66, 99, 0), Vector3(130, 3, 3));
+	backWall = new Furniture(Vector3(81, 19, 0), Vector3(100, 3, 3));
+	kitchen = new Furniture(Vector3(25, 75, 0), Vector3(58, 3, 3));
+	divider1 = new Furniture(Vector3(55, 87, 0), Vector3(3, 27, 3));
+	divider2 = new Furniture(Vector3(80, 87, 0), Vector3(3, 27, 3));
+	divider3 = new Furniture(Vector3(105, 87, 0), Vector3(3, 27, 3));
+
+	furnitureList.push_back(leftWall);
+	furnitureList.push_back(rightWall);
+	furnitureList.push_back(frontWall);
+	furnitureList.push_back(backWall);
+	furnitureList.push_back(kitchen);
+	furnitureList.push_back(divider1);
+	furnitureList.push_back(divider2);
+	furnitureList.push_back(divider3);
 }
 
 GameObject* SceneAssignment1::FetchGO()
@@ -331,6 +368,55 @@ void SceneAssignment1::Update(double dt)
 		debugPos.x -= 20 * dt;
 	if (Application::IsKeyPressed(VK_RIGHT))
 		debugPos.x += 20 * dt;
+
+	//for (int i = 0; i < gridList.size(); i++)
+	//{
+	//	for (std::vector<Vector3>::iterator it = seatList.begin(); it < seatList.end(); it++)
+	//	{
+	//		float dist = (gridList[i]->GetPosition() - (*it)).LengthSquared();
+
+	//		if (dist <= 25.f)
+	//			gridList[i]->bCollided = true;
+	//		/*else
+	//			gridList[i]->bCollided = false;*/
+	//	}
+	//}
+
+	for (int i = 0; i < gridList.size(); i++)
+	{
+		for (std::vector<Furniture*>::iterator it = furnitureList.begin(); it < furnitureList.end(); it++)
+		{
+			Vector3 w0 = (*it)->position;//go2->pos;
+			Vector3 b1 = gridList[i]->GetPosition();
+			Vector3 N = Vector3(1, 0, 0); //go2->normal;
+			Vector3 dir = w0 - b1;
+			if (dir.Dot(N) < 0)
+				N = -N;
+
+			float r = 0.5f; // go->scale.x;
+			float h = (*it)->scale.x;
+			float l = (*it)->scale.y;
+			Vector3 NP = Vector3(-N.y, N.x);
+			if (abs((dir).Dot(N)) < r + h * 0.5f
+				&& abs((dir).Dot(NP)) < l * 0.5f)
+			{
+				gridList[i]->bCollided = true;
+			}
+		}
+	}
+}
+
+void SceneAssignment1::AddSeatsToList()
+{
+	seatList.push_back(SEAT_1);
+	seatList.push_back(SEAT_2);
+	seatList.push_back(SEAT_3);
+	seatList.push_back(SEAT_4);
+	seatList.push_back(SEAT_5);
+	seatList.push_back(SEAT_6);
+	seatList.push_back(SEAT_7);
+	seatList.push_back(SEAT_8);
+	seatList.push_back(SEAT_9);
 }
 
 void SceneAssignment1::RenderGO(GameObject *go)
@@ -421,57 +507,57 @@ void SceneAssignment1::RenderRestaurant()
 {
 	// left wall
 	modelStack.PushMatrix();
-	modelStack.Translate(1.5, 60, 0);
-	modelStack.Scale(3, 85, 3);
+	modelStack.Translate(leftWall->position.x, leftWall->position.y, 0);
+	modelStack.Scale(leftWall->scale.x, leftWall->scale.y, 0);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
 	// right wall
 	modelStack.PushMatrix();
-	modelStack.Translate(132, 60, 0);
-	modelStack.Scale(3, 85, 3);
+	modelStack.Translate(rightWall->position.x, rightWall->position.y, 0);
+	modelStack.Scale(rightWall->scale.x, rightWall->scale.y, 0);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
 	// front wall
 	modelStack.PushMatrix();
-	modelStack.Translate(66, 99, 0);
-	modelStack.Scale(130, 3, 3);
+	modelStack.Translate(frontWall->position.x, frontWall->position.y, 0);
+	modelStack.Scale(frontWall->scale.x, frontWall->scale.y, 0);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
-	// back
+	// back wall
 	modelStack.PushMatrix();
-	modelStack.Translate(81, 19, 0);
-	modelStack.Scale(100, 3, 3);
+	modelStack.Translate(backWall->position.x, backWall->position.y, 0);
+	modelStack.Scale(backWall->scale.x, backWall->scale.y, 0);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
 	// kitchen
 	modelStack.PushMatrix();
-	modelStack.Translate(25, 75, 0);
-	modelStack.Scale(58, 3, 3);
+	modelStack.Translate(kitchen->position.x, kitchen->position.y, 0);
+	modelStack.Scale(kitchen->scale.x, kitchen->scale.y, 0);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
 	// divider 1
 	modelStack.PushMatrix();
-	modelStack.Translate(55, 87, 0);
-	modelStack.Scale(3, 27, 3);
+	modelStack.Translate(divider1->position.x, divider1->position.y, 0);
+	modelStack.Scale(divider1->scale.x, divider1->scale.y, 0);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
 	// divider 2
 	modelStack.PushMatrix();
-	modelStack.Translate(80, 87, 0);
-	modelStack.Scale(3, 27, 3);
+	modelStack.Translate(divider2->position.x, divider2->position.y, 0);
+	modelStack.Scale(divider2->scale.x, divider2->scale.y, 0);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
 	// divider 3
 	modelStack.PushMatrix();
-	modelStack.Translate(105, 87, 0);
-	modelStack.Scale(3, 27, 3);
+	modelStack.Translate(divider3->position.x, divider3->position.y, 0);
+	modelStack.Scale(divider3->scale.x, divider3->scale.y, 0);
 	RenderMesh(meshList[GEO_WALL], false);
 	modelStack.PopMatrix();
 
@@ -594,18 +680,16 @@ void SceneAssignment1::Render()
 		}
 	}
 
-	for (float x = 3; x < (m_worldWidth - 3); x += 5.f)
+	for (int i = 0; i < gridList.size(); i++)
 	{
-		for (float y = 3; y < (m_worldHeight - 3); y += 5.f)
-		{
-			//CTestGrid* grid = new CTestGrid();
-
-			/*modelStack.PushMatrix();
-			modelStack.Translate(x, y, 0);
-			modelStack.Scale(0.5, 0.5, 0.5);
+		modelStack.PushMatrix();
+		modelStack.Translate(gridList[i]->GetPosition().x, gridList[i]->GetPosition().y, 2);
+		modelStack.Scale(0.5, 0.5, 0.5);
+		if (gridList[i]->bCollided == false)
 			RenderMesh(meshList[GEO_BALL], false);
-			modelStack.PopMatrix();*/
-		}
+		else
+			RenderMesh(meshList[GEO_BALL2], false);
+		modelStack.PopMatrix();
 	}
 
 	//On screen text
