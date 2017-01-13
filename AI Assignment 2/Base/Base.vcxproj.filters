@@ -150,6 +150,9 @@
     <ClCompile Include="Source\Customer\State_Leave.cpp">
       <Filter>Customer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Waiter\State_Arrange.cpp">
+      <Filter>Waiter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -301,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="Source\Customer\State_Leave.h">
       <Filter>Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Waiter\State_Arrange.h">
+      <Filter>Waiter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

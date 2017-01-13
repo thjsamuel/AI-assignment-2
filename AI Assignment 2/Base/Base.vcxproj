@@ -45,6 +45,7 @@
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\Waiter\State_Arrange.cpp" />
     <ClCompile Include="Source\Waiter\State_Waiter_GlobalState.cpp" />
     <ClCompile Include="Source\Waiter\State_Waiter_GoToilet.cpp" />
     <ClCompile Include="Source\Waiter\State_Waiter_Idle.cpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="Source\StateMachine.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\Waiter\State_Arrange.h" />
     <ClInclude Include="Source\Waiter\State_Waiter_GlobalState.h" />
     <ClInclude Include="Source\Waiter\State_Waiter_GoToilet.h" />
     <ClInclude Include="Source\Waiter\State_Waiter_Idle.h" />

@@ -8,6 +8,7 @@ CWaiter::CWaiter(int ID)
 	, bServedLate(false)
 	, lateOrderCount(0)
 	, bTakeOrderLate(false)
+    , tables_left(0)
 {
 	m_pStateMachine = new CStateMachine<CWaiter>(this);
 	m_pStateMachine->SetCurrentState(CState_Waiter_Idle::GetInstance());
@@ -70,6 +71,8 @@ std::string CWaiter::GetStateInText()
 		return "Serve food";
 	else if (m_pStateMachine->GetCurrentState() == CState_Waiter_GoToilet::GetInstance())
 		return "Go Toilet";
+    else if (m_pStateMachine->GetCurrentState() == CState_Arrange::GetInstance())
+        return "Arrange";
 }
 
 CStateMachine<CWaiter>* CWaiter::GetFSM() const

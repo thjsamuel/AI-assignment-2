@@ -42,7 +42,7 @@ protected:
 	float m_worldWidth;
 	float m_worldHeight;
 	int m_objectCount;
-
+    int storage_tables; // Number of tables in storage room
 private:
 	CEntityManager* entityMgr;
 
