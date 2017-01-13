@@ -79,14 +79,14 @@ void SceneAssignment1::Init()
 
 void SceneAssignment1::InitFurniturePosition()
 {
-	leftWall = new Furniture(Vector3(1.5, 60, 0), Vector3(3, 85, 3));
-	rightWall = new Furniture(Vector3(132, 60, 0), Vector3(3, 85, 3));
-	frontWall = new Furniture(Vector3(66, 99, 0), Vector3(130, 3, 3));
-	backWall = new Furniture(Vector3(81, 19, 0), Vector3(100, 3, 3));
-	kitchen = new Furniture(Vector3(25, 75, 0), Vector3(58, 3, 3));
-	divider1 = new Furniture(Vector3(55, 87, 0), Vector3(3, 27, 3));
-	divider2 = new Furniture(Vector3(80, 87, 0), Vector3(3, 27, 3));
-	divider3 = new Furniture(Vector3(105, 87, 0), Vector3(3, 27, 3));
+	leftWall = new Furniture(Vector3(1.5, 60, 0), Vector3(3, 85, 0));
+	rightWall = new Furniture(Vector3(132, 60, 0), Vector3(3, 85, 0));
+	frontWall = new Furniture(Vector3(66, 99, 0), Vector3(130, 3, 0));
+	backWall = new Furniture(Vector3(81, 19, 0), Vector3(100, 3, 0));
+	kitchen = new Furniture(Vector3(25, 75, 0), Vector3(58, 3, 0));
+	divider1 = new Furniture(Vector3(55, 87, 0), Vector3(3, 27, 0));
+	divider2 = new Furniture(Vector3(80, 87, 0), Vector3(3, 27, 0));
+	divider3 = new Furniture(Vector3(105, 87, 0), Vector3(3, 27, 0));
 
 	furnitureList.push_back(leftWall);
 	furnitureList.push_back(rightWall);
