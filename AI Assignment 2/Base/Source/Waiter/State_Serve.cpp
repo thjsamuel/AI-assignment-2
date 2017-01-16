@@ -27,7 +27,7 @@ void CState_Serve::Enter(CWaiter* waiter, double dt)
 void CState_Serve::Execute(CWaiter* waiter, double dt)
 {
 	CEntityManager* entityMgr = CEntityManager::GetInstance();
-	static unsigned int currentSize = 4;
+	static unsigned int currentSize = entityMgr->GetStartingSize();
 	static CBaseGameEntity* customer = entityMgr->GetEntityFromID(currentSize);
 
 	Vector3 targetPos = COUNTER;

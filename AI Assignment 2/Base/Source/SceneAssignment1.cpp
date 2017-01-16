@@ -80,6 +80,9 @@ void SceneAssignment1::Init()
 	entityMgr->SetStillHereID(customer->GetID());
     customer_list.push_back(customer);
 
+	// Set starting size of entity map
+	entityMgr->SetStartingSize(entityMgr->GetEntityMap().size());
+
 	// For Debugging
 	debugPos = Vector3(0, 0, 0);
 

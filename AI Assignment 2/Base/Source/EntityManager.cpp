@@ -6,6 +6,7 @@
 CEntityManager::CEntityManager() 
 		: m_ID(0)
 		, m_stillHereID(0)
+		, m_startingSize(0)
 {
 }
 
@@ -66,6 +67,16 @@ unsigned int CEntityManager::GetStillHereID()
 void CEntityManager::IncrementStillHereID()
 {
 	m_stillHereID++;
+}
+
+void CEntityManager::SetStartingSize(unsigned int _startingSize)
+{
+	this->m_startingSize = _startingSize;
+}
+
+unsigned int CEntityManager::GetStartingSize()
+{
+	return m_startingSize;
 }
 
 unsigned int CEntityManager::GetNextID()

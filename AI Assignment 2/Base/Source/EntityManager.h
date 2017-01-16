@@ -24,6 +24,9 @@ public:
 	void SetStillHereID(unsigned int stillHereID);
 	unsigned int GetStillHereID();
 	void IncrementStillHereID();
+	
+	void SetStartingSize(unsigned int _startingSize);
+	unsigned int GetStartingSize();
 
 	unsigned int GetNextID();
 
@@ -32,6 +35,7 @@ private:
 	EntityMap m_EntityMap;
 	unsigned int m_ID;
 	unsigned int m_stillHereID;
+	unsigned int m_startingSize;
 
 	CEntityManager();
 };
