@@ -162,11 +162,11 @@
     <ClCompile Include="Source\AStar\Grid.cpp">
       <Filter>AStar</Filter>
     </ClCompile>
-    <ClCompile Include="Source\AStar\Pathfinding.cpp">
-      <Filter>AStar</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SeatArranger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AStar\Pathfinding.cpp">
+      <Filter>AStar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
