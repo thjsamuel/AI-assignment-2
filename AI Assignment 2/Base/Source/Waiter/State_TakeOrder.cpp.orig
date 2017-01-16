@@ -30,7 +30,11 @@ void CState_TakeOrder::Execute(CWaiter* waiter, double dt)
 
 	// Cannot use size, it skips the previous customers
 	// Start from 3
+<<<<<<< HEAD
+	static unsigned int currentSize = 5;
+=======
 	static unsigned int currentSize = entityMgr->GetStartingSize();
+>>>>>>> 4273e3c0587ac65d27c30e1f34838ef95f4f6844
 	static CBaseGameEntity* customer = entityMgr->GetEntityFromID(currentSize);
 
 	if (customer->GetSeatedStatus() == true)

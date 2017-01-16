@@ -41,6 +41,9 @@ void SceneAssignment1::Init()
 	SceneBase::Init();
 
 	entityMgr = CEntityManager::GetInstance();
+<<<<<<< HEAD
+    generateCus = true;
+=======
 
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
@@ -51,16 +54,21 @@ void SceneAssignment1::Init()
 	//m_grid->CreateGrid();
 	pathfinder = new Pathfinding();
 	pathfinder->GetGrid()->CreateGrid();
-    generateCus = true;
+
+>>>>>>> 4273e3c0587ac65d27c30e1f34838ef95f4f6844
     // yeah it is trashy hardcode, working on it
     storage_tables = 5;
 	waiter = new CWaiter(ENT_WAITER);
     usher = new CWaiter(ENT_WAITER_OUTSIDE);
     /*The following is waiter arrange state code*/
     SetAreaWithWaypoint(Vector3(0, 0, 0), Vector3(50, 100, 0), waiter->waypoints, storage_tables);
-    waiter->tables_left = storage_tables; // waiter knows how many tables there are
+<<<<<<< HEAD
+    waiter->tables_left = storage_tables; // waiter knows how much tables there are
     usher->tables_left = storage_tables; // usher doesn't
     usher->waypoints[0] = USHERING;
+=======
+    waiter->tables_left = storage_tables; // waiter knows how many tables there are
+>>>>>>> 4273e3c0587ac65d27c30e1f34838ef95f4f6844
     /**/
 	entityMgr->RegisterEntity(waiter);
     entityMgr->RegisterEntity(usher);
@@ -118,9 +126,6 @@ void SceneAssignment1::Init()
 
 	InitFurniturePosition();
 	AddSeatsToList(); 
-	//Calculating aspect ratio
-	m_worldHeight = 100.f;
-	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
 	for (int x = 0; x < pathfinder->GetGrid()->GetGridSizeX(); x++)
 	{

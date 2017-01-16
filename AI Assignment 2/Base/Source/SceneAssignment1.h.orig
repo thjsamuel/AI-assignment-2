@@ -78,7 +78,10 @@ private:
 
 	// For Debugging
 	Vector3 debugPos;
+<<<<<<< HEAD
     bool generateCus; // temporary
+=======
+
 	Furniture* leftWall;
 	Furniture* rightWall;
 	Furniture* frontWall;
@@ -87,6 +90,7 @@ private:
 	Furniture* divider1;
 	Furniture* divider2;
 	Furniture* divider3;
+>>>>>>> 4273e3c0587ac65d27c30e1f34838ef95f4f6844
 };
 
 #endif // SCENE_ASSIGNMENT_1_H

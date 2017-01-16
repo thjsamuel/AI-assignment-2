@@ -88,8 +88,11 @@
     <ClInclude Include="Source\Customer\State_ReturnTray.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\EntityNames.h" />
+<<<<<<< HEAD
+    <ClInclude Include="Source\Flocking\Flocking.h" />
+=======
     <ClInclude Include="Source\Furniture.h" />
-<ClInclude Include="Source\Flocking\Flocking.h" />
+>>>>>>> 4273e3c0587ac65d27c30e1f34838ef95f4f6844
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Geometry.h" />
     <ClInclude Include="Source\Light.h" />

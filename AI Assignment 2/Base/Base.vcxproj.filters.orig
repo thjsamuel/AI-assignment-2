@@ -31,6 +31,9 @@
     <Filter Include="AStar">
       <UniqueIdentifier>{e39b96c6-a6ce-41a7-ad3f-44904f48f7db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Flocking">
+      <UniqueIdentifier>{880cc2b4-81cd-4498-8fef-2bbcc03ba6e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -153,13 +156,35 @@
     <ClCompile Include="Source\Customer\State_Leave.cpp">
       <Filter>Customer</Filter>
     </ClCompile>
-<<<<<<< .merge_file_a15320
     <ClCompile Include="Source\Waiter\State_Arrange.cpp">
       <Filter>Waiter</Filter>
-=======
-    <ClCompile Include="Source\AStar\TestGrid.cpp">
+    </ClCompile>
+    <ClCompile Include="Source\AStar\Node.cpp">
       <Filter>AStar</Filter>
->>>>>>> .merge_file_a10868
+<<<<<<< HEAD
+    </ClInclude>
+    <ClCompile Include="Source\AStar\TestGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Waiter\State_Usher.cpp">
+      <Filter>Waiter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Flocking\Flocking.cpp">
+      <Filter>Flocking</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Customer\State_Flock.cpp">
+      <Filter>Customer</Filter>
+=======
+    </ClCompile>
+    <ClCompile Include="Source\AStar\Grid.cpp">
+      <Filter>AStar</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AStar\Pathfinding.cpp">
+      <Filter>AStar</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SeatArranger.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> 4273e3c0587ac65d27c30e1f34838ef95f4f6844
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -313,13 +338,34 @@
     <ClInclude Include="Source\Customer\State_Leave.h">
       <Filter>Customer</Filter>
     </ClInclude>
-<<<<<<< .merge_file_a15320
     <ClInclude Include="Source\Waiter\State_Arrange.h">
       <Filter>Waiter</Filter>
-=======
-    <ClInclude Include="Source\AStar\TestGrid.h">
+    </ClInclude>
+    <ClInclude Include="Source\AStar\Node.h">
       <Filter>AStar</Filter>
->>>>>>> .merge_file_a10868
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Source\Waiter\State_Usher.h">
+      <Filter>Waiter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Flocking\Flocking.h">
+      <Filter>Flocking</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Customer\State_Flock.h">
+      <Filter>Customer</Filter>
+=======
+    <ClInclude Include="Source\AStar\Grid.h">
+      <Filter>AStar</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AStar\Pathfinding.h">
+      <Filter>AStar</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Furniture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SeatArranger.h">
+      <Filter>Header Files</Filter>
+>>>>>>> 4273e3c0587ac65d27c30e1f34838ef95f4f6844
     </ClInclude>
   </ItemGroup>
 </Project>

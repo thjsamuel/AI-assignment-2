@@ -23,6 +23,7 @@ Anger system
 ------------------------------------
 These features were thought of later in the development process, hence take very little priority
 money system
+usher follow customer and guide to seat
 
 Samuel Task list:
 Customer queue up, come as a group, similar to flocking but try to do workable one first
