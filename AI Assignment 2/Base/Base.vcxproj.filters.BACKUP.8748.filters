@@ -162,12 +162,21 @@
     <ClCompile Include="Source\AStar\Grid.cpp">
       <Filter>AStar</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="Source\SeatArranger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AStar\Pathfinding.cpp">
+      <Filter>AStar</Filter>
+    </ClCompile>
+=======
     <ClCompile Include="Source\AStar\Pathfinding.cpp">
       <Filter>AStar</Filter>
     </ClCompile>
     <ClCompile Include="Source\SeatArranger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+>>>>>>> bd62d0ac7f78329f0fbfebc37cdfef9ea23f7144
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
