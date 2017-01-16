@@ -2,23 +2,31 @@
 #define GRID_H
 
 #include "Node.h"
+#include <vector>
 
-class Grid
+class CGrid
 {
 public:
-	Grid();
-	~Grid();
+	CGrid();
+	~CGrid();
 
 	void CreateGrid();
-	CNode* GetCurrentNode(Vector3 position);
-
+	std::vector<CNode*> GetNeighbours(CNode* node);
+	CNode* GetNodeFromWorldPoint(const Vector3& position);
 	CNode** Get();
+
+	bool Contains(std::vector<CNode*> _list, CNode* node);
+
+	void SetPath(std::vector<CNode*> _path);
+	std::vector<CNode*> GetPath();
 
 	int GetGridSizeX();
 	int GetGridSizeY();
 
 private:
-	CNode** grid;
+	CNode** m_grid;
+	std::vector<CNode*> m_path;
+
 	Vector3 gridSize;
 	float nodeRadius;
 	float nodeDiameter;

@@ -9,21 +9,8 @@
 #include "Chef\Chef.h"
 #include "Customer\Customer.h"
 #include "EntityManager.h"
-#include "AStar\Grid.h"
-
-struct Furniture
-{
-	Furniture(const Vector3& position, const Vector3& scale) 
-	{ 
-		this->position = position;
-		this->scale = scale;
-	};
-
-	~Furniture();
-
-	Vector3 position;
-	Vector3 scale;
-};
+#include "AStar\Pathfinding.h"
+#include "SeatArranger.h"
 
 class SceneAssignment1 : public SceneBase
 {
@@ -69,7 +56,9 @@ private:
 	CCleaner* cleaner;
 
 	// AStar
-	Grid* m_Grid;
+	//CGrid* m_grid;
+	// test
+	Pathfinding* pathfinder;
 
     // a list of customers
     std::vector<CCustomer*> customer_list;
@@ -79,9 +68,6 @@ private:
 
 	// List of seats
 	std::vector<Vector3> seatList;
-
-	// List of furniture
-	std::vector<Furniture*> furnitureList;
 
 	// For Debugging
 	Vector3 debugPos;

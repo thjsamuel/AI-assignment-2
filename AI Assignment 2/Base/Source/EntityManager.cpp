@@ -84,3 +84,8 @@ unsigned int CEntityManager::GetNextID()
 	++m_ID;
 	return m_ID;
 }
+
+std::vector<Furniture*>* CEntityManager::GetFurnitureList()
+{
+	return &furnitureList;
+}
