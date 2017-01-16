@@ -14,6 +14,7 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AStar\Grid.cpp" />
     <ClCompile Include="Source\AStar\Node.cpp" />
+    <ClCompile Include="Source\AStar\Pathfinding.cpp" />
     <ClCompile Include="Source\BaseGameEntity.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Chef\Chef.cpp" />
@@ -45,6 +46,7 @@
     <ClCompile Include="Source\Messaging\MessageDispatcher.cpp" />
     <ClCompile Include="Source\SceneAssignment1.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
+    <ClCompile Include="Source\SeatArranger.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Waiter\State_Arrange.cpp" />
@@ -59,6 +61,7 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\AStar\Grid.h" />
     <ClInclude Include="Source\AStar\Node.h" />
+    <ClInclude Include="Source\AStar\Pathfinding.h" />
     <ClInclude Include="Source\BaseGameEntity.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Chef\Chef.h" />
@@ -81,6 +84,7 @@
     <ClInclude Include="Source\Customer\State_ReturnTray.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\EntityNames.h" />
+    <ClInclude Include="Source\Furniture.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Geometry.h" />
     <ClInclude Include="Source\Light.h" />
@@ -97,6 +101,7 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneAssignment1.h" />
     <ClInclude Include="Source\SceneBase.h" />
+    <ClInclude Include="Source\SeatArranger.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\StateMachine.h" />

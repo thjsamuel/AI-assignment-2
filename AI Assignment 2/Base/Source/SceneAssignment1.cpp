@@ -47,8 +47,10 @@ void SceneAssignment1::Init()
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
 	// AStar
-	m_Grid = new Grid();
-	m_Grid->CreateGrid();
+	//m_grid = new CGrid();
+	//m_grid->CreateGrid();
+	pathfinder = new Pathfinding();
+	pathfinder->GetGrid()->CreateGrid();
 
     // yeah it is trashy hardcode, working on it
     storage_tables = 5;
@@ -77,7 +79,7 @@ void SceneAssignment1::Init()
 	entityMgr->SetStartingSize(entityMgr->GetEntityMap().size());
 
 	// For Debugging
-	debugPos = Vector3(0, 0, 0);
+	debugPos = Vector3(70, 50, 0);
 
 	//Physics code here
 	m_speed = 1.f;
@@ -87,7 +89,34 @@ void SceneAssignment1::Init()
 	m_objectCount = 0;
 
 	InitFurniturePosition();
-	AddSeatsToList();
+	AddSeatsToList(); 
+
+	for (int x = 0; x < pathfinder->GetGrid()->GetGridSizeX(); x++)
+	{
+		for (int y = 0; y < pathfinder->GetGrid()->GetGridSizeY(); y++)
+		{
+			for (std::vector<Furniture*>::iterator it = entityMgr->GetFurnitureList()->begin(); it < entityMgr->GetFurnitureList()->end(); it++)
+			{
+				Vector3 w0 = (*it)->position;//go2->pos;
+				Vector3 b1 = pathfinder->GetGrid()->Get()[x][y].GetPosition();
+				Vector3 N = Vector3(1, 0, 0); //go2->normal;
+				Vector3 dir = w0 - b1;
+				if (dir.Dot(N) < 0)
+					N = -N;
+
+				float r = 0.5f; // go->scale.x;
+				float h = (*it)->scale.x;
+				float l = (*it)->scale.y;
+				Vector3 NP = Vector3(-N.y, N.x);
+
+				if (abs((dir).Dot(N)) < r + h * 0.5f
+					&& abs((dir).Dot(NP)) < l * 0.5f)
+				{
+					pathfinder->GetGrid()->Get()[x][y].SetWalkable(false);
+				}
+			}
+		}
+	}
 }
 
 void SceneAssignment1::InitFurniturePosition()
@@ -101,14 +130,14 @@ void SceneAssignment1::InitFurniturePosition()
 	divider2 = new Furniture(Vector3(80, 87, 0), Vector3(3, 27, 0));
 	divider3 = new Furniture(Vector3(105, 87, 0), Vector3(3, 27, 0));
 
-	furnitureList.push_back(leftWall);
-	furnitureList.push_back(rightWall);
-	furnitureList.push_back(frontWall);
-	furnitureList.push_back(backWall);
-	furnitureList.push_back(kitchen);
-	furnitureList.push_back(divider1);
-	furnitureList.push_back(divider2);
-	furnitureList.push_back(divider3);
+	entityMgr->GetFurnitureList()->push_back(leftWall);
+	entityMgr->GetFurnitureList()->push_back(rightWall);
+	entityMgr->GetFurnitureList()->push_back(frontWall);
+	entityMgr->GetFurnitureList()->push_back(backWall);
+	entityMgr->GetFurnitureList()->push_back(kitchen);
+	entityMgr->GetFurnitureList()->push_back(divider1);
+	entityMgr->GetFurnitureList()->push_back(divider2);
+	entityMgr->GetFurnitureList()->push_back(divider3);
 }
 
 GameObject* SceneAssignment1::FetchGO()
@@ -382,35 +411,22 @@ void SceneAssignment1::Update(double dt)
 	if (Application::IsKeyPressed(VK_RIGHT))
 		debugPos.x += 20 * dt;
 
-	for (int x = 0; x < m_Grid->GetGridSizeX(); x++)
+	// Test
+	//m_Grid->GetNodeFromWorldPoint(debugPos)->SetWalkable(false);
+	//pathfinder->FindPath(Vector3(10, 2), Vector3(50, 50));
+
+	for (int x = 0; x < pathfinder->GetGrid()->GetGridSizeX(); x++)
 	{
-		for (int y = 0; y < m_Grid->GetGridSizeY(); y++)
+		for (int y = 0; y < pathfinder->GetGrid()->GetGridSizeY(); y++)
 		{
-			for (std::vector<Furniture*>::iterator it = furnitureList.begin(); it < furnitureList.end(); it++)
+			if (pathfinder->GetGrid()->Contains(pathfinder->GetGrid()->GetPath(), &pathfinder->GetGrid()->Get()[x][y]))
 			{
-				Vector3 w0 = (*it)->position;//go2->pos;
-				Vector3 b1 = m_Grid->Get()[x][y].GetPosition();
-				Vector3 N = Vector3(1, 0, 0); //go2->normal;
-				Vector3 dir = w0 - b1;
-				if (dir.Dot(N) < 0)
-					N = -N;
-
-				float r = 0.5f; // go->scale.x;
-				float h = (*it)->scale.x;
-				float l = (*it)->scale.y;
-				Vector3 NP = Vector3(-N.y, N.x);
-
-				if (abs((dir).Dot(N)) < r + h * 0.5f
-					&& abs((dir).Dot(NP)) < l * 0.5f)
-				{
-					m_Grid->Get()[x][y].SetWalkable(false);
-				}
+				pathfinder->GetGrid()->Get()[x][y].SetWalkable(false);
 			}
 		}
 	}
 
-	// Test
-	m_Grid->GetCurrentNode(debugPos)->SetWalkable(false);
+	SeatArranger::GetInstance()->ArrangeSeats(3, Vector3(70, 50, 0), dt);
 }
 
 void SceneAssignment1::AddSeatsToList()
@@ -512,61 +528,71 @@ void SceneAssignment1::RenderSeat(Vector3 position, unsigned int side)
 
 void SceneAssignment1::RenderRestaurant()
 {
-	// left wall
-	modelStack.PushMatrix();
-	modelStack.Translate(leftWall->position.x, leftWall->position.y, 0);
-	modelStack.Scale(leftWall->scale.x, leftWall->scale.y, 0);
-	RenderMesh(meshList[GEO_WALL], false);
-	modelStack.PopMatrix();
+	//// left wall
+	//modelStack.PushMatrix();
+	//modelStack.Translate(leftWall->position.x, leftWall->position.y, 0);
+	//modelStack.Scale(leftWall->scale.x, leftWall->scale.y, 0);
+	//RenderMesh(meshList[GEO_WALL], false);
+	//modelStack.PopMatrix();
 
-	// right wall
-	modelStack.PushMatrix();
-	modelStack.Translate(rightWall->position.x, rightWall->position.y, 0);
-	modelStack.Scale(rightWall->scale.x, rightWall->scale.y, 0);
-	RenderMesh(meshList[GEO_WALL], false);
-	modelStack.PopMatrix();
+	//// right wall
+	//modelStack.PushMatrix();
+	//modelStack.Translate(rightWall->position.x, rightWall->position.y, 0);
+	//modelStack.Scale(rightWall->scale.x, rightWall->scale.y, 0);
+	//RenderMesh(meshList[GEO_WALL], false);
+	//modelStack.PopMatrix();
 
-	// front wall
-	modelStack.PushMatrix();
-	modelStack.Translate(frontWall->position.x, frontWall->position.y, 0);
-	modelStack.Scale(frontWall->scale.x, frontWall->scale.y, 0);
-	RenderMesh(meshList[GEO_WALL], false);
-	modelStack.PopMatrix();
+	//// front wall
+	//modelStack.PushMatrix();
+	//modelStack.Translate(frontWall->position.x, frontWall->position.y, 0);
+	//modelStack.Scale(frontWall->scale.x, frontWall->scale.y, 0);
+	//RenderMesh(meshList[GEO_WALL], false);
+	//modelStack.PopMatrix();
 
-	// back wall
-	modelStack.PushMatrix();
-	modelStack.Translate(backWall->position.x, backWall->position.y, 0);
-	modelStack.Scale(backWall->scale.x, backWall->scale.y, 0);
-	RenderMesh(meshList[GEO_WALL], false);
-	modelStack.PopMatrix();
+	//// back wall
+	//modelStack.PushMatrix();
+	//modelStack.Translate(backWall->position.x, backWall->position.y, 0);
+	//modelStack.Scale(backWall->scale.x, backWall->scale.y, 0);
+	//RenderMesh(meshList[GEO_WALL], false);
+	//modelStack.PopMatrix();
 
-	// kitchen
-	modelStack.PushMatrix();
-	modelStack.Translate(kitchen->position.x, kitchen->position.y, 0);
-	modelStack.Scale(kitchen->scale.x, kitchen->scale.y, 0);
-	RenderMesh(meshList[GEO_WALL], false);
-	modelStack.PopMatrix();
+	//// kitchen
+	//modelStack.PushMatrix();
+	//modelStack.Translate(kitchen->position.x, kitchen->position.y, 0);
+	//modelStack.Scale(kitchen->scale.x, kitchen->scale.y, 0);
+	//RenderMesh(meshList[GEO_WALL], false);
+	//modelStack.PopMatrix();
 
-	// divider 1
-	modelStack.PushMatrix();
-	modelStack.Translate(divider1->position.x, divider1->position.y, 0);
-	modelStack.Scale(divider1->scale.x, divider1->scale.y, 0);
-	RenderMesh(meshList[GEO_WALL], false);
-	modelStack.PopMatrix();
+	//// divider 1
+	//modelStack.PushMatrix();
+	//modelStack.Translate(divider1->position.x, divider1->position.y, 0);
+	//modelStack.Scale(divider1->scale.x, divider1->scale.y, 0);
+	//RenderMesh(meshList[GEO_WALL], false);
+	//modelStack.PopMatrix();
 
-	// divider 2
-	modelStack.PushMatrix();
-	modelStack.Translate(divider2->position.x, divider2->position.y, 0);
-	modelStack.Scale(divider2->scale.x, divider2->scale.y, 0);
-	RenderMesh(meshList[GEO_WALL], false);
-	modelStack.PopMatrix();
+	//// divider 2
+	//modelStack.PushMatrix();
+	//modelStack.Translate(divider2->position.x, divider2->position.y, 0);
+	//modelStack.Scale(divider2->scale.x, divider2->scale.y, 0);
+	//RenderMesh(meshList[GEO_WALL], false);
+	//modelStack.PopMatrix();
 
-	// divider 3
-	modelStack.PushMatrix();
-	modelStack.Translate(divider3->position.x, divider3->position.y, 0);
-	modelStack.Scale(divider3->scale.x, divider3->scale.y, 0);
-	RenderMesh(meshList[GEO_WALL], false);
-	modelStack.PopMatrix();
+	//// divider 3
+	//modelStack.PushMatrix();
+	//modelStack.Translate(divider3->position.x, divider3->position.y, 0);
+	//modelStack.Scale(divider3->scale.x, divider3->scale.y, 0);
+	//RenderMesh(meshList[GEO_WALL], false);
+	//modelStack.PopMatrix();
+
+	for (std::vector<Furniture*>::iterator it = entityMgr->GetFurnitureList()->begin(); it != entityMgr->GetFurnitureList()->end(); it++)
+	{
+		Furniture* furniture = (Furniture*)*it;
+		modelStack.PushMatrix();
+		modelStack.Translate(furniture->position.x, furniture->position.y, 0);
+		modelStack.Scale(furniture->scale.x, furniture->scale.y, 0);
+		RenderMesh(meshList[GEO_WALL], false);
+		modelStack.PopMatrix();
+	}
 
 	// Seats
 	RenderSeat(SEAT_1, 0);
@@ -699,14 +725,14 @@ void SceneAssignment1::Render()
 		modelStack.PopMatrix();
 	}*/
 
-	for (int x = 0; x < m_Grid->GetGridSizeX(); x++)
+	for (int x = 0; x < pathfinder->GetGrid()->GetGridSizeX(); x++)
 	{
-		for (int y = 0; y < m_Grid->GetGridSizeY(); y++)
+		for (int y = 0; y < pathfinder->GetGrid()->GetGridSizeY(); y++)
 		{
 			modelStack.PushMatrix();
-			modelStack.Translate(m_Grid->Get()[x][y].GetPosition().x, m_Grid->Get()[x][y].GetPosition().y, 2);
+			modelStack.Translate(pathfinder->GetGrid()->Get()[x][y].GetPosition().x, pathfinder->GetGrid()->Get()[x][y].GetPosition().y, 2);
 			modelStack.Scale(0.5, 0.5, 0.5);
-			if (m_Grid->Get()[x][y].GetWalkable() == true)
+			if (pathfinder->GetGrid()->Get()[x][y].GetWalkable() == true)
 				RenderMesh(meshList[GEO_BALL], false);
 			else
 				RenderMesh(meshList[GEO_BALL2], false);
@@ -775,9 +801,9 @@ void SceneAssignment1::Exit()
 		delete cleaner;
 	}
 
-	if (m_Grid)
+	if (pathfinder)
 	{
-		m_Grid = NULL;
-		delete m_Grid;
+		pathfinder = NULL;
+		delete pathfinder;
 	}
 }

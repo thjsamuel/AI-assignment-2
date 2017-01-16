@@ -1,7 +1,10 @@
 #ifndef ENTITY_MANAGER_H
 #define ENTITY_MANAGER_H
 
+#include "Furniture.h"
+
 #include <map>
+#include <vector>
 
 class CBaseGameEntity;
 
@@ -30,12 +33,17 @@ public:
 
 	unsigned int GetNextID();
 
+	std::vector<Furniture*>* GetFurnitureList();
+
 private:
 	// pointers to entities are cross referenced by their ID
 	EntityMap m_EntityMap;
 	unsigned int m_ID;
 	unsigned int m_stillHereID;
 	unsigned int m_startingSize;
+
+	// List of furnitures
+	std::vector<Furniture*> furnitureList;
 
 	CEntityManager();
 };
