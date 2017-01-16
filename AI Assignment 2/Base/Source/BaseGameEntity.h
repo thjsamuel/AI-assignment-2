@@ -4,6 +4,7 @@
 #include "Vector3.h"
 #include "Messaging\Telegram.h"
 #include <map>
+#include "EntityNames.h"
 using std::map;
 
 class CBaseGameEntity

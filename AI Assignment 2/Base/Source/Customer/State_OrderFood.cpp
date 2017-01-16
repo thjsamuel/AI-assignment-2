@@ -23,14 +23,14 @@ void CState_OrderFood::Enter(CCustomer* customer, double dt)
 
 void CState_OrderFood::Execute(CCustomer* customer, double dt)
 {
-	if (customer->GetLeaderStatus())
-	{
+	//if (customer->GetLeaderStatus())
+	//{
 		CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
 			customer->GetID(),
 			ENT_WAITER,
 			MSG_ORDER_FOOD_1,
 			NO_EXTRA_INFO);
-	}
+	//}
 }
 
 void CState_OrderFood::Exit(CCustomer* customer, double dt)

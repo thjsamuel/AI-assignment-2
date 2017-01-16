@@ -23,7 +23,7 @@ void CMessageDispatcher::DispatchMessage_(double delay,
 					int msg,
 					void* extraInfo)
 {
-	CBaseGameEntity* sender = entityMgr->GetEntityFromID(senderID);
+	CBaseGameEntity* sender = entityMgr->GetEntityFromID(senderID); // Find entity using Ent_Something
 	CBaseGameEntity* receiver = entityMgr->GetEntityFromID(receiverID);
 
 	if (receiver == nullptr)
@@ -43,7 +43,7 @@ void CMessageDispatcher::DispatchMessage_(double delay,
 	{
 		double currentTime = _clock->GetCurrentTime_();
 
-		telegram.dispatchTime = currentTime + delay;
+		telegram.dispatchTime = currentTime + delay; // time taken to dispatch telegram is calculated
 
 		priorityQ.insert(telegram);
 	}
@@ -57,7 +57,7 @@ void CMessageDispatcher::DispatchDelayedMessages()
 	// Remove past telegrams from front of queue
 	while (!priorityQ.empty() &&
 		  (priorityQ.begin()->dispatchTime < currentTime) &&
-		  (priorityQ.begin()->dispatchTime > 0))
+		  (priorityQ.begin()->dispatchTime > 0)) // If there are messages in priorityQ that have been delayed for the required amount of time
 	{
 		const Telegram& telegram = *priorityQ.begin();
 

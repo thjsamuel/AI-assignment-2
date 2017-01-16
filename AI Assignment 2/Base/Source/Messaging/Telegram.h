@@ -5,12 +5,13 @@
 
 struct Telegram
 {
+    // Identification of EntityType Aka Entities enum
 	int senderID;
 	int receiverID;
 
 	int msg;
-	double dispatchTime;
-	void* extraInfo;
+	double dispatchTime; // time before sending out message
+	void* extraInfo; // extra info, can be dynamically cast to any type
 
 	Telegram(double _dispatchTime,
 		int _senderID,
@@ -21,13 +22,15 @@ struct Telegram
 		receiverID(_receiverID),
 		msg(_msg),
 		extraInfo(_extraInfo)
-	{}
+    {
+    }
 };
 
 const double smallestDelay = 0.25;
 
 inline bool operator==(const Telegram& t1, const Telegram& t2)
 {
+    // check if both messages are dispatched around the same time with smallestDelay difference
 	return (fabs(t1.dispatchTime - t2.dispatchTime) < smallestDelay) &&
 		(t1.senderID == t2.senderID) &&
 		(t1.receiverID == t2.receiverID) &&

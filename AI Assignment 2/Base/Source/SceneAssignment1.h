@@ -35,6 +35,12 @@ public:
 	void CloseSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 	void FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 
+    // temporary function to make sure customer reach queue before they flock together
+    bool CheckIfCustomerReachDestination();
+    // Takes the position of all entities in the flock except for the entity calling this function and then divides by the number of entities in that flock
+    void calculateCOM(std::vector<CCustomer*> list, CCustomer& entity);
+    // Calculates distance of entity from the rest of the flock, if close enough to be seperated, pass a direction vector 180 degrees opposite to the entity
+    void calculateRepelVec(std::vector<CCustomer*> list, CCustomer& entity);
 protected:
 	//Physics
 	std::vector<GameObject *> m_goList;
@@ -48,6 +54,7 @@ private:
 
 	CCustomer* customer;
 	CWaiter* waiter;
+    CWaiter* usher;
 	CChef* chef;
 	CCleaner* cleaner;
 
@@ -56,6 +63,7 @@ private:
 
 	// For Debugging
 	Vector3 debugPos;
+    bool generateCus; // temporary
 };
 
 #endif // SCENE_ASSIGNMENT_1_H

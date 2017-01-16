@@ -25,14 +25,22 @@ void CState_Waiter_GlobalState::Enter(CWaiter* waiter, double dt)
 void CState_Waiter_GlobalState::Execute(CWaiter* waiter, double dt)
 {
 	//std::cout << waiter->GetUnservedCount() << std::endl;
+        if ((rand() % 5000 + 1) == 1 &&
+            !waiter->GetFSM()->IsInState(*CState_Waiter_GoToilet::GetInstance()) &&
+            !waiter->GetFSM()->IsInState(*CState_TakeOrder::GetInstance()) &&
+            !waiter->GetFSM()->IsInState(*CState_Serve::GetInstance()))
+        {
+            //waiter->GetFSM()->ChangeState(CState_Waiter_GoToilet::GetInstance());
+        }
 
-	if ((rand() % 5000 + 1) == 1 && 
-		!waiter->GetFSM()->IsInState(*CState_Waiter_GoToilet::GetInstance()) && 
-		!waiter->GetFSM()->IsInState(*CState_TakeOrder::GetInstance()) &&
-		!waiter->GetFSM()->IsInState(*CState_Serve::GetInstance()))
-	{
-		//waiter->GetFSM()->ChangeState(CState_Waiter_GoToilet::GetInstance());
-	}
+        if (waiter->GetFSM()->IsInState(*CState_Waiter_Idle::GetInstance()) && waiter->GetUnservedCount() > 0)
+        {
+            //waiter->GetFSM()->ChangeState(CState_Serve::GetInstance());
+
+            // Send order to chef again?
+
+            waiter->DecreaseUnservedCount();
+        }
 
 	/*if (waiter->GetUnservedCount() > 0 && waiter->GetInToiletStatus() == false &&
 		!waiter->GetFSM()->IsInState(*CState_TakeOrder::GetInstance()))
@@ -55,15 +63,6 @@ void CState_Waiter_GlobalState::Execute(CWaiter* waiter, double dt)
 	{
 		waiter->SetTakeOrderLateStatus(false);
 	}*/
-
-	if (waiter->GetFSM()->IsInState(*CState_Waiter_Idle::GetInstance()) && waiter->GetUnservedCount() > 0)
-	{
-		//waiter->GetFSM()->ChangeState(CState_Serve::GetInstance());
-		
-		// Send order to chef again?
-
-		waiter->DecreaseUnservedCount();
-	}
 }
 
 void CState_Waiter_GlobalState::Exit(CWaiter* waiter, double dt)
@@ -80,16 +79,17 @@ bool CState_Waiter_GlobalState::OnMessage(CWaiter* waiter, const Telegram& teleg
 		case MSG_ORDER_FOOD_1:
 		{
 			// Can take order when waiter is NOT currently serving 
-			if (!waiter->GetFSM()->IsInState(*CState_Serve::GetInstance()))
-			{
-				waiter->GetFSM()->ChangeState(CState_TakeOrder::GetInstance());
-				//waiter->GetMsgQueue()->push(telegram);
-			}
-			//else
-			{
-				//waiter->SetTakeOrderLateStatus(true);
-				//waiter->IncreaseLateOrderCount();
-			}
+                if (!waiter->GetFSM()->IsInState(*CState_Serve::GetInstance()))
+                {
+                    waiter->GetFSM()->ChangeState(CState_TakeOrder::GetInstance());
+                    //waiter->GetMsgQueue()->push(telegram);
+                }
+                //else
+                {
+                //waiter->SetTakeOrderLateStatus(true);
+                //waiter->IncreaseLateOrderCount();
+                }
+
 			break;
 		}
 
@@ -103,11 +103,8 @@ bool CState_Waiter_GlobalState::OnMessage(CWaiter* waiter, const Telegram& teleg
 
 			// Can serve when waiter is NOT currently taking order
 			//if (!waiter->GetFSM()->IsInState(*CState_TakeOrder::GetInstance()))
-			{
 				waiter->GetFSM()->ChangeState(CState_Serve::GetInstance());
 				//waiter->GetMsgQueue()->push(telegram);
-			}
-			
 			break;
 		}
 

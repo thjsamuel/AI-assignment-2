@@ -29,12 +29,14 @@
     <ClCompile Include="Source\Customer\State_Eat.cpp" />
     <ClCompile Include="Source\Customer\State_FindSeat.cpp" />
     <ClCompile Include="Source\Customer\State_Customer_Idle.cpp" />
+    <ClCompile Include="Source\Customer\State_Flock.cpp" />
     <ClCompile Include="Source\Customer\State_Leave.cpp" />
     <ClCompile Include="Source\Customer\State_OrderFood.cpp" />
     <ClCompile Include="Source\Customer\State_QueueUp.cpp" />
     <ClCompile Include="Source\Customer\State_ReturnTray.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\EntityNames.cpp" />
+    <ClCompile Include="Source\Flocking\Flocking.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
@@ -47,6 +49,7 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Waiter\State_Arrange.cpp" />
+    <ClCompile Include="Source\Waiter\State_Usher.cpp" />
     <ClCompile Include="Source\Waiter\State_Waiter_GlobalState.cpp" />
     <ClCompile Include="Source\Waiter\State_Waiter_GoToilet.cpp" />
     <ClCompile Include="Source\Waiter\State_Waiter_Idle.cpp" />
@@ -73,12 +76,14 @@
     <ClInclude Include="Source\Customer\State_Eat.h" />
     <ClInclude Include="Source\Customer\State_FindSeat.h" />
     <ClInclude Include="Source\Customer\State_Customer_Idle.h" />
+    <ClInclude Include="Source\Customer\State_Flock.h" />
     <ClInclude Include="Source\Customer\State_Leave.h" />
     <ClInclude Include="Source\Customer\State_OrderFood.h" />
     <ClInclude Include="Source\Customer\State_QueueUp.h" />
     <ClInclude Include="Source\Customer\State_ReturnTray.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\EntityNames.h" />
+    <ClInclude Include="Source\Flocking\Flocking.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Geometry.h" />
     <ClInclude Include="Source\Light.h" />
@@ -101,6 +106,7 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Waiter\State_Arrange.h" />
+    <ClInclude Include="Source\Waiter\State_Usher.h" />
     <ClInclude Include="Source\Waiter\State_Waiter_GlobalState.h" />
     <ClInclude Include="Source\Waiter\State_Waiter_GoToilet.h" />
     <ClInclude Include="Source\Waiter\State_Waiter_Idle.h" />

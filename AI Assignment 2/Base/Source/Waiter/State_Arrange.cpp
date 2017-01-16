@@ -27,9 +27,9 @@ void CState_Arrange::Enter(CWaiter* waiter, double dt)
 void CState_Arrange::Execute(CWaiter* waiter, double dt)
 {
     // There are still tables left
-    if (waiter->tables_left >= 0)
+    if (waiter->chairs >= 0)
     {
-        Vector3 des = waiter->waypoints[waiter->tables_left - 1]; // set destination to the random coordinates, i just realised if each waiter has their own tables_left, that's trouble since one storeroom. So need to make tables_left static later
+        Vector3 des = waiter->waypoints[waiter->chairs - 1]; // set destination to the random coordinates, i just realised if each waiter has their own tables_left, that's trouble since one storeroom. So need to make tables_left static later
         if (waiter->position != des)
         {
             Vector3 direction = (waiter->position - des).Normalized();
@@ -37,8 +37,10 @@ void CState_Arrange::Execute(CWaiter* waiter, double dt)
             //reachDes[tables - 1] = true; // to check whether waiter has reached destination in the future
         }
         else
-            --waiter->tables_left;
+            --waiter->chairs;
     }
+    if (waiter->chairs == 0)
+        waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
 }
 
 void CState_Arrange::Exit(CWaiter* waiter, double dt)
@@ -49,5 +51,19 @@ void CState_Arrange::Exit(CWaiter* waiter, double dt)
 
 bool CState_Arrange::OnMessage(CWaiter* waiter, const Telegram& telegram)
 {
+    switch (telegram.msg)
+    {
+    case MSG_2CUSTOMER:
+        waiter->chairs = 2;
+        return true;
+        break;
+    case MSG_5CUSTOMERMAX:
+    {
+        waiter->chairs = 5;
+    }
+    break;
+    // Successfully handled the message
+    return true;
+    }
     return false;
 }

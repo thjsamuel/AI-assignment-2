@@ -3,12 +3,23 @@
 
 enum Message_Type
 {
-	MSG_ORDER_FOOD_1, // fastest
-
+    MSG_ORDER_FOOD_1, // fastest
+    MSG_GROUP_NUMBER,
 	MSG_ORDER_TAKEN,
 	MSG_COLLECT_ORDER,
 	MSG_ORDER_ARRIVED,
-	MSG_CLEAN,
+	MSG_CLEAN, // slowest
+    MSG_HELP_INSIDE,
+    MSG_MAX,
+};
+
+enum Group_Num
+{
+    MSG_1CUSTOMER = MSG_MAX,
+    MSG_2CUSTOMER,
+    MSG_3CUSTOMER,
+    MSG_4CUSTOMER,
+    MSG_5CUSTOMERMAX,
 };
 
 #endif // MESSAGE_TYPES_H

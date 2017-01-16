@@ -6,6 +6,7 @@
 #include "State_TakeOrder.h"
 #include "State_Serve.h"
 #include "State_Arrange.h"
+#include "State_Usher.h"
 #include "State_Waiter_GoToilet.h"
 #include "State_Waiter_GlobalState.h"
 #include "../StateMachine.h"
@@ -50,6 +51,8 @@ public:
 	bool GetTakeOrderLateStatus();
 
     int tables_left;
+    int chairs;
+    bool need_help; // if too many customers need to be served, waiter is overwhelmed and asks for help
 private:
 	CStateMachine<CWaiter>* m_pStateMachine;
 	std::queue <Telegram>* msgQueue;

@@ -31,6 +31,9 @@
     <Filter Include="AStar">
       <UniqueIdentifier>{e39b96c6-a6ce-41a7-ad3f-44904f48f7db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Flocking">
+      <UniqueIdentifier>{880cc2b4-81cd-4498-8fef-2bbcc03ba6e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -159,6 +162,18 @@
     <ClInclude Include="Source\AStar\TestGrid.h">
       <Filter>AStar</Filter>
     </ClInclude>
+    <ClCompile Include="Source\AStar\TestGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Waiter\State_Usher.cpp">
+      <Filter>Waiter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Flocking\Flocking.cpp">
+      <Filter>Flocking</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Customer\State_Flock.cpp">
+      <Filter>Customer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -316,6 +331,15 @@
     </ClInclude>
     <ClInclude Include="Source\AStar\TestGrid.h">
       <Filter>AStar</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Waiter\State_Usher.h">
+      <Filter>Waiter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Flocking\Flocking.h">
+      <Filter>Flocking</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Customer\State_Flock.h">
+      <Filter>Customer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -35,7 +35,7 @@ void CState_QueueUp::Execute(CCustomer* customer, double dt)
     }
 
     // This code basically does the same thing as  your above one
-    if (customer->position == des)
+    if (customer->position == des && customer->centre_of_mass != Vector3(0, 0, 0)/* && customer->GetLeaderStatus() == false*/)
         customer->GetFSM()->ChangeState(CState_FindSeat::GetInstance(), dt);
 }
 

@@ -42,15 +42,19 @@ void SceneAssignment1::Init()
 	SceneBase::Init();
 
 	entityMgr = CEntityManager::GetInstance();
-
+    generateCus = true;
     // yeah it is trashy hardcode, working on it
     storage_tables = 5;
 	waiter = new CWaiter(ENT_WAITER);
+    usher = new CWaiter(ENT_WAITER_OUTSIDE);
     /*The following is waiter arrange state code*/
     SetAreaWithWaypoint(Vector3(0, 0, 0), Vector3(50, 100, 0), waiter->waypoints, storage_tables);
     waiter->tables_left = storage_tables; // waiter knows how much tables there are
+    usher->tables_left = storage_tables; // usher doesn't
+    usher->waypoints[0] = USHERING;
     /**/
 	entityMgr->RegisterEntity(waiter);
+    entityMgr->RegisterEntity(usher);
 
 	chef = new CChef(ENT_CHEF);
 	entityMgr->RegisterEntity(chef);
@@ -60,11 +64,35 @@ void SceneAssignment1::Init()
 
 	entityMgr->SetLatestID(entityMgr->GetEntityMap().size());
 
-	customer = new CCustomer(entityMgr->GetNextID(), SEAT_1, true);
-    customer->waypoints[0] = ENTRANCE;
-	entityMgr->RegisterEntity(customer);
-	entityMgr->SetStillHereID(customer->GetID());
-    customer_list.push_back(customer);
+    Vector3 pos = ENTRANCE;
+    //for (int i = 0; i < 5; ++i)
+    {
+        //CCustomer* customer;
+        //if (i == 0)
+            customer = new CCustomer(entityMgr->GetNextID(), SEAT_1, true);
+        //else if (i == 1)
+        //    customer = new CCustomer(entityMgr->GetNextID(), SEAT_2, false);
+        //else if (i == 2)
+        //    customer = new CCustomer(entityMgr->GetNextID(), SEAT_3, false);
+        //else if (i == 3)
+        //    customer = new CCustomer(entityMgr->GetNextID(), SEAT_4, false);
+        //else if (i == 4)
+        //    customer = new CCustomer(entityMgr->GetNextID(), SEAT_5, false);
+
+        pos.x += 5;
+        customer->waypoints[0] = ENTRANCE;
+        entityMgr->RegisterEntity(customer);
+        entityMgr->SetStillHereID(customer->GetID());
+        customer_list.push_back(customer);
+    }
+
+    //for (int i = 0; i < customer_list.size(); ++i)
+    //{
+    //    const int away_dist = 20;
+    //    Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
+    //    behind_pos.x += away_dist;
+    //    customer_list[i]->waypoints[0] = behind_pos;
+    //}
 
 	// For Debugging
 	debugPos = Vector3(0, -10, 0);
@@ -221,48 +249,121 @@ void SceneAssignment1::GenerateCustomers()
 		}
 	}
 
-	if (bSeat1Taken == false)
-		theSeatPos = SEAT_1;
-	else if (bSeat2Taken == false)
-		theSeatPos = SEAT_2;
-	else if (bSeat3Taken == false)
-		theSeatPos = SEAT_3;
-	else if (bSeat4Taken == false)
-		theSeatPos = SEAT_4;
-	else if (bSeat5Taken == false)
-		theSeatPos = SEAT_5;
-	else if (bSeat6Taken == false)
-		theSeatPos = SEAT_6;
-	else if (bSeat7Taken == false)
-		theSeatPos = SEAT_7;
-	else if (bSeat8Taken == false)
-		theSeatPos = SEAT_8;
-	else if (bSeat9Taken == false)
-		theSeatPos = SEAT_9;
+
 	
-		if (!bSeat1Taken || !bSeat2Taken || !bSeat3Taken || !bSeat4Taken || !bSeat5Taken || !bSeat6Taken || !bSeat7Taken || !bSeat8Taken || !bSeat9Taken)
-		{
-			if ((rand() % 500 + 1) == 1)
-			{
-                const int away_distance = 20;
-				CCustomer* theCustomer = new CCustomer(entityMgr->GetNextID(), theSeatPos, true);
-				if (customer_list.size() > 0)
-				{
-					if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
-					{
-						Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
-						behind_pos.x += away_distance;
-						theCustomer->waypoints[0] = behind_pos;
-					}
-					else // nobody is queueing up
-						theCustomer->waypoints[0] = ENTRANCE;
-				}
+    if (!bSeat1Taken || !bSeat2Taken || !bSeat3Taken || !bSeat4Taken || !bSeat5Taken || !bSeat6Taken || !bSeat7Taken || !bSeat8Taken || !bSeat9Taken)
+    {
+        if ((rand() % 500 + 1) == 1)
+        {
+            const int MAX_CUSTOMERS = 5;  // max in a group
+            Vector3 seats[MAX_CUSTOMERS];
+            for (int i = 0; i < MAX_CUSTOMERS; ++i)
+            {
+                if (bSeat1Taken == false)
+                {
+                    theSeatPos = SEAT_1;
+                    bSeat1Taken = true;
+                }
+                else if (bSeat2Taken == false)
+                {
+                    theSeatPos = SEAT_2;
+                    bSeat2Taken = true;
+                }
+                else if (bSeat3Taken == false)
+                {
+                    theSeatPos = SEAT_3;
+                    bSeat3Taken = true;
+                }
+                else if (bSeat4Taken == false)
+                {
+                    theSeatPos = SEAT_4;
+                    bSeat4Taken = true;
+                }
+                else if (bSeat5Taken == false)
+                {
+                    theSeatPos = SEAT_5;
+                    bSeat5Taken = true;
+                }
+                else if (bSeat6Taken == false)
+                {
+                    theSeatPos = SEAT_6;
+                    bSeat6Taken = true;
+                }
+                else if (bSeat7Taken == false)
+                {
+                    theSeatPos = SEAT_7;
+                    bSeat7Taken = true;
+                }
+                else if (bSeat8Taken == false)
+                {
+                    theSeatPos = SEAT_8;
+                    bSeat8Taken = true;
+                }
+                else if (bSeat9Taken == false)
+                {
+                    theSeatPos = SEAT_9;
+                    bSeat9Taken = true;
+                }
+                seats[i] = theSeatPos;
+            }
+            for (int i = 0; i < MAX_CUSTOMERS; ++i)
+            {
+                const int away_distance = 20; // distance away from the previous group
+                CCustomer* theCustomer;
+                if (i == 0)
+                    theCustomer = new CCustomer(entityMgr->GetNextID(), seats[i], true);
+                else
+                    theCustomer = new CCustomer(entityMgr->GetNextID(), seats[i], false);
+                if (customer_list.size() > 0)
+                {
+                    if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
+                    {
+                        Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
+                        behind_pos.x += away_distance;
+                        theCustomer->waypoints[0] = behind_pos;
+                    }
+                    else // nobody is queueing up
+                        theCustomer->waypoints[0] = ENTRANCE;
+                }
 
                 entityMgr->RegisterEntity(theCustomer);
                 customer_list.push_back(theCustomer);
-			}
-		}
+            }
+        }
+    }
 
+    if (customer_list.size() > 8)
+        waiter->need_help = true;
+    else
+        waiter->need_help = false;
+
+        //if (!bSeat1Taken || !bSeat2Taken || !bSeat3Taken || !bSeat4Taken || !bSeat5Taken || !bSeat6Taken || !bSeat7Taken || !bSeat8Taken || !bSeat9Taken)
+        //{
+        //    if (generateCus)
+        //    {
+        //        const int away_distance = 20;
+        //        CCustomer* theCustomer = new CCustomer(entityMgr->GetNextID(), theSeatPos, false);
+        //        if (customer_list.size() > 0)
+        //        {
+        //            if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
+        //            {
+        //                Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
+        //                behind_pos.x += away_distance;
+        //                theCustomer->waypoints[0] = behind_pos;
+        //            }
+        //            else // nobody is queueing up
+        //                theCustomer->waypoints[0] = ENTRANCE;
+        //        }
+
+        //        entityMgr->RegisterEntity(theCustomer);
+        //        customer_list.push_back(theCustomer);
+        //    }
+        //}
+
+        //if (customer_list.size() > 4)
+        //    generateCus = false;
+        //else
+        //    generateCus = true;
 	/*seatNum = (rand() % 9 + 1);
 
 	switch (seatNum)
@@ -300,6 +401,58 @@ void SceneAssignment1::GenerateCustomers()
 	//std::cout << seatNum << std::endl;
 }
 
+bool SceneAssignment1::CheckIfCustomerReachDestination()
+{
+    bool hasReached = true;
+    for (int i = 0; i < customer_list.size(); ++i)
+    {
+        if (customer_list[i]->GetPosition() != customer_list[i]->waypoints[0])
+            hasReached = false;
+    }
+    return hasReached;
+}
+
+void SceneAssignment1::calculateCOM(std::vector<CCustomer*> list, CCustomer& entity)
+{
+    float total_x = 0.0f; // summation of all x coordinates of flock // this are the numbers to change for neural net, aka (w1, w2) from lecture
+    float total_y = 0.0f; // summation of all y coordinates of flock
+    for (int i = 0; i < list.size(); ++i)
+    {
+        if (list[i] != &entity)
+        {
+            total_x += list[i]->GetPosition().x;
+            total_y += list[i]->GetPosition().y;
+        }
+    }
+    entity.centre_of_mass.x = total_x;
+    entity.centre_of_mass.y = total_y;
+
+    entity.centre_of_mass.x /= list.size();
+    entity.centre_of_mass.y /= list.size();
+}
+
+void SceneAssignment1::calculateRepelVec(std::vector<CCustomer*> list, CCustomer& entity)
+{
+    float radiusSquared = 5 * 5; // hardcoded, scale value is from RenderEntities(), scale of customer sprite
+    Vector3 repelVec;
+    float dist_away; 
+        for (int i = 0; i < list.size(); ++i)
+        {
+            if (list[i] != &entity)
+            {
+                repelVec = entity.GetPosition() - list[i]->GetPosition();
+                dist_away = repelVec.LengthSquared();
+                //repelVec.x = (entity.GetPosition().x - list[i]->GetPosition().x) * (entity.GetPosition().x - list[i]->GetPosition().x);
+                //repelVec.y = (entity.GetPosition().y - list[i]->GetPosition().y) * (entity.GetPosition().y - list[i]->GetPosition().y);
+                bool isTooClose = (dist_away < radiusSquared);
+                if (isTooClose)
+                {
+                    entity.m_repelVec = repelVec;
+                }
+            }
+        }
+}
+
 void SceneAssignment1::Update(double dt)
 {
 	SceneBase::Update(dt);
@@ -328,7 +481,34 @@ void SceneAssignment1::Update(double dt)
 	else if (vButtonState && !Application::IsKeyPressed('V'))
 		vButtonState = false;*/
 
-	GenerateCustomers();
+    GenerateCustomers();
+
+    if (/*CheckIfCustomerReachDestination() &&*/ customer_list.size() >= 5) // if more than 5 customers are present in the scene, then flock together
+    {
+        for (int i = 0; i < customer_list.size(); ++i)
+        {
+            //if (customer_list[i]->m_repelVec == Vector3(0, 0, 0))
+            calculateCOM(customer_list, *customer_list[i]);
+            calculateRepelVec(customer_list, *customer_list[i]);
+
+        }
+    }
+    //for (int i = 0; i < customer_list.size(); ++i)
+    {
+        //if (customer_list[i]->GetLeaderStatus() == false)
+    }
+
+    for (int i = 0; i < customer_list.size(); ++i)
+    {
+        if (customer_list[i]->position.x > m_worldWidth)
+            customer_list[i]->position.x -= (10 * dt);
+        else if (customer_list[i]->position.x < 0)
+            customer_list[i]->position.x += (10 * dt);
+        if (customer_list[i]->position.y > m_worldHeight)
+            customer_list[i]->position.y -= (10 * dt);
+        else if (customer_list[i]->position.y < 0)
+            customer_list[i]->position.y += (10 * dt);
+    }
 
 	// Update customers
 	for (int i = entityMgr->GetStillHereID(); i <= entityMgr->GetLatestID(); i++)
@@ -342,6 +522,7 @@ void SceneAssignment1::Update(double dt)
 
 	//customer->Update(dt);
 	waiter->Update(dt);
+    usher->Update(dt);
 	chef->Update(dt);
 	cleaner->Update(dt);
 
@@ -536,6 +717,15 @@ void SceneAssignment1::RenderEntities()
 		RenderMesh(meshList[GEO_WAITER_INVERT], false);
 	modelStack.PopMatrix();
 
+    modelStack.PushMatrix();
+    modelStack.Translate(usher->GetPosition().x, usher->GetPosition().y, usher->GetPosition().z);
+    modelStack.Scale(11, 11, 11);
+    if (usher->GetSpriteInvertStatus() == false)
+        RenderMesh(meshList[GEO_WAITER], false);
+    else
+        RenderMesh(meshList[GEO_WAITER_INVERT], false);
+    modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(chef->GetPosition().x, chef->GetPosition().y, chef->GetPosition().z);
 	modelStack.Scale(10, 10, 10);
@@ -564,6 +754,10 @@ void SceneAssignment1::RenderEntities()
 
 void SceneAssignment1::RenderEntities_States()
 {
+    float x1 = -4.f + usher->GetPosition().x * 0.6f;
+    float y1 = 3.f + usher->GetPosition().y * 0.6f;
+    RenderTextOnScreen(meshList[GEO_TEXT], usher->GetStateInText(), Color(1, 1, 1), 2.5, x1, y1);
+
 	float x2 = -4.f + waiter->GetPosition().x * 0.6f;
 	float y2 = 3.f + waiter->GetPosition().y * 0.6f;
 	RenderTextOnScreen(meshList[GEO_TEXT], waiter->GetStateInText(), Color(1, 1, 1), 2.5, x2, y2);
@@ -679,6 +873,12 @@ void SceneAssignment1::Exit()
 		waiter = NULL;
 		delete waiter;
 	}
+
+    if (usher)
+    {
+        usher = NULL;
+        delete usher;
+    }
 
 	if (chef)
 	{

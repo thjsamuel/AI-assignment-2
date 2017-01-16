@@ -6,8 +6,10 @@ CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader)
 , bIsLeader(bIsLeader)
 {
 	m_pStateMachine = new CStateMachine<CCustomer>(this);
-	m_pStateMachine->SetCurrentState(CState_QueueUp::GetInstance());
-
+    if (bIsLeader == false)
+	    m_pStateMachine->SetCurrentState(CState_Flock::GetInstance());
+    else
+        m_pStateMachine->SetCurrentState(CState_QueueUp::GetInstance());
 	SetSeatPosition(seatPos);
 	SetPosition(145, 10, 0);
 }
@@ -34,6 +36,8 @@ std::string CCustomer::GetStateInText()
 		return "Idle";
 	else if (m_pStateMachine->GetCurrentState() == CState_QueueUp::GetInstance())
 		return "Queue up";
+    else if (m_pStateMachine->GetCurrentState() == CState_Flock::GetInstance())
+        return "Group up";
 	else if (m_pStateMachine->GetCurrentState() == CState_FindSeat::GetInstance())
 		return "Find seat";
 	else if (m_pStateMachine->GetCurrentState() == CState_OrderFood::GetInstance())

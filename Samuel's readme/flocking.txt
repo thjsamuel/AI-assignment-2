@@ -1,0 +1,8 @@
+Steps to do flocking
+1. cohesion
+Create a class to contain Vector3 CentreOfMass
+Make each customer inherit the class
+Create a group of customers specifically for the group up
+Calculate centre of mass for each customer in the group
+do dir and then offset
+Make them move towards COM

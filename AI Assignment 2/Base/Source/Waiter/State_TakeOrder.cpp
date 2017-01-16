@@ -30,7 +30,7 @@ void CState_TakeOrder::Execute(CWaiter* waiter, double dt)
 
 	// Cannot use size, it skips the previous customers
 	// Start from 3
-	static unsigned int currentSize = 4;
+	static unsigned int currentSize = 5;
 	static CBaseGameEntity* customer = entityMgr->GetEntityFromID(currentSize);
 
 	if (customer->GetSeatedStatus() == true)
@@ -103,6 +103,15 @@ void CState_TakeOrder::Execute(CWaiter* waiter, double dt)
 	{
 		waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
 	}
+
+    if (waiter->need_help)
+    {
+        CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+            waiter->GetID(),
+            ENT_WAITER_OUTSIDE, // sorta hardcoded since i assume usher is always declared after waiter
+            MSG_HELP_INSIDE,
+            NO_EXTRA_INFO);
+    }
 }
 
 void CState_TakeOrder::Exit(CWaiter* waiter, double dt)
