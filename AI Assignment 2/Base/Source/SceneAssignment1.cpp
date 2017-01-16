@@ -47,15 +47,8 @@ void SceneAssignment1::Init()
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
 	// AStar
-	//grid = 0;
-	gridSize = Vector3(m_worldWidth, m_worldHeight, 0);
-
-	nodeRadius = 3.f;
-	nodeDiameter = nodeRadius * 2;
-	gridSizeX = (int)(gridSize.x / nodeDiameter);
-	gridSizeY = (int)(gridSize.y / nodeDiameter);
-
-	CreateGrid();
+	m_Grid = new Grid();
+	m_Grid->CreateGrid();
 
     // yeah it is trashy hardcode, working on it
     storage_tables = 5;
@@ -95,24 +88,6 @@ void SceneAssignment1::Init()
 
 	InitFurniturePosition();
 	AddSeatsToList();
-}
-
-void SceneAssignment1::CreateGrid()
-{
-	grid = new CNode*[gridSizeX];
-	for (int i = 0; i < gridSizeX; i++)
-		grid[i] = new CNode[gridSizeY];
-
-	Vector3 worldBottomLeft = Vector3(0, 0, 0) - Vector3(1, 0, 0) * (gridSize.x / 2) - Vector3(0, 1, 0) * (gridSize.y / 2);
-
-	for (int x = 0; x < gridSizeX; x++)
-	{
-		for (int y = 0; y < gridSizeY; y++)
-		{
-			Vector3 position = Vector3(1, 0, 0) * (x * nodeDiameter + nodeRadius) + Vector3(0, 1, 0) * (y * nodeDiameter + nodeRadius);
-			grid[x][y] = CNode(true, Vector3(position.x, position.y, 0));
-		}
-	}
 }
 
 void SceneAssignment1::InitFurniturePosition()
@@ -352,17 +327,6 @@ void SceneAssignment1::GenerateCustomers()
 	//std::cout << seatNum << std::endl;
 }
 
-CNode* SceneAssignment1::GetCurrentNode(Vector3 position)
-{
-	float percentX = (position.x) / gridSize.x;
-	float percentY = (position.y) / gridSize.y;
-
-	int x = (int)((gridSizeX) * percentX);
-	int y = (int)((gridSizeY) * percentY);
-
-	return &grid[x][y];
-}
-
 void SceneAssignment1::Update(double dt)
 {
 	SceneBase::Update(dt);
@@ -418,14 +382,14 @@ void SceneAssignment1::Update(double dt)
 	if (Application::IsKeyPressed(VK_RIGHT))
 		debugPos.x += 20 * dt;
 
-	for (int x = 0; x < gridSizeX; x++)
+	for (int x = 0; x < m_Grid->GetGridSizeX(); x++)
 	{
-		for (int y = 0; y < gridSizeY; y++)
+		for (int y = 0; y < m_Grid->GetGridSizeY(); y++)
 		{
 			for (std::vector<Furniture*>::iterator it = furnitureList.begin(); it < furnitureList.end(); it++)
 			{
 				Vector3 w0 = (*it)->position;//go2->pos;
-				Vector3 b1 = grid[x][y].GetPosition();
+				Vector3 b1 = m_Grid->Get()[x][y].GetPosition();
 				Vector3 N = Vector3(1, 0, 0); //go2->normal;
 				Vector3 dir = w0 - b1;
 				if (dir.Dot(N) < 0)
@@ -439,14 +403,14 @@ void SceneAssignment1::Update(double dt)
 				if (abs((dir).Dot(N)) < r + h * 0.5f
 					&& abs((dir).Dot(NP)) < l * 0.5f)
 				{
-					grid[x][y].SetWalkable(false);
+					m_Grid->Get()[x][y].SetWalkable(false);
 				}
 			}
 		}
 	}
 
 	// Test
-	GetCurrentNode(debugPos)->SetWalkable(false);
+	m_Grid->GetCurrentNode(debugPos)->SetWalkable(false);
 }
 
 void SceneAssignment1::AddSeatsToList()
@@ -735,14 +699,14 @@ void SceneAssignment1::Render()
 		modelStack.PopMatrix();
 	}*/
 
-	for (int x = 0; x < gridSizeX; x++)
+	for (int x = 0; x < m_Grid->GetGridSizeX(); x++)
 	{
-		for (int y = 0; y < gridSizeY; y++)
+		for (int y = 0; y < m_Grid->GetGridSizeY(); y++)
 		{
 			modelStack.PushMatrix();
-			modelStack.Translate(grid[x][y].GetPosition().x, grid[x][y].GetPosition().y, 2);
+			modelStack.Translate(m_Grid->Get()[x][y].GetPosition().x, m_Grid->Get()[x][y].GetPosition().y, 2);
 			modelStack.Scale(0.5, 0.5, 0.5);
-			if (grid[x][y].GetWalkable() == true)
+			if (m_Grid->Get()[x][y].GetWalkable() == true)
 				RenderMesh(meshList[GEO_BALL], false);
 			else
 				RenderMesh(meshList[GEO_BALL2], false);
@@ -809,5 +773,11 @@ void SceneAssignment1::Exit()
 	{
 		cleaner = NULL;
 		delete cleaner;
+	}
+
+	if (m_Grid)
+	{
+		m_Grid = NULL;
+		delete m_Grid;
 	}
 }

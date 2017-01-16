@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\AStar\Grid.cpp" />
     <ClCompile Include="Source\AStar\Node.cpp" />
     <ClCompile Include="Source\BaseGameEntity.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -56,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\AStar\Grid.h" />
     <ClInclude Include="Source\AStar\Node.h" />
     <ClInclude Include="Source\BaseGameEntity.h" />
     <ClInclude Include="Source\Camera.h" />

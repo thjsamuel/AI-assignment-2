@@ -9,7 +9,7 @@
 #include "Chef\Chef.h"
 #include "Customer\Customer.h"
 #include "EntityManager.h"
-#include "AStar\Node.h"
+#include "AStar\Grid.h"
 
 struct Furniture
 {
@@ -52,9 +52,6 @@ public:
 	void CloseSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 	void FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 
-	void CreateGrid();
-	CNode* GetCurrentNode(Vector3 position);
-
 protected:
 	//Physics
 	std::vector<GameObject *> m_goList;
@@ -72,11 +69,7 @@ private:
 	CCleaner* cleaner;
 
 	// AStar
-	CNode** grid;
-	Vector3 gridSize;
-	float nodeRadius;
-	float nodeDiameter;
-	int gridSizeX, gridSizeY;
+	Grid* m_Grid;
 
     // a list of customers
     std::vector<CCustomer*> customer_list;
