@@ -15,7 +15,7 @@ Possibly flocking
 Following the wall to place chairs, following the wall to sit
 a star
 Food menu
-Attraction and repulsion - done for flocking but can be re-done
+Attraction and repulsion - same as composition and seperation - done for flocking but can be re-done
 move to messageboard
 priority queue for waiter
 different seating for group and solo

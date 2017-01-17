@@ -56,7 +56,7 @@ void CState_Leave::Execute(CCustomer* customer, double dt)
 			//targetPos = BEFORE_ENTRANCE;
 			CEntityManager::GetInstance()->IncrementStillHereID();
 			customer->SetExitStatus(true);
-			CEntityManager::GetInstance()->RemoveEntity(customer);
+            CEntityManager::GetInstance()->RemoveEntity(customer);
 		}
 	}
 
