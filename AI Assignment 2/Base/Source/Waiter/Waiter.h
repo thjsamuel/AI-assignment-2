@@ -32,6 +32,7 @@ public:
 
 	CStateMachine<CWaiter>* GetFSM() const;
 	std::queue <Telegram>* GetMsgQueue() const;
+	std::queue <unsigned int>* GetNumCustomersInGrp() const;
 	SeatArranger* GetSeatArranger() const;
 	SIDE GetSide();
 
@@ -58,6 +59,7 @@ public:
 private:
 	CStateMachine<CWaiter>* m_pStateMachine;
 	std::queue <Telegram>* msgQueue;
+	std::queue <unsigned int>* numCustomersInGrp;
 
 	SeatArranger* seatArranger;
 

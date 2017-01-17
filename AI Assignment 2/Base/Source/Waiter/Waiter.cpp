@@ -29,6 +29,7 @@ CWaiter::CWaiter(int ID)
     }
 
 	msgQueue = new std::queue<Telegram>(); // Messageboard of waiter
+	numCustomersInGrp = new std::queue<unsigned int>();
 	seatArranger = new SeatArranger();
 }
 
@@ -98,6 +99,11 @@ CStateMachine<CWaiter>* CWaiter::GetFSM() const
 std::queue <Telegram>* CWaiter::GetMsgQueue() const
 {
 	return msgQueue;
+}
+
+std::queue <unsigned int>* CWaiter::GetNumCustomersInGrp() const
+{
+	return numCustomersInGrp;
 }
 
 SeatArranger* CWaiter::GetSeatArranger() const

@@ -125,11 +125,13 @@ bool CState_Waiter_GlobalState::OnMessage(CWaiter* waiter, const Telegram& teleg
 
 			case MSG_2CUSTOMER:
 			{
+				waiter->GetNumCustomersInGrp()->push(2);
 				waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
 				break;
 			}
 			case MSG_5CUSTOMERMAX:
 			{
+				waiter->GetNumCustomersInGrp()->push(5);
 				waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
 				break;
 			}
