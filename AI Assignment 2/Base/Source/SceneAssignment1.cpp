@@ -19,7 +19,7 @@ SceneAssignment1::~SceneAssignment1()
 
 // Takes two diagonal vertice representing min and max and fill the area between min and max with waypoints, used by waiter to place tables randomly only in a certain area
 // The container you pass in is the waiter's waypoints to follow, so basically you just make him go random places
-void SetAreaWithWaypoint(const Vector3 min, const Vector3 max, map<const int, Vector3>& container, const int containerSize)
+void SetAreaWithWaypoint(const Vector3 min, const Vector3 max, std::map<const int, Vector3>& container, const int containerSize)
 {
     float xmin = min.x; int xmax = max.x; int ymin = min.y; int ymax = max.y; // get X and Y coordinate values of min and max points on the screen
     for (int i = 0; i < containerSize; ++i)
@@ -57,7 +57,7 @@ void SceneAssignment1::Init()
 	waiter = new CWaiter(ENT_WAITER);
     usher = new CWaiter(ENT_WAITER_OUTSIDE);
     /*The following is waiter arrange state code*/
-    SetAreaWithWaypoint(Vector3(0, 0, 0), Vector3(50, 100, 0), waiter->waypoints, storage_tables);
+    SetAreaWithWaypoint(Vector3(35, 30, 0), Vector3(100, 70, 0), waiter->waypoints, storage_tables);
     waiter->tables_left = storage_tables; // waiter knows how many tables there are
     usher->tables_left = storage_tables; // usher doesn't
     usher->waypoints[0] = USHERING;
@@ -266,7 +266,7 @@ void SceneAssignment1::GenerateCustomers()
 	Need to call SetLeaderStatus(true) for leaders
 	*/
 
-	static bool bSeat1Taken = false;
+	/*static bool bSeat1Taken = false;
 	static bool bSeat2Taken = false;
 	static bool bSeat3Taken = false;
 	static bool bSeat4Taken = false;
@@ -351,7 +351,7 @@ void SceneAssignment1::GenerateCustomers()
             entityMgr->RegisterEntity(theCustomer);
             customer_list.push_back(theCustomer);
         }
-    }
+    }*/
 
         //if (!bSeat1Taken || !bSeat2Taken || !bSeat3Taken || !bSeat4Taken || !bSeat5Taken || !bSeat6Taken || !bSeat7Taken || !bSeat8Taken || !bSeat9Taken)
         //{
@@ -415,6 +415,136 @@ void SceneAssignment1::GenerateCustomers()
 
 	//std::cout << "theCustomer's ID: " << theCustomer->GetID() << std::endl;
 	//std::cout << seatNum << std::endl;
+
+static bool bSeat1Taken = false;
+static bool bSeat2Taken = false;
+static bool bSeat3Taken = false;
+static bool bSeat4Taken = false;
+static bool bSeat5Taken = false;
+static bool bSeat6Taken = false;
+static bool bSeat7Taken = false;
+static bool bSeat8Taken = false;
+static bool bSeat9Taken = false;
+
+static unsigned int seatNum = 0;
+static bool bSeatSelected = false;
+Vector3 theSeatPos;
+
+for (int i = entityMgr->GetStillHereID(); i <= entityMgr->GetLatestID(); i++)
+{
+	if (entityMgr->GetEntityFromID(i)->GetDoneStatus() == false)
+	{
+		CloseSeat(i, SEAT_1, bSeat1Taken);
+		CloseSeat(i, SEAT_2, bSeat2Taken);
+		CloseSeat(i, SEAT_3, bSeat3Taken);
+		CloseSeat(i, SEAT_4, bSeat4Taken);
+		CloseSeat(i, SEAT_5, bSeat5Taken);
+		CloseSeat(i, SEAT_6, bSeat6Taken);
+		CloseSeat(i, SEAT_7, bSeat7Taken);
+		CloseSeat(i, SEAT_8, bSeat8Taken);
+		CloseSeat(i, SEAT_9, bSeat9Taken);
+	}
+	else
+	{
+		FreeSeat(i, SEAT_1, bSeat1Taken);
+		FreeSeat(i, SEAT_2, bSeat2Taken);
+		FreeSeat(i, SEAT_3, bSeat3Taken);
+		FreeSeat(i, SEAT_4, bSeat4Taken);
+		FreeSeat(i, SEAT_5, bSeat5Taken);
+		FreeSeat(i, SEAT_6, bSeat6Taken);
+		FreeSeat(i, SEAT_7, bSeat7Taken);
+		FreeSeat(i, SEAT_8, bSeat8Taken);
+		FreeSeat(i, SEAT_9, bSeat9Taken);
+	}
+}
+
+
+
+if (!bSeat1Taken || !bSeat2Taken || !bSeat3Taken || !bSeat4Taken || !bSeat5Taken || !bSeat6Taken || !bSeat7Taken || !bSeat8Taken || !bSeat9Taken)
+{
+	if ((rand() % 100 + 1) == 1)
+	{
+		const int MAX_CUSTOMERS = 5;  // max in a group
+		Vector3 seats[MAX_CUSTOMERS];
+		for (int i = 0; i < MAX_CUSTOMERS; ++i)
+		{
+			if (bSeat1Taken == false)
+			{
+				theSeatPos = SEAT_1;
+				bSeat1Taken = true;
+			}
+			else if (bSeat2Taken == false)
+			{
+				theSeatPos = SEAT_2;
+				bSeat2Taken = true;
+			}
+			else if (bSeat3Taken == false)
+			{
+				theSeatPos = SEAT_3;
+				bSeat3Taken = true;
+			}
+			else if (bSeat4Taken == false)
+			{
+				theSeatPos = SEAT_4;
+				bSeat4Taken = true;
+			}
+			else if (bSeat5Taken == false)
+			{
+				theSeatPos = SEAT_5;
+				bSeat5Taken = true;
+			}
+			else if (bSeat6Taken == false)
+			{
+				theSeatPos = SEAT_6;
+				bSeat6Taken = true;
+			}
+			else if (bSeat7Taken == false)
+			{
+				theSeatPos = SEAT_7;
+				bSeat7Taken = true;
+			}
+			else if (bSeat8Taken == false)
+			{
+				theSeatPos = SEAT_8;
+				bSeat8Taken = true;
+			}
+			else if (bSeat9Taken == false)
+			{
+				theSeatPos = SEAT_9;
+				bSeat9Taken = true;
+			}
+			seats[i] = theSeatPos;
+		}
+		for (int i = 0; i < MAX_CUSTOMERS; ++i)
+		{
+			const int away_distance = 20; // distance away from the previous group
+			CCustomer* theCustomer;
+			if (i == 0)
+				theCustomer = new CCustomer(entityMgr->GetNextID(), seats[i], true);
+			else
+				theCustomer = new CCustomer(entityMgr->GetNextID(), seats[i], false);
+			if (customer_list.size() > 0)
+			{
+				if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
+				{
+					Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
+					behind_pos.x += away_distance;
+					theCustomer->waypoints[0] = behind_pos;
+				}
+				else // nobody is queueing up
+					theCustomer->waypoints[0] = ENTRANCE;
+			}
+
+			entityMgr->RegisterEntity(theCustomer);
+			customer_list.push_back(theCustomer);
+		}
+	}
+}
+
+if (customer_list.size() > 8)
+waiter->need_help = true;
+else
+waiter->need_help = false;
 }
 
 void SceneAssignment1::GenerateGroups()

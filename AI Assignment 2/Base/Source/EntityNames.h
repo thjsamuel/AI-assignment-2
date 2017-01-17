@@ -6,9 +6,9 @@
 enum Entities
 {
 	ENT_WAITER = 0,
+	ENT_WAITER_OUTSIDE,
 	ENT_CHEF,
 	ENT_CLEANER,
-    ENT_WAITER_OUTSIDE,
 	//ENT_CUSTOMER, // since many customers will be generated, using entityMap's size to set every customer's id
 };
 
