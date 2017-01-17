@@ -68,9 +68,6 @@ private:
 	// Testing here, should be in waiter, cleaner and customer classes
 	Pathfinding* pathfinder;
 
-	// Testing here, should be in waiter classes
-	SeatArranger* seatArranger;
-
     // a list of customers
     std::vector<CCustomer*> customer_list;
 

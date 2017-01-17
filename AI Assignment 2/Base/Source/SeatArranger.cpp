@@ -16,7 +16,7 @@ SeatArranger::~SeatArranger()
 {
 }
 
-void SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt)
+bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt)
 {
 	if (bPosSet == false)
 	{
@@ -67,6 +67,8 @@ void SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 	{
 		bPosSet = false;
 		time = 0.0;
-		return;
+		return true;
 	}
+
+	return false;
 }

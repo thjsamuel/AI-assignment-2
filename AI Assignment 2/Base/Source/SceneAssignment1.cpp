@@ -148,8 +148,6 @@ void SceneAssignment1::Init()
 			}
 		}
 	}
-
-	seatArranger = new SeatArranger();
 }
 
 void SceneAssignment1::InitFurniturePosition()
@@ -602,8 +600,6 @@ void SceneAssignment1::Update(double dt)
 			}
 		}
 	}
-
-	seatArranger->ArrangeSeats(2, Vector3(70, 50, 0), dt);
 }
 
 void SceneAssignment1::AddSeatsToList()

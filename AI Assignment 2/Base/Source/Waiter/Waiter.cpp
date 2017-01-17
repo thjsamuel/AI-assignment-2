@@ -29,6 +29,7 @@ CWaiter::CWaiter(int ID)
     }
 
 	msgQueue = new std::queue<Telegram>(); // Messageboard of waiter
+	seatArranger = new SeatArranger();
 }
 
 CWaiter::~CWaiter()
@@ -97,6 +98,11 @@ CStateMachine<CWaiter>* CWaiter::GetFSM() const
 std::queue <Telegram>* CWaiter::GetMsgQueue() const
 {
 	return msgQueue;
+}
+
+SeatArranger* CWaiter::GetSeatArranger() const
+{
+	return seatArranger;
 }
 
 CWaiter::SIDE CWaiter::GetSide()

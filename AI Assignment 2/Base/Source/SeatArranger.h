@@ -11,7 +11,7 @@ public:
 	SeatArranger();
 	~SeatArranger();
 
-	void ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt);
+	bool ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt);
 
 private:
 	unsigned int m_numSeats;
