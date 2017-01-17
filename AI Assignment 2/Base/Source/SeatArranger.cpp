@@ -26,6 +26,9 @@ void SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 
 	switch (_numSeats)
 	{
+	case 2:
+		pauseTime = 0.45;
+		break;
 	case 3:
 		pauseTime = 0.35;
 		break;

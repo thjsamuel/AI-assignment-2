@@ -3,7 +3,9 @@
 #include <iostream>
 
 #include "../Messaging/Telegram.h"
+#include "../Messaging/MessageDispatcher.h"
 #include "../Messaging/MessageTypes.h"
+#include "../EntityNames.h"
 
 CState_Waiter_GlobalState::CState_Waiter_GlobalState()
 {
@@ -41,6 +43,18 @@ void CState_Waiter_GlobalState::Execute(CWaiter* waiter, double dt)
 
             waiter->DecreaseUnservedCount();
         }
+
+		if (waiter->GetID() == ENT_WAITER)
+		{
+			if (waiter->need_help)
+			{
+				CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+					waiter->GetID(),
+					ENT_WAITER_OUTSIDE,
+					MSG_HELP_INSIDE,
+					NO_EXTRA_INFO);
+			}
+		}
 
 	/*if (waiter->GetUnservedCount() > 0 && waiter->GetInToiletStatus() == false &&
 		!waiter->GetFSM()->IsInState(*CState_TakeOrder::GetInstance()))
