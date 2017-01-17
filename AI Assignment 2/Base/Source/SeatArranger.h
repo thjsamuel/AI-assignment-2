@@ -2,6 +2,7 @@
 #define SEAT_ARRANGER_H
 
 #include "Vector3.h"
+#include <vector>
 
 struct Furniture;
 
@@ -12,6 +13,7 @@ public:
 	~SeatArranger();
 
 	bool ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt);
+	std::vector<Vector3>* GetSeatPositions();
 
 private:
 	unsigned int m_numSeats;
@@ -20,6 +22,8 @@ private:
 	double pauseTime;
 	Vector3 placementPos;
 	bool bPosSet;
+
+	std::vector<Vector3>* seatPositions;
 };
 
 #endif // SEAT_ARRANGER_H
