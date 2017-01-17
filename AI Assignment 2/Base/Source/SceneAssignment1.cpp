@@ -19,7 +19,7 @@ SceneAssignment1::~SceneAssignment1()
 
 // Takes two diagonal vertice representing min and max and fill the area between min and max with waypoints, used by waiter to place tables randomly only in a certain area
 // The container you pass in is the waiter's waypoints to follow, so basically you just make him go random places
-void SetAreaWithWaypoint(const Vector3 min, const Vector3 max, map<const int, Vector3>& container, const int containerSize)
+void SetAreaWithWaypoint(const Vector3 min, const Vector3 max, std::map<const int, Vector3>& container, const int containerSize)
 {
     float xmin = min.x; int xmax = max.x; int ymin = min.y; int ymax = max.y; // get X and Y coordinate values of min and max points on the screen
     for (int i = 0; i < containerSize; ++i)
@@ -56,7 +56,7 @@ void SceneAssignment1::Init()
 	waiter = new CWaiter(ENT_WAITER);
     usher = new CWaiter(ENT_WAITER_OUTSIDE);
     /*The following is waiter arrange state code*/
-    SetAreaWithWaypoint(Vector3(0, 0, 0), Vector3(50, 100, 0), waiter->waypoints, storage_tables);
+    SetAreaWithWaypoint(Vector3(35, 30, 0), Vector3(100, 70, 0), waiter->waypoints, storage_tables);
     waiter->tables_left = storage_tables; // waiter knows how many tables there are
     usher->tables_left = storage_tables; // usher doesn't
     usher->waypoints[0] = USHERING;
@@ -335,6 +335,7 @@ void SceneAssignment1::GenerateCustomers()
 			FreeSeat(i, SEAT_9, bSeat9Taken);
 		}
 	}
+    
 
     if (!bSeat1Taken || !bSeat2Taken || !bSeat3Taken || !bSeat4Taken || !bSeat5Taken || !bSeat6Taken || !bSeat7Taken || !bSeat8Taken || !bSeat9Taken)
     {
@@ -380,10 +381,7 @@ void SceneAssignment1::GenerateCustomers()
         }
     }
 
-    if (customer_list.size() > 8)
-        waiter->need_help = true;
-    else
-        waiter->need_help = false;
+
 
 	//std::cout << "theCustomer's ID: " << theCustomer->GetID() << std::endl;
 	//std::cout << seatNum << std::endl;
@@ -516,6 +514,11 @@ void SceneAssignment1::Update(double dt)
         }
 	}
 
+	if (customer_list.size() > 8)
+		waiter->need_help = true;
+	else
+		waiter->need_help = false;
+
 	//customer->Update(dt);
 	waiter->Update(dt);
     usher->Update(dt);
@@ -546,8 +549,6 @@ void SceneAssignment1::Update(double dt)
 			}
 		}
 	}
-
-	SeatArranger::GetInstance()->ArrangeSeats(3, Vector3(70, 50, 0), dt);
 }
 
 void SceneAssignment1::AddSeatsToList()

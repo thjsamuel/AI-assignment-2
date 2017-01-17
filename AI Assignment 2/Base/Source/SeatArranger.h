@@ -1,27 +1,29 @@
 #ifndef SEAT_ARRANGER_H
 #define SEAT_ARRANGER_H
 
-#include "SingletonTemplate.h"
 #include "Vector3.h"
+#include <vector>
 
 struct Furniture;
 
-class SeatArranger : public Singleton <SeatArranger>
+class SeatArranger
 {
-	friend Singleton <SeatArranger>;
 public:
-	void ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt);
-
-private:
 	SeatArranger();
 	~SeatArranger();
 
+	bool ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt);
+	std::vector<Vector3>* GetSeatPositions();
+
+private:
 	unsigned int m_numSeats;
 	double timer;
 	double time;
 	double pauseTime;
 	Vector3 placementPos;
 	bool bPosSet;
+
+	std::vector<Vector3>* seatPositions;
 };
 
 #endif // SEAT_ARRANGER_H

@@ -26,10 +26,11 @@ void CState_Arrange::Enter(CWaiter* waiter, double dt)
 
 void CState_Arrange::Execute(CWaiter* waiter, double dt)
 {
-    // There are still tables left
+    //// There are still tables left
+	Vector3 des;
     if (waiter->chairs >= 0)
     {
-        Vector3 des = waiter->waypoints[waiter->chairs - 1]; // set destination to the random coordinates, i just realised if each waiter has their own tables_left, that's trouble since one storeroom. So need to make tables_left static later
+        des = waiter->waypoints[0]; // set destination to the random coordinates, i just realised if each waiter has their own tables_left, that's trouble since one storeroom. So need to make tables_left static later
         if (waiter->position != des)
         {
             Vector3 direction = (waiter->position - des).Normalized();
@@ -39,8 +40,18 @@ void CState_Arrange::Execute(CWaiter* waiter, double dt)
         else
             --waiter->chairs;
     }
-    if (waiter->chairs == 0)
-        waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
+    /*if (waiter->chairs == 0)
+        waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());*/
+
+	if (waiter->GetSeatArranger()->ArrangeSeats(waiter->GetNumCustomersInGrp()->front(), waiter->waypoints[0], dt))
+	{
+		waiter->GetNumCustomersInGrp()->pop();
+	}
+
+	if (waiter->GetNumCustomersInGrp()->size() <= 0)
+	{
+		waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
+	}
 }
 
 void CState_Arrange::Exit(CWaiter* waiter, double dt)

@@ -59,39 +59,6 @@ void CState_Waiter_Idle::Exit(CWaiter* waiter, double dt)
 
 bool CState_Waiter_Idle::OnMessage(CWaiter* waiter, const Telegram& telegram)
 {
-    switch (telegram.msg)
-    {
-    case MSG_2CUSTOMER:
-        if (waiter->tables_left <= 0)
-        {
-        }
-        //CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY, waiter->GetID(), ENT_WAITER_OUTSIDE, MSG_5CUSTOMERMAX, NO_EXTRA_INFO);
-        // Place or take away chairs from the tables since there are no new tables to put
-        else
-        {
-            waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
-            CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY, waiter->GetID(), ENT_WAITER, MSG_2CUSTOMER, NO_EXTRA_INFO);
-            return true; // So as to go to OnMessage() at CState_Arrange
-        }
-        break;
-    case MSG_5CUSTOMERMAX:
-    {
-        if (waiter->tables_left <= 0)
-        {
-        }
-        //CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY, waiter->GetID(), ENT_WAITER_OUTSIDE, MSG_5CUSTOMERMAX, NO_EXTRA_INFO);
-        // Place or take away chairs from the tables since there are no new tables to put
-        else
-        {
-            waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
-            return false; // So as to go to OnMessage() at CState_Arrange
-        }
-    }
-    break;
-    // Successfully handled the message
-    return true;
-    }
-    return false;
 	// think can move all to global state
 	//switch (telegram.msg)
 	//{
@@ -110,4 +77,6 @@ bool CState_Waiter_Idle::OnMessage(CWaiter* waiter, const Telegram& telegram)
 	//	// Successfully handled the message
 	//	return true;
 	//}
+
+	return false;
 }

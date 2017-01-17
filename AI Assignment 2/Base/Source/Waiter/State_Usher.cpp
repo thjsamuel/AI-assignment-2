@@ -4,7 +4,8 @@
 #include "../Messaging/MessageDispatcher.h"
 #include "../Messaging/MessageTypes.h"
 
-CState_Usher::CState_Usher() : send_group(true)
+CState_Usher::CState_Usher() 
+	: send_group(true)
 {
 }
 
@@ -30,6 +31,7 @@ void CState_Usher::Execute(CWaiter* waiter, double dt)
         CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY, waiter->GetID(), ENT_WAITER, MSG_2CUSTOMER, NO_EXTRA_INFO);
         send_group = false;
     }
+
     // Move to usher spot
     Vector3 usher_spot = waiter->waypoints[0];
     if (waiter->GetPosition() != usher_spot)

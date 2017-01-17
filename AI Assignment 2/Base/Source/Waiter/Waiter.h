@@ -10,6 +10,7 @@
 #include "State_Waiter_GoToilet.h"
 #include "State_Waiter_GlobalState.h"
 #include "../StateMachine.h"
+#include "../SeatArranger.h"
 
 #include <queue>
 
@@ -31,6 +32,8 @@ public:
 
 	CStateMachine<CWaiter>* GetFSM() const;
 	std::queue <Telegram>* GetMsgQueue() const;
+	std::queue <unsigned int>* GetNumCustomersInGrp() const;
+	SeatArranger* GetSeatArranger() const;
 	SIDE GetSide();
 
 	void SetInToiletStatus(bool bInToilet);
@@ -56,6 +59,9 @@ public:
 private:
 	CStateMachine<CWaiter>* m_pStateMachine;
 	std::queue <Telegram>* msgQueue;
+	std::queue <unsigned int>* numCustomersInGrp;
+
+	SeatArranger* seatArranger;
 
 	SIDE side;
 	bool bInToilet;

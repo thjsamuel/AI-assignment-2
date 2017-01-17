@@ -10,13 +10,14 @@ SeatArranger::SeatArranger()
 	, placementPos(0, 0, 0)
 	, bPosSet(false)
 {
+	seatPositions = new std::vector<Vector3>();
 }
 
 SeatArranger::~SeatArranger()
 {
 }
 
-void SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt)
+bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt)
 {
 	if (bPosSet == false)
 	{
@@ -26,6 +27,9 @@ void SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 
 	switch (_numSeats)
 	{
+	case 2:
+		pauseTime = 0.45;
+		break;
 	case 3:
 		pauseTime = 0.35;
 		break;
@@ -58,12 +62,20 @@ void SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 
 			Furniture* furniture = new Furniture(Vector3(placementPos.x, placementPos.y, 0), Vector3(3, 3, 0));
 			CEntityManager::GetInstance()->GetFurnitureList()->push_back(furniture);
+			seatPositions->push_back(furniture->position); // need to pop later
 		}
 	}
 	else
 	{
 		bPosSet = false;
 		time = 0.0;
-		return;
+		return true;
 	}
+
+	return false;
+}
+
+std::vector<Vector3>* SeatArranger::GetSeatPositions()
+{
+	return seatPositions;
 }

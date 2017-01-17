@@ -36,6 +36,7 @@ public:
 
 	bool CheckCollision(GameObject *go, GameObject *go2, float dt);
 	void GenerateCustomers();
+	void GenerateGroups();
 	void CloseSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 	void FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 
@@ -65,7 +66,7 @@ private:
 
 	// AStar
 	//CGrid* m_grid;
-	// test
+	// Testing here, should be in waiter, cleaner and customer classes
 	Pathfinding* pathfinder;
 
     // a list of customers
