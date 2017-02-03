@@ -17,6 +17,23 @@ int CBaseGameEntity::GetID()
 	return m_iID;
 }
 
+std::string CBaseGameEntity::GetIDInText()
+{
+	switch (m_iID)
+	{
+	case ENT_WAITER:
+		return "Waiter Inside";
+	case ENT_WAITER_OUTSIDE:
+		return "Waiter Outside";
+	case ENT_CHEF:
+		return "Chef";
+	case ENT_CLEANER:
+		return "Cleaner";
+	default:
+		return "Customer";
+	}
+}
+
 void CBaseGameEntity::SetID(int value)
 {
 	if (value < m_iNextValidID)

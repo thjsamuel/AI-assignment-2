@@ -17,6 +17,7 @@ public:
 	virtual bool HandleMessage(const Telegram& msg) = 0;
 
 	int GetID();
+	std::string GetIDInText();
 
 	virtual std::string GetStateInText() = 0;
 

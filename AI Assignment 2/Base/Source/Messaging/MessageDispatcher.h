@@ -33,6 +33,8 @@ private:
 	std::set<Telegram> priorityQ;
 
 	void Discharge(CBaseGameEntity* receiver, const Telegram& msg); // Send out the message to client
+
+	bool bSent;
 };
 
 #endif // MESSAGE_DISPATCHER_H

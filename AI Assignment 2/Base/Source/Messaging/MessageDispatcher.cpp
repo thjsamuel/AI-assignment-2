@@ -8,6 +8,7 @@ CMyTimer* _clock = CMyTimer::GetInstance();
 
 CMessageDispatcher::CMessageDispatcher()
 {
+	bSent = false;
 }
 
 CMessageDispatcher* CMessageDispatcher::GetInstance()
@@ -37,6 +38,25 @@ void CMessageDispatcher::DispatchMessage_(double delay,
 
 	if (delay <= 0.0)
 	{
+		if (telegram.GetSenderIDInText() != "Customer" || bSent == false)
+		{
+			std::cout << "From: " << telegram.GetSenderIDInText() << " To: " << receiver->GetIDInText() << " " << telegram.GetMsgInText() << std::endl;
+			if (telegram.GetSenderIDInText() == "Customer")
+				bSent = true;
+			//return;
+		}
+
+		/*if (telegram.GetSenderIDInText() != "Customer")
+		{
+			std::cout << "From: " << telegram.GetSenderIDInText() << "  To: " << receiver->GetIDInText() << " " << telegram.GetMsgInText() << std::endl;
+		}
+		else if (telegram.GetSenderIDInText() == "Customer" && bSent == false)
+		{
+			std::cout << "From: " << telegram.GetSenderIDInText() << "  To: " << receiver->GetIDInText() << " " << telegram.GetMsgInText() << std::endl;
+
+			bSent = true;
+		}*/
+
 		Discharge(receiver, telegram);
 	}
 	else
@@ -75,7 +95,11 @@ void CMessageDispatcher::DispatchDelayedMessages()
 
 void CMessageDispatcher::Discharge(CBaseGameEntity* receiver, const Telegram& msg)
 {
-	if (!receiver->HandleMessage(msg))
+	if (receiver->HandleMessage(msg))
+	{
+		//std::cout << "From: " << msg.GetSenderIDInText() << "  To: " << receiver->GetIDInText() << " " << msg.GetMsgInText() << std::endl;
+	}
+	else
 	{
 		// Message could not be handled
 	}

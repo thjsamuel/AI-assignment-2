@@ -1,7 +1,10 @@
 #ifndef TELEGRAM_H
 #define TELEGRAM_H
 
+#include <iostream>
 #include <math.h>
+#include "../EntityNames.h"
+#include "MessageTypes.h"
 
 struct Telegram
 {
@@ -24,6 +27,53 @@ struct Telegram
 		extraInfo(_extraInfo)
     {
     }
+
+	std::string GetSenderIDInText() const
+	{
+		switch (senderID)
+		{
+		case ENT_WAITER:
+			return "Waiter Inside";
+		case ENT_WAITER_OUTSIDE:
+			return "Waiter Outside";
+		case ENT_CHEF:
+			return "Chef";
+		case ENT_CLEANER:
+			return "Cleaner";
+		default:
+			return "Customer";
+		}
+	}
+
+	std::string GetMsgInText() const
+	{
+		switch (msg)
+		{
+		case MSG_ORDER_FOOD_1:
+			return "I'd would like to order";
+		case MSG_1CUSTOMER:
+			return "Msg: There is 1 customer";
+		case MSG_2CUSTOMER:
+			return "Msg: There are 2 customers";
+		case MSG_3CUSTOMER:
+			return"There are 3 customers";
+		case MSG_4CUSTOMER:
+			return"There are 4 customers";
+		case MSG_5CUSTOMERMAX:
+			return"There are 5 customers";
+		case MSG_ORDER_TAKEN:
+			return"Your order has been taken";
+		case MSG_COLLECT_ORDER:
+			return"Food is ready! Come collect";
+		case MSG_ORDER_ARRIVED:
+			return"Msg: Here is your food";
+			//case MSG_CLEAN:
+			//return"I'd would like to order" << std::endl;
+		case MSG_HELP_INSIDE:
+			return"Msg: Help me, there are too many customers";
+		}
+	}
+
 };
 
 const double smallestDelay = 0.25;
