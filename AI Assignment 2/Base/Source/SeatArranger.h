@@ -19,7 +19,9 @@ private:
 	unsigned int m_numSeats;
 	double timer;
 	double time;
+	double value;
 	double pauseTime;
+	bool pauseTimeSet;
 	Vector3 placementPos;
 	bool bPosSet;
 
