@@ -29,7 +29,10 @@ Samuel Task list:
 Customer queue up, come as a group, similar to flocking but try to do workable one first
 
 Rayner Task list:
-Waiter place chairs according to how many customers there are, hardcode chairs positions relative to the tables
+- waiter and cleaner become cashier
+- fix astar pathfinding
+- add seat from already arranged table
+- pass seat position to customers
 
 Bug list:
 If leader doesn't go take a seat, waiter does not serve the non-leaders

@@ -387,7 +387,26 @@ void SceneAssignment1::GenerateCustomers()
             {
                 theSeatPos = SEAT_9;
             }
-            CreateFlock(theSeatPos);
+
+            //CreateFlock(theSeatPos);
+
+			// Previous way
+			const int away_distance = 20;
+			CCustomer* theCustomer = new CCustomer(entityMgr->GetNextID(), theSeatPos, true);
+			if (customer_list.size() > 0)
+			{
+				if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
+				{
+					Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
+					behind_pos.x += away_distance;
+					theCustomer->waypoints[0] = behind_pos;
+				}
+				else // nobody is queueing up
+					theCustomer->waypoints[0] = ENTRANCE;
+			}
+
+			entityMgr->RegisterEntity(theCustomer);
+			customer_list.push_back(theCustomer);
         }
     }
 

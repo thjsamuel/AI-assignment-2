@@ -43,7 +43,7 @@ void CState_Arrange::Execute(CWaiter* waiter, double dt)
     /*if (waiter->chairs == 0)
         waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());*/
 
-	if (waiter->GetSeatArranger()->ArrangeSeats(waiter->GetNumCustomersInGrp()->front(), waiter->waypoints[0], dt))
+	if (waiter->GetSeatArranger()->ArrangeSeats(waiter->GetNumCustomersInGrp()->front(), Vector3(70, 50), dt))
 	{
 		waiter->GetNumCustomersInGrp()->pop();
 	}
