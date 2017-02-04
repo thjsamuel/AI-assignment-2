@@ -40,6 +40,7 @@ void CMessageDispatcher::DispatchMessage_(double delay,
 	{
 		if (telegram.GetSenderIDInText() != "Customer" || bSent == false)
 		{
+            // Note: If it crashes here, it is probably due to the GetSenderInTextFunctions not accounting for a new ENT_TYPE
 			std::cout << "From: " << telegram.GetSenderIDInText() << " To: " << receiver->GetIDInText() << " " << telegram.GetMsgInText() << std::endl;
 			if (telegram.GetSenderIDInText() == "Customer")
 				bSent = true;

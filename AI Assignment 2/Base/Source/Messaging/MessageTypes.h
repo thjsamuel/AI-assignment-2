@@ -8,8 +8,10 @@ enum Message_Type
 	MSG_ORDER_TAKEN,
 	MSG_COLLECT_ORDER,
 	MSG_ORDER_ARRIVED,
-	MSG_CLEAN, // slowest
+	MSG_CLEAN,
     MSG_HELP_INSIDE,
+    MSG_HELP_USHER,
+    MSG_LEAVE,
     MSG_MAX,
 };
 

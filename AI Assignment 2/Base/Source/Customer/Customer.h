@@ -17,7 +17,7 @@ struct Telegram;
 class CCustomer : public CBaseGameEntity
 {
 public:
-	CCustomer(int ID, Vector3 seatPos, bool bIsLeader = false);
+	CCustomer(int ID, Vector3 seatPos, bool bIsLeader = false, Vector3 pos = Vector3(145, 10, 0));
 	~CCustomer();
 
 	virtual void Update(double dt);
@@ -30,6 +30,8 @@ public:
 	bool GetLeaderStatus() const;
     Vector3 centre_of_mass; // This are the positions where the flock members are supposed to go to achieve cohesion, aka their destination
     Vector3 m_repelVec; // The direction and distance vector to repel away from another flock member
+    Group group_num; // Flock this entity belongs to
+    float speed;
 private:
 	CStateMachine<CCustomer>* m_pStateMachine;
 	bool bIsLeader;

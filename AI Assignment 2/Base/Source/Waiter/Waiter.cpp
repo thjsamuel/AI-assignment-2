@@ -1,4 +1,5 @@
 #include "Waiter.h"
+//#include "../Customer/Customer.h"
 #include "../Messaging/MessageTypes.h"
 
 CWaiter::CWaiter(int ID)
@@ -11,6 +12,7 @@ CWaiter::CWaiter(int ID)
     , tables_left(0)
     , chairs(0)
     , need_help(false)
+    , current_serving(-1)
 {
     // Depending on waiter's ID provided by SceneAssignment1, initialize waiter's Finite State Machine to be inside restaurant or outside restaurant
 	m_pStateMachine = new CStateMachine<CWaiter>(this);

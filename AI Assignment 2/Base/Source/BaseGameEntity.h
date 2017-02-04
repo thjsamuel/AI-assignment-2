@@ -54,11 +54,11 @@ public:
 //protected:
 	Vector3 position;
 
+    void SetID(int value);
+
 private:
 	int m_iID;
 	static int m_iNextValidID;
-
-	void SetID(int value);
 
 	bool bIdle;
 

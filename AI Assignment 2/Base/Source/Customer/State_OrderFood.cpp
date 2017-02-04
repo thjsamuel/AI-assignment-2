@@ -25,11 +25,13 @@ void CState_OrderFood::Execute(CCustomer* customer, double dt)
 {
 	//if (customer->GetLeaderStatus())
 	//{
+    int* pass = new int();
+    *pass = customer->GetID();
 		CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
 			customer->GetID(),
 			ENT_WAITER,
 			MSG_ORDER_FOOD_1,
-			NO_EXTRA_INFO);
+            pass);
 	//}
 }
 

@@ -12,6 +12,18 @@ enum Entities
 	//ENT_CUSTOMER, // since many customers will be generated, using entityMap's size to set every customer's id
 };
 
+// Indexing for every flock of customers in the scene
+enum Group
+{
+    GROUP_1,
+    GROUP_2,
+    GROUP_3,
+    GROUP_4,
+    GROUP_5,
+    GROUP_6,
+    GROUP_MAX,
+};
+
 std::string GetEntityNameFromID(int ID);
 
 

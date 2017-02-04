@@ -71,6 +71,8 @@ struct Telegram
 			//return"I'd would like to order" << std::endl;
 		case MSG_HELP_INSIDE:
 			return"Msg: Help me, there are too many customers";
+        case MSG_HELP_USHER:
+            return"Msg: Thanks, you can go back to ushering now";
 		}
 	}
 

@@ -1,17 +1,19 @@
 #include "Customer.h"
 #include "../Messaging/Telegram.h"
 
-CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader)
+CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader, Vector3 pos)
 : CBaseGameEntity(ID)
 , bIsLeader(bIsLeader)
+, group_num(Group::GROUP_MAX)
+, speed(25)
 {
 	m_pStateMachine = new CStateMachine<CCustomer>(this);
-    if (bIsLeader == false)
+    //if (bIsLeader == false)
 	    m_pStateMachine->SetCurrentState(CState_Flock::GetInstance());
-    else
-        m_pStateMachine->SetCurrentState(CState_QueueUp::GetInstance());
+    //else
+        //m_pStateMachine->SetCurrentState(CState_QueueUp::GetInstance());
 	SetSeatPosition(seatPos);
-	SetPosition(145, 10, 0);
+    position = pos;
 }
 
 CCustomer::~CCustomer()

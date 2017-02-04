@@ -2,6 +2,7 @@
 
 #include "../Messaging/Telegram.h"
 #include "../Messaging/MessageTypes.h"
+#include "../Messaging/MessageDispatcher.h"
 
 #include "../EntityManager.h"
 #include "../Locations.h"
@@ -26,6 +27,13 @@ void CState_Leave::Enter(CCustomer* customer, double dt)
 
 void CState_Leave::Execute(CCustomer* customer, double dt)
 {
+    int* pass = new int();
+    *pass = customer->GetID();
+    CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+        customer->GetID(),
+        ENT_WAITER,
+        MSG_LEAVE,
+        pass);
 	/*static Vector3 targetPos = BEFORE_ENTRANCE;
 	static bool bAtBeforeEntrance = false;
 	static bool bAtEntrance = false;*/

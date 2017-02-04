@@ -60,11 +60,10 @@ bool CState_Usher::OnMessage(CWaiter* waiter, const Telegram& telegram)
     switch (telegram.msg)
     {
     	case MSG_HELP_INSIDE:
-    	{
+        {
             waiter->GetFSM()->ChangeState(CState_Serve::GetInstance());
     		break;
     	}
-
     	// Successfully handled the message
     	return true;
     }
