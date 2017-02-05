@@ -14,6 +14,8 @@ public:
 	~SeatArranger();
 
 	bool ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt);
+	bool AddSeat(unsigned int _tableID, unsigned int _numSeats);
+	bool RemoveSeats(unsigned int _tableID);
 
 private:
 	CTable* table;

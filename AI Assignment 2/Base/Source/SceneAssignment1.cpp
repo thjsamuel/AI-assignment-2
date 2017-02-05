@@ -769,15 +769,24 @@ void SceneAssignment1::RenderRestaurant()
 	{
 		CTable* table = (CTable*)*it;
 
-		for (int i = 0; i < table->GetSeatList()->size(); i++)
+		if (table->GetActive())
 		{
-			Vector3 seatPos = table->GetSeatList()->at(i);
-
 			modelStack.PushMatrix();
-			modelStack.Translate(seatPos.x, seatPos.y, 0);
-			modelStack.Scale(3, 3, 1);
-			RenderMesh(meshList[GEO_WALL], false);
+			modelStack.Translate(table->GetPos().x, table->GetPos().y, 0);
+			modelStack.Scale(20, 20, 1);
+			RenderMesh(meshList[GEO_TABLE], false);
 			modelStack.PopMatrix();
+
+			for (int i = 0; i < table->GetSeatList()->size(); i++)
+			{
+				Vector3 seatPos = table->GetSeatList()->at(i);
+
+				modelStack.PushMatrix();
+				modelStack.Translate(seatPos.x, seatPos.y, 0);
+				modelStack.Scale(3, 3, 1);
+				RenderMesh(meshList[GEO_WALL], false);
+				modelStack.PopMatrix();
+			}
 		}
 	}
 

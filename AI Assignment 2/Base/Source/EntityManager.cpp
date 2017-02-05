@@ -19,10 +19,11 @@ CEntityManager* CEntityManager::GetInstance()
 
 void CEntityManager::Exit()
 {
-	for (int i = 0; i < m_EntityMap.size(); i++)
+	// Causes crashing sometimes
+	/*for (int i = 0; i < m_EntityMap.size(); i++)
 	{
 		m_EntityMap.erase(m_EntityMap.find(m_EntityMap[i]->GetID()));
-	}
+	}*/
 
 	for (int i = 0; i < furnitureList.size(); i++)
 	{

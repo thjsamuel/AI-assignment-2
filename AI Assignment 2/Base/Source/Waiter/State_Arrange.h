@@ -18,6 +18,12 @@ public:
 
 private:
     CState_Arrange();
+
+	void AddSeats(CWaiter* waiter, double dt);
+	void RemoveSeats(CWaiter* waiter, double dt);
+
+	bool bEmptyTable;
+	bool bAtTable;
 };
 
 #endif // STATE_ARRANGE_H

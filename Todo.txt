@@ -32,6 +32,7 @@ Rayner Task list:
 - waiter and cleaner become cashier
 - fix astar pathfinding
 - add seat from already arranged table
+- remove table when no groups comes in 10 secs
 - pass seat position to customers
 
 Bug list:

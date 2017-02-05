@@ -63,6 +63,7 @@ public:
 		GEO_CLEANER,
 		GEO_CLEANER_INVERT,
 		GEO_SEAT,
+		GEO_TABLE,
 
 		NUM_GEOMETRY,
 	};

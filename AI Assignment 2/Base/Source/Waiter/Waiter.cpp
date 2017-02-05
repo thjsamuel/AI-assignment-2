@@ -5,6 +5,9 @@
 CWaiter::CWaiter(int ID)
 	: CBaseGameEntity(ID)
 	, bInToilet(false)
+	, bAddSeats(false)
+	, bRemoveSeats(false)
+	, tableID(0)
 	, unservedCount(0)
 	, bServedLate(false)
 	, lateOrderCount(0)
@@ -126,6 +129,36 @@ void CWaiter::SetInToiletStatus(bool bInToilet)
 bool CWaiter::GetInToiletStatus()
 {
 	return bInToilet;
+}
+
+void CWaiter::SetAddSeatStatus(bool bAdd)
+{
+	this->bAddSeats = bAdd;
+}
+
+bool CWaiter::GetAddSeatStatus()
+{
+	return bAddSeats;
+}
+
+void CWaiter::SetRemoveSeatStatus(bool bRemove)
+{
+	this->bRemoveSeats = bRemove;
+}
+
+bool CWaiter::GetRemoveSeatStatus()
+{
+	return bRemoveSeats;
+}
+
+void CWaiter::SetTableID(unsigned int tableID)
+{
+	this->tableID = tableID;
+}
+
+unsigned int CWaiter::GetTableID()
+{
+	return tableID;
 }
 
 unsigned int CWaiter::GetUnservedCount()

@@ -40,6 +40,15 @@ public:
 	void SetInToiletStatus(bool bInToilet);
 	bool GetInToiletStatus();
 
+	void SetAddSeatStatus(bool bAdd);
+	bool GetAddSeatStatus();
+
+	void SetRemoveSeatStatus(bool bRemove);
+	bool GetRemoveSeatStatus();
+
+	void SetTableID(unsigned int tableID);
+	unsigned int GetTableID();
+
 	unsigned int GetUnservedCount();
 	void IncreaseUnservedCount();
 	void DecreaseUnservedCount();
@@ -58,12 +67,16 @@ public:
     int chairs;
     bool need_help; // if too many customers need to be served, waiter is overwhelmed and asks for help
     int current_serving; // Which customer waiter is currently serving
+
 private:
 	CStateMachine<CWaiter>* m_pStateMachine;
 	std::queue <Telegram>* msgQueue;
 	std::queue <unsigned int>* numCustomersInGrp;
 
 	SeatArranger* seatArranger;
+	bool bAddSeats;
+	bool bRemoveSeats;
+	unsigned int tableID;
 
 	SIDE side;
 	bool bInToilet;

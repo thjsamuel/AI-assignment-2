@@ -21,9 +21,8 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 {
 	if (bPosSet == false)
 	{
-		table = new CTable();
-
 		placementPos = _position;
+		table = new CTable(Vector3(placementPos.x, placementPos.y * 1.13, 0));
 		bPosSet = true;
 	}
 
@@ -32,7 +31,7 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 		switch (_numSeats)
 		{
 		case 2:
-			pauseTime = 0.45;
+			pauseTime = 0.6; // 0.45
 			break;
 
 		case 3:
@@ -59,11 +58,12 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 	{
 		// Framerate is inconsistent = seat positions are inconsistent
 		double tempDT = 0.01;
-		
 		value += 5 * tempDT;
 
-		placementPos.x += cos(value) * 0.5;
-		placementPos.y += sin(value) * 0.5;
+		float distApart = 0.35f; // 0.5f;
+		placementPos.x += cos(value) * distApart;
+		placementPos.y += sin(value) * distApart;
+
 		time += tempDT;
 
 		if (time < 1.3)
@@ -90,4 +90,46 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 	}
 
 	return false;
+}
+
+bool SeatArranger::AddSeat(unsigned int _tableID, unsigned int _numSeats)
+{
+	/* How adding seats to already arranged table works:
+	1. When 1st group comes in, waiter gets table from store room and sets up table and seats in the dining area
+	2. When this group finishes eating and no more groups come within 10 secs, waiter will put the table back in the store room
+	3. If another group comes within 10 secs, waiter will add more seats until everyone in that group can be seated
+	*/
+
+	std::cout << "running AddSeat()" << std::endl;
+
+	return true; // false
+}
+
+bool SeatArranger::RemoveSeats(unsigned int _tableID)
+{
+	CTable* theTable;
+
+	for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
+	{
+		table = CEntityManager::GetInstance()->GetTableList()->at(i);
+
+		if (table->GetID() == _tableID)
+		{
+			theTable = table;
+			break;
+		}
+	}
+
+	// Run timer etc...
+	for (int i = 0; theTable->GetNumSeats(); i++)
+	{
+		theTable->GetSeatList()->pop_back();
+	}
+
+	theTable->SetActive(false);
+
+	// Remove table from CEntityManager::GetInstance()->GetTableList()
+	// ...
+
+	return true; // false
 }

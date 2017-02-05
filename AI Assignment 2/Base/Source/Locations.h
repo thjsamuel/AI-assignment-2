@@ -12,6 +12,9 @@
 #define STOVE				Vector3(5, 85)
 #define FRIDGE				Vector3(25, 89)
 
+// Where the tables and seats are stored
+#define STORE_ROOM			Vector3(67, 86)
+
 // Where the food is collected by waiter inside
 #define COUNTER				Vector3(40, 70)
 

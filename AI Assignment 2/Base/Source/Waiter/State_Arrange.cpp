@@ -8,7 +8,7 @@
 #include "../Messaging/MessageTypes.h"
 #include "../EntityNames.h"
 
-CState_Arrange::CState_Arrange()
+CState_Arrange::CState_Arrange() : bAtTable(false), bEmptyTable(false)
 {
 }
 
@@ -43,14 +43,137 @@ void CState_Arrange::Execute(CWaiter* waiter, double dt)
     /*if (waiter->chairs == 0)
         waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());*/
 
-	if (waiter->GetSeatArranger()->ArrangeSeats(waiter->GetNumCustomersInGrp()->front(), Vector3(70, 50), dt))
+	for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
 	{
-		waiter->GetNumCustomersInGrp()->pop();
+		CTable* table = CEntityManager::GetInstance()->GetTableList()->at(i);
+		if (table->GetActive() && !table->GetUsingState())
+		{
+			bEmptyTable = true;
+			break;
+		}
+		else if (i == CEntityManager::GetInstance()->GetTableList()->size() - 1)
+		{
+			bEmptyTable = false;
+		}
 	}
 
+	if (!waiter->GetRemoveSeatStatus() && !waiter->GetAddSeatStatus() && bEmptyTable)
+	{
+		if (waiter->GetSeatArranger()->ArrangeSeats(waiter->GetNumCustomersInGrp()->front(), des, dt))
+		{
+			waiter->GetNumCustomersInGrp()->pop(); // must also pop when this group of customers leave?
+		}
+	}
+
+	// can only either be add or remove at a time
+	else if (waiter->GetAddSeatStatus())
+	{
+		AddSeats(waiter, dt);
+	}
+
+	else if (waiter->GetRemoveSeatStatus())
+	{
+		RemoveSeats(waiter, dt);
+	}
+
+	// If there are no more groups, change to idle state
 	if (waiter->GetNumCustomersInGrp()->size() <= 0)
 	{
 		waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
+	}
+}
+
+void CState_Arrange::AddSeats(CWaiter* waiter, double dt)
+{
+	CTable* theTable;
+
+	// Find table position
+	for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
+	{
+		CTable* table = CEntityManager::GetInstance()->GetTableList()->at(i);
+
+		if (table->GetID() == waiter->GetTableID())
+		{
+			theTable = table;
+			break;
+		}
+	}
+
+	// Move to the table
+	if ((theTable->GetPos() - waiter->position).LengthSquared() > 4.f && !bAtTable)
+	{
+		Vector3 dir = (theTable->GetPos() - waiter->position).Normalized();
+		waiter->position += dir * (float)(25 * dt);
+	}
+	else
+	{
+		bAtTable = true;
+
+		// Remove the table and seats
+		unsigned int numSeats = waiter->GetNumCustomersInGrp()->front() - theTable->GetNumSeats();
+		if (waiter->GetSeatArranger()->AddSeat(theTable->GetID(), 1)) //numSeats
+		{
+			waiter->GetNumCustomersInGrp()->pop();
+
+			// Put table and seats in the store room
+			if ((STORE_ROOM - waiter->position).LengthSquared() > 4.f)
+			{
+				Vector3 dir = (STORE_ROOM - waiter->position).Normalized();
+				waiter->position += dir * (float)(25 * dt);
+			}
+			else
+			{
+				bAtTable = false;
+				waiter->SetAddSeatStatus(false);
+				waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
+			}
+		}
+	}
+}
+
+void CState_Arrange::RemoveSeats(CWaiter* waiter, double dt)
+{
+	Vector3 tablePos;
+	CTable* table;
+
+	// Find table position
+	for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
+	{
+		table = CEntityManager::GetInstance()->GetTableList()->at(i);
+
+		if (table->GetID() == waiter->GetTableID())
+		{
+			tablePos = table->GetPos();
+			break;
+		}
+	}
+
+	// Move to the table
+	if ((tablePos - waiter->position).LengthSquared() > 4.f && !bAtTable)
+	{
+		Vector3 dir = (tablePos - waiter->position).Normalized();
+		waiter->position += dir * (float)(25 * dt);
+	}
+	else
+	{
+		bAtTable = true;
+
+		// Remove the table and seats
+		if (waiter->GetSeatArranger()->RemoveSeats(table->GetID()))
+		{
+			// Put table and seats in the store room
+			if ((STORE_ROOM - waiter->position).LengthSquared() > 4.f)
+			{
+				Vector3 dir = (STORE_ROOM - waiter->position).Normalized();
+				waiter->position += dir * (float)(25 * dt);
+			}
+			else
+			{
+				bAtTable = false;
+				waiter->SetRemoveSeatStatus(false);
+				waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
+			}
+		}
 	}
 }
 

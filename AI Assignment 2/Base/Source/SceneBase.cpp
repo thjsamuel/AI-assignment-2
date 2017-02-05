@@ -144,6 +144,9 @@ void SceneBase::Init()
 	meshList[GEO_SEAT] = MeshBuilder::GenerateQuad("seat", Color(1, 1, 1), 1.f);
 	meshList[GEO_SEAT]->textureID = LoadTGA("Image//seat.tga");
 
+	meshList[GEO_TABLE] = MeshBuilder::GenerateQuad("table", Color(1, 1, 1), 1.f);
+	meshList[GEO_TABLE]->textureID = LoadTGA("Image//table.tga");
+
 	bLightEnabled = false;
 }
 
