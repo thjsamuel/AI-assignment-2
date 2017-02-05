@@ -168,5 +168,48 @@ bool CState_Waiter_GlobalState::OnMessage(CWaiter* waiter, const Telegram& teleg
 		}
 	}
 
+	else if (waiter->GetID() == ENT_WAITER_OUTSIDE)
+	{
+		switch (telegram.msg)
+		{
+		case MSG_2CUSTOMER:
+		{
+			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				waiter->GetID(),
+				ENT_WAITER,
+				MSG_2CUSTOMER,
+				NO_EXTRA_INFO);
+			break;
+		}
+		case MSG_3CUSTOMER:
+		{
+			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				waiter->GetID(),
+				ENT_WAITER,
+				MSG_3CUSTOMER,
+				NO_EXTRA_INFO);
+			break;
+		}
+		case MSG_4CUSTOMER:
+		{
+			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				waiter->GetID(),
+				ENT_WAITER,
+				MSG_4CUSTOMER,
+				NO_EXTRA_INFO);
+			break;
+		}
+		case MSG_5CUSTOMERMAX:
+		{
+			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				waiter->GetID(),
+				ENT_WAITER,
+				MSG_5CUSTOMERMAX,
+				NO_EXTRA_INFO);
+			break;
+		}
+		}
+	}
+
 	return false;
 }
