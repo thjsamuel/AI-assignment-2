@@ -36,7 +36,7 @@ public:
 
 	bool CheckCollision(GameObject *go, GameObject *go2, float dt);
 	void GenerateCustomers();
-	void GenerateGroups();
+	void AssignSeatsToGroup();
 	void CloseSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 	void FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 
@@ -47,8 +47,7 @@ public:
     // Calculates distance of entity from the rest of the flock, if close enough to be seperated, pass a direction vector 180 degrees opposite to the entity
     void calculateRepelVec(std::vector<CCustomer*> list, CCustomer& entity, float dt);
     void CreateFlock(Vector3 seat_pos); // Creates a leader and his flock, seat_pos is for the leader to sit, which is temporary since they are supposed to sit together in one table
-    // Container for all the different flocks of customers
-    std::vector<std::vector<CCustomer*>> flock_list;
+    
 protected:
 	//Physics
 	std::vector<GameObject *> m_goList;
@@ -57,6 +56,7 @@ protected:
 	float m_worldHeight;
 	int m_objectCount;
     int storage_tables; // Number of tables in storage room
+
 private:
 	CEntityManager* entityMgr;
 
@@ -76,6 +76,9 @@ private:
 
     // a list of customers
     std::vector<CCustomer*> customer_list;
+
+	// Container for all the different flocks of customers
+	std::vector<std::vector<CCustomer*>> flock_list;
 
 	// List of nodes
 	std::vector<CNode*> gridList;

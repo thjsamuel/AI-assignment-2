@@ -73,13 +73,13 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 				timer = time;
 
 				table->AddSeat(placementPos);
-				
-				std::cout << "table id: " << table->GetID() << std::endl;
-				CEntityManager::GetInstance()->GetTableList()->push_back(table); // grouped customers will get their seat positions from their assigned table's seatlist
 			}
 		}
 		else
 		{
+			std::cout << "table id: " << table->GetID() << std::endl;
+			CEntityManager::GetInstance()->GetTableList()->push_back(table); // grouped customers will get their seat positions from their assigned table's seatlist
+
 			bPosSet = false;
 			value = 0.0;
 			time = 0.0;

@@ -1,9 +1,11 @@
 #include "Customer.h"
 #include "../Messaging/Telegram.h"
 
-CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader, Vector3 pos)
+CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader, Vector3 pos, bool bInGroup)
 : CBaseGameEntity(ID)
 , bIsLeader(bIsLeader)
+, bInGroup(bInGroup)
+, bHasSeat(false)
 , group_num(Group::GROUP_MAX)
 , speed(25)
 {
@@ -14,12 +16,20 @@ CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader, Vector3 pos)
         //m_pStateMachine->SetCurrentState(CState_QueueUp::GetInstance());
 	SetSeatPosition(seatPos);
     position = pos;
+
+	groupMembers = new std::vector<CCustomer*>();
 }
 
 CCustomer::~CCustomer()
 {
 	if (m_pStateMachine)
 		delete m_pStateMachine;
+
+	for (std::vector<CCustomer*>::iterator it = groupMembers->begin(); it != groupMembers->end(); it++)
+	{
+		delete *it;
+		groupMembers->erase(it);
+	}
 }
 
 void CCustomer::Update(double dt)
@@ -65,4 +75,34 @@ void CCustomer::SetLeaderStatus(bool bIsLeader)
 bool CCustomer::GetLeaderStatus() const
 {
 	return bIsLeader;
+}
+
+void CCustomer::SetInGroupStatus(bool bInGroup)
+{
+	this->bInGroup = bInGroup;
+}
+
+bool CCustomer::GetInGroupStatus()
+{
+	return bInGroup;
+}
+
+void CCustomer::SetHasSeatStatus(bool bHasSeat)
+{
+	this->bHasSeat = bHasSeat;
+}
+
+bool CCustomer::GetHasSeatStatus()
+{
+	return bHasSeat;
+}
+
+void CCustomer::AddMember(CCustomer* customer)
+{
+	groupMembers->push_back(customer);
+}
+
+std::vector<CCustomer*>* CCustomer::GetMembers()
+{
+	return groupMembers;
 }
