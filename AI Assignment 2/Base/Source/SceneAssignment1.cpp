@@ -47,6 +47,11 @@ void SceneAssignment1::Init()
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
     flock_to_join = Group::GROUP_1;
+    for (int i = 0; i < Group::GROUP_MAX; ++i)
+    {
+        flock_list.push_back(*new std::vector<CCustomer*>());
+    }
+
 	// AStar
 	//m_grid = new CGrid();
 	//m_grid->CreateGrid();
@@ -285,11 +290,12 @@ void SceneAssignment1::CreateFlock(Vector3 seat_pos)
 
         entityMgr->RegisterEntity(theCustomer);
         customer_list.push_back(theCustomer);
+        flock_list.at(flock_to_join).push_back(theCustomer);
     }
     
     flock_to_join++; // the max number of customers in a flock has been reached, the next time this function is called, the new customers will join the next flock
     if (flock_to_join > Group::GROUP_MAX)
-        flock_to_join = 0;
+        flock_to_join = 0; // Sorta loops but doesnt check back to see if the previous groups has left, so i am going to make the customers stops coming if flock to join is MAX
 }
 
 void SceneAssignment1::GenerateCustomers()
@@ -388,7 +394,8 @@ void SceneAssignment1::GenerateCustomers()
                 theSeatPos = SEAT_9;
             }
 
-            //CreateFlock(theSeatPos);
+            if (flock_to_join < Group::GROUP_MAX)
+                CreateFlock(theSeatPos);
 
 			// Previous way
 			const int away_distance = 20;
@@ -409,7 +416,6 @@ void SceneAssignment1::GenerateCustomers()
 			customer_list.push_back(theCustomer);
         }
     }
-
 
 
 	//std::cout << "theCustomer's ID: " << theCustomer->GetID() << std::endl;
