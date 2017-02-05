@@ -91,7 +91,6 @@ void CState_Flock::Execute(CCustomer* customer, double dt)
         customer->position -= direction * (float)(25 * dt); // move towards destination
     }
     Seperate(customer, dt);
-    // This code basically does the same thing as  your above one
     
     if (customer->position == des/* && customer->centre_of_mass != Vector3(0, 0, 0)*//* && customer->GetLeaderStatus() == false*/)
     {

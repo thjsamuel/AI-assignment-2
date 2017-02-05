@@ -47,10 +47,10 @@ void SceneAssignment1::Init()
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
     flock_to_join = Group::GROUP_1;
-    for (int i = 0; i < Group::GROUP_MAX; ++i)
+    /*for (int i = 0; i < Group::GROUP_MAX; ++i)
     {
         flock_list.push_back(*new std::vector<CCustomer*>());
-    }
+    }*/
 
 	// AStar
 	//m_grid = new CGrid();
@@ -261,19 +261,26 @@ void SceneAssignment1::FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken)
 
 void SceneAssignment1::CreateFlock(Vector3 seat_pos)
 {
-    const int MAX_CUSTOMERS = 3;  // max in a group, can randomise later
-    Vector3 start_pos(145, 10, 0);
+    const int MAX_CUSTOMERS = 2;  // max in a group
+	Vector3 start_pos(145, 10, 0);
+	CCustomer* theLeader;
+
     for (int i = 0; i < MAX_CUSTOMERS; ++i)
     {
         const int away_distance = 20; // distance away from the previous group
         CCustomer* theCustomer;
-        if (i == 0)
-            theCustomer = new CCustomer(entityMgr->GetNextID(), seat_pos, true, start_pos);
+
+		if (i == 0)
+		{
+			theCustomer = new CCustomer(entityMgr->GetNextID(), 0, true, start_pos, true);
+			theLeader = theCustomer;
+		}
         else
         {
             start_pos.x += i * i;
-            theCustomer = new CCustomer(entityMgr->GetNextID(), 0, false, start_pos);
+            theCustomer = new CCustomer(entityMgr->GetNextID(), 0, false, start_pos, true);
         }
+
         if (customer_list.size() > 0)
         {
             if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
@@ -291,12 +298,76 @@ void SceneAssignment1::CreateFlock(Vector3 seat_pos)
 
         entityMgr->RegisterEntity(theCustomer);
         customer_list.push_back(theCustomer);
-        flock_list.at(flock_to_join).push_back(theCustomer);
+        //flock_list.at(flock_to_join).push_back(theCustomer);
+
+		if (theLeader != theCustomer)
+			theLeader->AddMember(theCustomer);
     }
-    
+	
     flock_to_join++; // the max number of customers in a flock has been reached, the next time this function is called, the new customers will join the next flock
     if (flock_to_join > Group::GROUP_MAX)
         flock_to_join = 0; // Sorta loops but doesnt check back to see if the previous groups has left, so i am going to make the customers stops coming if flock to join is MAX
+}
+
+void SceneAssignment1::AssignSeatsToGroup()
+{
+	/*for (std::vector<std::vector<CCustomer*>>::iterator it = flock_list.begin(); it != flock_list.end(); it++)
+	{
+		for (std::vector<CCustomer*>::iterator it = flock_list.begin(); it != flock_list.end(); it++
+		{
+
+		}
+	}*/
+
+	static CCustomer* theLeader = NULL;
+	static CTable* theTable = NULL;
+
+	// Find the leader
+	for (std::vector<CCustomer*>::iterator it = customer_list.begin(); it != customer_list.end(); it++)
+	{
+		if ((*it)->GetLeaderStatus() && !(*it)->GetHasSeatStatus() && (*it)->GetInGroupStatus())
+		{
+			theLeader = *it;
+			//std::cout << theLeader->GetMembers()->size() << std::endl;
+			break;
+		}
+	}
+
+	if (theLeader)
+	{
+		// Find an empty table
+		for (std::vector<CTable*>::iterator it = CEntityManager::GetInstance()->GetTableList()->begin(); it != CEntityManager::GetInstance()->GetTableList()->end(); it++)
+		{
+			if ((*it)->GetActive()
+				&& !(*it)->GetUsingState()
+				&& (theLeader->GetMembers()->size() + 1 == (*it)->GetNumSeats()))
+			{
+				theTable = *it;
+				break;
+			}
+		}
+	}
+
+	if (theTable)
+	{
+		std::cout << "got tables" << std::endl;
+		// Assign seat to the leader
+		theLeader->SetSeatPosition(theTable->GetSeatList()->at(0));
+		static int seatIndex = 1;
+
+		// Assign seats to others in the group
+		for (std::vector<CCustomer*>::iterator it = theLeader->GetMembers()->begin(); it != theLeader->GetMembers()->end(); it++)
+		{
+			(*it)->SetSeatPosition(theTable->GetSeatList()->at(seatIndex));
+
+			if (seatIndex != theTable->GetNumSeats() - 1)
+				seatIndex++;
+		}
+	}
+	else
+	{
+		std::cout << "no available tables" << std::endl;
+	}
 }
 
 void SceneAssignment1::GenerateCustomers()
@@ -352,7 +423,6 @@ void SceneAssignment1::GenerateCustomers()
 			FreeSeat(i, SEAT_9, bSeat9Taken);
 		}
 	}
-    
 
     if (!bSeat1Taken || !bSeat2Taken || !bSeat3Taken || !bSeat4Taken || !bSeat5Taken || !bSeat6Taken || !bSeat7Taken || !bSeat8Taken || !bSeat9Taken)
     {
@@ -395,29 +465,31 @@ void SceneAssignment1::GenerateCustomers()
                 theSeatPos = SEAT_9;
             }
 
-            if (flock_to_join < Group::GROUP_MAX)
-                CreateFlock(theSeatPos);
-
 			// Previous way
-			const int away_distance = 20;
-			CCustomer* theCustomer = new CCustomer(entityMgr->GetNextID(), theSeatPos, true);
-			if (customer_list.size() > 0)
-			{
-				if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
-				{
-					Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
-					behind_pos.x += away_distance;
-					theCustomer->waypoints[0] = behind_pos;
-				}
-				else // nobody is queueing up
-					theCustomer->waypoints[0] = ENTRANCE;
-			}
+			//const int away_distance = 20;
+			//CCustomer* theCustomer = new CCustomer(entityMgr->GetNextID(), theSeatPos, true);
+			//if (customer_list.size() > 0)
+			//{
+			//	if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
+			//	{
+			//		Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
+			//		behind_pos.x += away_distance;
+			//		theCustomer->waypoints[0] = behind_pos;
+			//	}
+			//	else // nobody is queueing up
+			//		theCustomer->waypoints[0] = ENTRANCE;
+			//}
 
-			entityMgr->RegisterEntity(theCustomer);
-			customer_list.push_back(theCustomer);
+			//entityMgr->RegisterEntity(theCustomer);
+			//customer_list.push_back(theCustomer);
         }
     }
 
+	if ((rand() % 500 + 1) == 1)
+	{
+		if (flock_to_join < Group::GROUP_MAX)
+			CreateFlock(theSeatPos);
+	}
 
 	//std::cout << "theCustomer's ID: " << theCustomer->GetID() << std::endl;
 	//std::cout << seatNum << std::endl;
@@ -529,6 +601,7 @@ void SceneAssignment1::Update(double dt)
 		vButtonState = false;*/
 
     GenerateCustomers();
+	AssignSeatsToGroup();
 
     if (/*CheckIfCustomerReachDestination() &&*/ customer_list.size() >= 5) // if more than 5 customers are present in the scene, then flock together
     {

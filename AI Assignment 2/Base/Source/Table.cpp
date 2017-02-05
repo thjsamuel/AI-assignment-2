@@ -2,10 +2,9 @@
 
 int CTable::m_ID = 0;
 
-CTable::CTable(Vector3 pos) : position(pos), bActive(false), bUsing(false)
+CTable::CTable(Vector3 pos) : position(pos), bActive(true), bUsing(false)
 {
 	m_ID++;
-	bActive = true;
 }
 
 CTable::~CTable()
