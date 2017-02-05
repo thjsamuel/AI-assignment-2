@@ -318,8 +318,8 @@ void SceneAssignment1::AssignSeatsToGroup()
 		}
 	}*/
 
-	static CCustomer* theLeader = NULL;
-	static CTable* theTable = NULL;
+	CCustomer* theLeader = NULL;
+	CTable* theTable = NULL;
 
 	// Find the leader
 	for (std::vector<CCustomer*>::iterator it = customer_list.begin(); it != customer_list.end(); it++)
@@ -345,27 +345,35 @@ void SceneAssignment1::AssignSeatsToGroup()
 				break;
 			}
 		}
-	}
 
-	if (theTable)
-	{
-		std::cout << "got tables" << std::endl;
-		// Assign seat to the leader
-		theLeader->SetSeatPosition(theTable->GetSeatList()->at(0));
-		static int seatIndex = 1;
-
-		// Assign seats to others in the group
-		for (std::vector<CCustomer*>::iterator it = theLeader->GetMembers()->begin(); it != theLeader->GetMembers()->end(); it++)
+		if (theTable)
 		{
-			(*it)->SetSeatPosition(theTable->GetSeatList()->at(seatIndex));
+			std::cout << "got tables" << std::endl;
+			// Assign seat to the leader
+			theLeader->SetSeatPosition(theTable->GetSeatList()->at(0));
+			static int seatIndex = 1;
 
-			if (seatIndex != theTable->GetNumSeats() - 1)
-				seatIndex++;
+			// Assign seats to others in the group
+			for (std::vector<CCustomer*>::iterator it = theLeader->GetMembers()->begin(); it != theLeader->GetMembers()->end(); it++)
+			{
+				(*it)->SetSeatPosition(theTable->GetSeatList()->at(seatIndex));
+
+				if (seatIndex != theTable->GetNumSeats() - 1)
+					seatIndex++;
+			}
+
+			theTable->SetUsingState(true);
 		}
-	}
-	else
-	{
-		std::cout << "no available tables" << std::endl;
+		else
+		{
+			std::cout << "no available tables" << std::endl;
+
+			/*theLeader->GetFSM()->ChangeState(CState_QueueUp::GetInstance());
+			for (std::vector<CCustomer*>::iterator it = theLeader->GetMembers()->begin(); it != theLeader->GetMembers()->end(); it++)
+			{
+				(*it)->GetFSM()->ChangeState(CState_QueueUp::GetInstance());
+			}*/
+		}
 	}
 }
 
