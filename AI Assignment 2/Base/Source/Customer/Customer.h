@@ -10,6 +10,7 @@
 #include "State_Eat.h"
 #include "State_ReturnTray.h"
 #include "State_Leave.h"
+#include "State_Pay.h"
 #include "../StateMachine.h"
 
 struct Telegram;
@@ -32,6 +33,7 @@ public:
     Vector3 m_repelVec; // The direction and distance vector to repel away from another flock member
     Group group_num; // Flock this entity belongs to
     float speed;
+    int num_in_group; // Number of customers in the flock that he belongs in
 private:
 	CStateMachine<CCustomer>* m_pStateMachine;
 	bool bIsLeader;

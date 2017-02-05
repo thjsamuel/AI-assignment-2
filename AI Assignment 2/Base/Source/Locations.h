@@ -27,6 +27,7 @@
 #define TOILET				Vector3(118.3, 91.8)
 
 #define USHERING            ENTRANCE + Vector3(-8, 0)
+#define CASHIER             ENTRANCE + Vector3(50, 0)
 
 // Seats
 #define SEAT_1				Vector3(7.48, 65.6)

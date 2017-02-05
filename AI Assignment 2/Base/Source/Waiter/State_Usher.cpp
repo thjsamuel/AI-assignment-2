@@ -26,10 +26,10 @@ void CState_Usher::Enter(CWaiter* waiter, double dt)
 void CState_Usher::Execute(CWaiter* waiter, double dt)
 {
     // send the number of customers in the group to waiter inside
-    if (send_group)
+    //if (send_group)
     {
-		CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY, waiter->GetID(), ENT_WAITER, MSG_2CUSTOMER, NO_EXTRA_INFO);
-        send_group = false;
+		//CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY, waiter->GetID(), ENT_WAITER, MSG_2CUSTOMER, NO_EXTRA_INFO);
+        //send_group = false;
     }
 
     // Move to usher spot
