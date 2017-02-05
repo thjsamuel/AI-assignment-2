@@ -81,7 +81,12 @@ void CState_Eat::Execute(CCustomer* customer, double dt)
 			if (bSentMsgToCleaner == true)
 			{
 				// Leave tray on table
-				customer->GetFSM()->ChangeState(CState_Leave::GetInstance());
+				customer->GetFSM()->ChangeState(CState_Pay::GetInstance());
+                CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+                    customer->GetID(),
+                    ENT_WAITER,
+                    MSG_PAY,
+                    NO_EXTRA_INFO);
 			}
 		}
 

@@ -7,6 +7,7 @@
 #include "State_Serve.h"
 #include "State_Arrange.h"
 #include "State_Usher.h"
+#include "State_Cashier.h"
 #include "State_Waiter_GoToilet.h"
 #include "State_Waiter_GlobalState.h"
 #include "../StateMachine.h"

@@ -294,6 +294,7 @@ void SceneAssignment1::CreateFlock(Vector3 seat_pos)
         }
         
         theCustomer->group_num = static_cast<Group>(flock_to_join); // customer is assigned a flock to join
+        theCustomer->num_in_group = MAX_CUSTOMERS;
 
         entityMgr->RegisterEntity(theCustomer);
         customer_list.push_back(theCustomer);
@@ -572,6 +573,11 @@ void SceneAssignment1::calculateRepelVec(std::vector<CCustomer*> list, CCustomer
                 //}
             }
         }
+}
+
+void calculateRepelVec(CCustomer& customer, CWaiter& waiter, float dt)
+{
+
 }
 
 void SceneAssignment1::Update(double dt)

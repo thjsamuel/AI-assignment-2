@@ -48,13 +48,21 @@ void CState_Waiter_GlobalState::Execute(CWaiter* waiter, double dt)
 	{
 		if (waiter->need_help)
 		{
-			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+			/*CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
 				waiter->GetID(),
 				ENT_WAITER_OUTSIDE,
 				MSG_HELP_INSIDE,
-				NO_EXTRA_INFO);
+				NO_EXTRA_INFO);*/ // take out first cuz a second waiter might screw things up
 		}
 	}
+    else
+    {
+        /*CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+        waiter->GetID(),
+        ENT_WAITER_OUTSIDE,
+        MSG_HELP_USHER,
+        NO_EXTRA_INFO);*/
+    }
 
 	if (Application::IsKeyPressed('V')) // if 10 secs past and still no group customers
 	{

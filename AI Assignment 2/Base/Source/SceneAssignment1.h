@@ -46,6 +46,8 @@ public:
     void calculateCOM(std::vector<CCustomer*> list, CCustomer& entity, Group group);
     // Calculates distance of entity from the rest of the flock, if close enough to be seperated, pass a direction vector 180 degrees opposite to the entity
     void calculateRepelVec(std::vector<CCustomer*> list, CCustomer& entity, float dt);
+    // Calculates distance of customer from waiter to seperate from waiter
+    void calculateRepelVec(CCustomer& customer, CWaiter& waiter, float dt);
     void CreateFlock(Vector3 seat_pos); // Creates a leader and his flock, seat_pos is for the leader to sit, which is temporary since they are supposed to sit together in one table
     
 protected:

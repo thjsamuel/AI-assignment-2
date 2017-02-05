@@ -9,6 +9,7 @@ Waiter outside puts up message of how many waiters there are
 Waiter outside becomes waiter inside
 All staff can work as Cashier
 Multiple AI of the same type
+Randomise the number of customers in group
 
 Complex Things to do:
 Possibly flocking
