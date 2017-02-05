@@ -180,6 +180,9 @@
     <ClCompile Include="Source\Customer\State_Flock.cpp">
       <Filter>Customer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -358,6 +361,9 @@
     </ClInclude>
     <ClInclude Include="Source\Customer\State_Flock.h">
       <Filter>Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Table.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

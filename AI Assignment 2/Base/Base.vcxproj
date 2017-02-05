@@ -50,6 +50,7 @@
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SeatArranger.cpp" />
     <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\Table.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Waiter\State_Arrange.cpp" />
     <ClCompile Include="Source\Waiter\State_Usher.cpp" />
@@ -89,7 +90,7 @@
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\EntityNames.h" />
     <ClInclude Include="Source\Furniture.h" />
-<ClInclude Include="Source\Flocking\Flocking.h" />
+    <ClInclude Include="Source\Flocking\Flocking.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Geometry.h" />
     <ClInclude Include="Source\Light.h" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\StateMachine.h" />
+    <ClInclude Include="Source\Table.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Waiter\State_Arrange.h" />

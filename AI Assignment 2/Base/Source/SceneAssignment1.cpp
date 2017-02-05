@@ -765,6 +765,22 @@ void SceneAssignment1::RenderRestaurant()
 		modelStack.PopMatrix();
 	}
 
+	for (std::vector<CTable*>::iterator it = entityMgr->GetTableList()->begin(); it != entityMgr->GetTableList()->end(); it++)
+	{
+		CTable* table = (CTable*)*it;
+
+		for (int i = 0; i < table->GetSeatList()->size(); i++)
+		{
+			Vector3 seatPos = table->GetSeatList()->at(i);
+
+			modelStack.PushMatrix();
+			modelStack.Translate(seatPos.x, seatPos.y, 0);
+			modelStack.Scale(3, 3, 1);
+			RenderMesh(meshList[GEO_WALL], false);
+			modelStack.PopMatrix();
+		}
+	}
+
 	// Seats
 	RenderSeat(SEAT_1, 0);
 	RenderSeat(SEAT_2, 0);
@@ -937,7 +953,7 @@ void SceneAssignment1::Render()
 	ss.str("");
 	ss.precision(5);
 	ss << "FPS: " << fps;
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 3);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 55);
 
 	//RenderTextOnScreen(meshList[GEO_TEXT], "Restaurant", Color(0, 1, 0), 3, 0, 0);
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(/*chef->GetOrderList()->size()*/entityMgr->GetLatestID()), Color(0, 1, 0), 3, 0, 0);
@@ -961,11 +977,13 @@ void SceneAssignment1::Exit()
 	}
 
 	// Delete customers // dis is wrong for now
-	for (int i = 4; i < entityMgr->GetEntityMap().size(); i++)
+	/*for (int i = 4; i < entityMgr->GetEntityMap().size(); i++)
 	{
 		entityMgr->GetEntityMap()[i] = NULL;
 		delete entityMgr->GetEntityMap()[i];
-	}
+	}*/
+
+	entityMgr->Exit();
 
 	if (waiter)
 	{

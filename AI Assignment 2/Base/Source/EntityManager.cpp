@@ -17,6 +17,26 @@ CEntityManager* CEntityManager::GetInstance()
 	return &instance;
 }
 
+void CEntityManager::Exit()
+{
+	for (int i = 0; i < m_EntityMap.size(); i++)
+	{
+		m_EntityMap.erase(m_EntityMap.find(m_EntityMap[i]->GetID()));
+	}
+
+	for (int i = 0; i < furnitureList.size(); i++)
+	{
+		furnitureList[i] = NULL;
+		delete furnitureList[i];
+	}
+
+	for (int i = 0; i < tableList.size(); i++)
+	{
+		tableList[i] = NULL;
+		delete tableList[i];
+	}
+}
+
 void CEntityManager::RegisterEntity(CBaseGameEntity* newEntity)
 {
 	m_EntityMap.insert(std::make_pair(newEntity->GetID(), newEntity));
@@ -88,4 +108,9 @@ unsigned int CEntityManager::GetNextID()
 std::vector<Furniture*>* CEntityManager::GetFurnitureList()
 {
 	return &furnitureList;
+}
+
+std::vector<CTable*>* CEntityManager::GetTableList()
+{
+	return &tableList;
 }

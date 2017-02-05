@@ -1,5 +1,4 @@
 #include "SeatArranger.h"
-#include "Furniture.h"
 #include "EntityManager.h"
 
 SeatArranger::SeatArranger()
@@ -12,7 +11,6 @@ SeatArranger::SeatArranger()
 	, placementPos(0, 0, 0)
 	, bPosSet(false)
 {
-	seatPositions = new std::vector<Vector3>();
 }
 
 SeatArranger::~SeatArranger()
@@ -23,6 +21,8 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 {
 	if (bPosSet == false)
 	{
+		table = new CTable();
+
 		placementPos = _position;
 		bPosSet = true;
 	}
@@ -58,7 +58,7 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 	else
 	{
 		// Framerate is inconsistent = seat positions are inconsistent
-		static double tempDT = 0.01;
+		double tempDT = 0.01;
 		
 		value += 5 * tempDT;
 
@@ -72,9 +72,10 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 			{
 				timer = time;
 
-				Furniture* furniture = new Furniture(Vector3(placementPos.x, placementPos.y, 0), Vector3(3, 3, 0));
-				CEntityManager::GetInstance()->GetFurnitureList()->push_back(furniture);
-				seatPositions->push_back(furniture->position); // need to pop later
+				table->AddSeat(placementPos);
+				
+				std::cout << "table id: " << table->GetID() << std::endl;
+				CEntityManager::GetInstance()->GetTableList()->push_back(table); // grouped customers will get their seat positions from their assigned table's seatlist
 			}
 		}
 		else
@@ -83,14 +84,10 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 			value = 0.0;
 			time = 0.0;
 			pauseTimeSet = false;
+
 			return true;
 		}
 	}
 
 	return false;
-}
-
-std::vector<Vector3>* SeatArranger::GetSeatPositions()
-{
-	return seatPositions;
 }

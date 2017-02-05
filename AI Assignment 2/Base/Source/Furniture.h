@@ -11,7 +11,7 @@ struct Furniture
 		this->scale = scale;
 	};
 
-	~Furniture();
+	~Furniture() {};
 
 	Vector3 position;
 	Vector3 scale;

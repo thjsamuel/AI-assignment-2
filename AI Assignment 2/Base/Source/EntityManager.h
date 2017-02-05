@@ -2,6 +2,7 @@
 #define ENTITY_MANAGER_H
 
 #include "Furniture.h"
+#include "Table.h"
 
 #include <map>
 #include <vector>
@@ -14,6 +15,8 @@ class CEntityManager
 
 public:
 	static CEntityManager* GetInstance();
+
+	void Exit();
 
 	void RegisterEntity(CBaseGameEntity* newEntity);
 	void RemoveEntity(CBaseGameEntity* entity);
@@ -34,6 +37,7 @@ public:
 	unsigned int GetNextID();
 
 	std::vector<Furniture*>* GetFurnitureList();
+	std::vector<CTable*>* GetTableList();
 
 private:
 	// pointers to entities are cross referenced by their ID
@@ -44,6 +48,9 @@ private:
 
 	// List of furnitures
 	std::vector<Furniture*> furnitureList;
+
+	// List of tables
+	std::vector<CTable*> tableList;
 
 	CEntityManager();
 };

@@ -5,6 +5,7 @@
 #include <vector>
 
 struct Furniture;
+class CTable;
 
 class SeatArranger
 {
@@ -13,9 +14,10 @@ public:
 	~SeatArranger();
 
 	bool ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt);
-	std::vector<Vector3>* GetSeatPositions();
 
 private:
+	CTable* table;
+
 	unsigned int m_numSeats;
 	double timer;
 	double time;
@@ -24,8 +26,6 @@ private:
 	bool pauseTimeSet;
 	Vector3 placementPos;
 	bool bPosSet;
-
-	std::vector<Vector3>* seatPositions;
 };
 
 #endif // SEAT_ARRANGER_H
