@@ -22,6 +22,7 @@ private:
 	void AddSeats(CWaiter* waiter, double dt);
 	void RemoveSeats(CWaiter* waiter, double dt);
 
+	bool bSettingTable;
 	bool bEmptyTable;
 	bool bAtTable;
 };

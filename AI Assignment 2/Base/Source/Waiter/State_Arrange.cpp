@@ -8,7 +8,7 @@
 #include "../Messaging/MessageTypes.h"
 #include "../EntityNames.h"
 
-CState_Arrange::CState_Arrange() : bAtTable(false), bEmptyTable(false)
+CState_Arrange::CState_Arrange() : bAtTable(false), bEmptyTable(false), bSettingTable(false)
 {
 }
 
@@ -43,24 +43,32 @@ void CState_Arrange::Execute(CWaiter* waiter, double dt)
     /*if (waiter->chairs == 0)
         waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());*/
 
-	for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
+	if (!bSettingTable)
 	{
-		CTable* table = CEntityManager::GetInstance()->GetTableList()->at(i);
-		if (table->GetActive() && !table->GetUsingState())
+		for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
 		{
-			bEmptyTable = true;
-			break;
-		}
-		else if (i == CEntityManager::GetInstance()->GetTableList()->size() - 1)
-		{
-			bEmptyTable = false;
+			CTable* table = CEntityManager::GetInstance()->GetTableList()->at(i);
+			if (table->GetActive() && !table->GetUsingState())
+			{
+				bEmptyTable = true;
+				break;
+			}
+			else if (i == CEntityManager::GetInstance()->GetTableList()->size() - 1)
+			{
+				bEmptyTable = false;
+			}
 		}
 	}
 
-	if (!waiter->GetRemoveSeatStatus() && !waiter->GetAddSeatStatus() && bEmptyTable)
+	/*if (CEntityManager::GetInstance()->GetTableList()->size() <= 0)
+		bEmptyTable = true;*/
+
+	if (!waiter->GetRemoveSeatStatus() && !waiter->GetAddSeatStatus() && !bEmptyTable)
 	{
+		bSettingTable = true;
 		if (waiter->GetSeatArranger()->ArrangeSeats(waiter->GetNumCustomersInGrp()->front(), des, dt))
 		{
+			bSettingTable = false;
 			waiter->GetNumCustomersInGrp()->pop(); // must also pop when this group of customers leave?
 		}
 	}

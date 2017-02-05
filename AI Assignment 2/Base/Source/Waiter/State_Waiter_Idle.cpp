@@ -23,7 +23,7 @@ void CState_Waiter_Idle::Enter(CWaiter* waiter, double dt)
 void CState_Waiter_Idle::Execute(CWaiter* waiter, double dt)
 {
 	// Move to center of restaurant
-	if (waiter->GetPosition() != Vector3(50, 50, 0))
+	if ((Vector3(50, 50, 0) - waiter->GetPosition()).LengthSquared() > 1.f)
 	{
 		Vector3 targetPos = Vector3(50, 50, 0);
 		Vector3 dir = (targetPos - waiter->GetPosition()).Normalized();
