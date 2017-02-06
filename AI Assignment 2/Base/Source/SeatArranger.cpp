@@ -1,5 +1,6 @@
 #include "SeatArranger.h"
 #include "EntityManager.h"
+#include "Locations.h"
 
 SeatArranger::SeatArranger()
 	: m_numSeats(0)
@@ -10,6 +11,9 @@ SeatArranger::SeatArranger()
 	, value(0.0)
 	, placementPos(0, 0, 0)
 	, bPosSet(false)
+	, bTable1Taken(false)
+	, bTable2Taken(false)
+	, bTable3Taken(false)
 {
 }
 
@@ -17,12 +21,34 @@ SeatArranger::~SeatArranger()
 {
 }
 
+Vector3 SeatArranger::GetTablePosition()
+{
+	for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
+	{
+		if (CEntityManager::GetInstance()->GetTableList()->at(i)->GetPos() == TABLE_1)
+			bTable1Taken = true;
+		else if (CEntityManager::GetInstance()->GetTableList()->at(i)->GetPos() == TABLE_2)
+			bTable2Taken = true;
+		else if (CEntityManager::GetInstance()->GetTableList()->at(i)->GetPos() == TABLE_3)
+			bTable3Taken = true;
+	}
+
+	if (!bTable1Taken)
+		return TABLE_1;
+	else if (!bTable2Taken)
+		return TABLE_2;
+	else if (!bTable3Taken)
+		return TABLE_3;
+
+	return Vector3(0, 0, 0);
+}
+
 bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position, double _dt)
 {
 	if (bPosSet == false)
 	{
 		placementPos = _position;
-		table = new CTable(Vector3(placementPos.x, placementPos.y * 1.13, 0));
+		table = new CTable(Vector3(placementPos.x, placementPos.y/* * 1.13*/, 0));
 		bPosSet = true;
 	}
 
@@ -49,6 +75,9 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 		case 6:
 			pauseTime = 0.2;
 			break;
+
+		default:
+			std::cout << "No num seats!" << std::endl;
 		}
 
 		pauseTimeSet = true;
@@ -83,12 +112,13 @@ bool SeatArranger::ArrangeSeats(unsigned int _numSeats, const Vector3& _position
 			bPosSet = false;
 			value = 0.0;
 			time = 0.0;
+			timer = 0.0;
 			pauseTimeSet = false;
 
 			return true;
 		}
 	}
-
+	
 	return false;
 }
 

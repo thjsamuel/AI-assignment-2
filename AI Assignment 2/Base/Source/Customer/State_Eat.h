@@ -17,6 +17,13 @@ public:
 
 private:
 	CState_Eat();
+
+	bool bTimerSet;
+	double timeTillDone;
+	bool bCoinFlipped;
+	int coin;
+	bool bSentMsgToCleaner;
+	bool bLeftTable;
 };
 
 #endif // STATE_EAT

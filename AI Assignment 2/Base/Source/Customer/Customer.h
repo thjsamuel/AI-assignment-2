@@ -38,6 +38,12 @@ public:
 	void SetHasSeatStatus(bool bHasSeat);
 	bool GetHasSeatStatus();
 
+	void SetOrderedStatus(bool bOrdered);
+	bool GetOrderedStatus();
+
+	void SetTableID(unsigned int tableID);
+	unsigned int GetTableID();
+
 	void AddMember(CCustomer* customer);
 	std::vector<CCustomer*>* GetMembers();
 
@@ -52,6 +58,8 @@ private:
 	bool bIsLeader;
 	bool bInGroup;
 	bool bHasSeat;
+	bool bOrdered;
+	unsigned int tableID;
 	std::vector<CCustomer*>* groupMembers;
 };
 

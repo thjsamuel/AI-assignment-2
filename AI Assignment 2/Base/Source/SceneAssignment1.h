@@ -39,6 +39,7 @@ public:
 	void AssignSeatsToGroup();
 	void CloseSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 	void FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken);
+	void UpdateTables();
 
     // temporary function to make sure customer reach queue before they flock together
     bool CheckIfCustomerReachDestination();

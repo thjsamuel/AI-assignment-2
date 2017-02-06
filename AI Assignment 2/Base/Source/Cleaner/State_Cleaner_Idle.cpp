@@ -21,7 +21,7 @@ void CState_Cleaner_Idle::Enter(CCleaner* cleaner, double dt)
 void CState_Cleaner_Idle::Execute(CCleaner* cleaner, double dt)
 {
 	// Move to idle position
-	if (cleaner->GetPosition() != Vector3(93, 70, 0))
+	if ((Vector3(93, 70, 0) - cleaner->GetPosition()).LengthSquared() > 1.f)
 	{
 		Vector3 targetPos = Vector3(93, 70, 0);
 		Vector3 dir = (targetPos - cleaner->GetPosition()).Normalized();

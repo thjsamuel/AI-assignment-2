@@ -9,7 +9,10 @@ Waiter outside puts up message of how many waiters there are
 Waiter outside becomes waiter inside
 All staff can work as Cashier
 Multiple AI of the same type
+<<<<<<< HEAD
+=======
 Randomise the number of customers in group, make them wait for waiter to place tables first then can go, in the meantime they will flock
+>>>>>>> 4bf886f88420846592cb5b453cbd484e0f00b3ba
 
 Complex Things to do:
 Possibly flocking

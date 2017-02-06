@@ -38,6 +38,12 @@ public:
 	void SetHasSeatStatus(bool bHasSeat);
 	bool GetHasSeatStatus();
 
+	void SetOrderedStatus(bool bOrdered);
+	bool GetOrderedStatus();
+
+	void SetTableID(unsigned int tableID);
+	unsigned int GetTableID();
+
 	void AddMember(CCustomer* customer);
 	std::vector<CCustomer*>* GetMembers();
 
@@ -45,16 +51,19 @@ public:
     Vector3 m_repelVec; // The direction and distance vector to repel away from another flock member
     Group group_num; // Flock this entity belongs to
     float speed;
-<<<<<<< HEAD
     int num_in_group; // Number of customers in the flock that he belongs in
+<<<<<<< HEAD
+    bool move_to_front;
 =======
 
->>>>>>> 734514a86ba7fc922c97c2f1e55a4ba58cbb2bd3
+>>>>>>> 62607f631424276c2ff2ef60bf8cda090721685a
 private:
 	CStateMachine<CCustomer>* m_pStateMachine;
 	bool bIsLeader;
 	bool bInGroup;
 	bool bHasSeat;
+	bool bOrdered;
+	unsigned int tableID;
 	std::vector<CCustomer*>* groupMembers;
 };
 

@@ -1,10 +1,12 @@
 #include "Table.h"
 
-int CTable::m_ID = 0;
+int index = 0;
+static int nextID = 0;
 
-CTable::CTable(Vector3 pos) : position(pos), bActive(true), bUsing(false)
+CTable::CTable(Vector3 pos) : position(pos), bActive(true), bUsing(false), m_ID(0)
 {
-	m_ID++;
+	m_ID = nextID + 1;
+	nextID++;
 }
 
 CTable::~CTable()
@@ -13,7 +15,35 @@ CTable::~CTable()
 
 void CTable::AddSeat(const Vector3& pos)
 {
-	seatList.push_back(pos);
+	Seat* seat = new Seat();
+	seat->bUsing = false;
+	seat->position = pos;
+
+	seatList.push_back(seat);
+}
+
+void CTable::FillUpSeats()
+{
+	for (int i = 0; i < seatList.size(); i++)
+	{
+		seatList[i]->bUsing = true;
+	}
+}
+
+bool CTable::CheckEmptySeats()
+{
+	for (index = 0; index < seatList.size(); index++)
+	{
+		if (seatList[index]->bUsing == true)
+			break;
+	}
+
+	if (index == (seatList.size()))
+		return true;
+	else
+		return false;
+	
+	//return (index == (seatList.size()));
 }
 
 void CTable::SetActive(bool _bActive)
@@ -51,7 +81,7 @@ Vector3 CTable::GetPos()
 	return position;
 }
 
-std::vector<Vector3>* CTable::GetSeatList()
+std::vector<Seat*>* CTable::GetSeatList()
 {
 	return &seatList;
 }

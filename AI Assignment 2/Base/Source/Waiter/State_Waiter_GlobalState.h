@@ -17,6 +17,8 @@ public:
 
 private:
 	CState_Waiter_GlobalState();
+
+	bool bSetLateOrder;
 };
 
 #endif // STATE_CLEANER_GLOBAL_STATE_H

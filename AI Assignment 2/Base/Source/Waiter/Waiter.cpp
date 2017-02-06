@@ -194,7 +194,10 @@ unsigned int CWaiter::GetLateOrderCount()
 
 void CWaiter::IncreaseLateOrderCount()
 {
-	lateOrderCount++;
+	static unsigned int temp = lateOrderCount + 1;
+
+	if (lateOrderCount < temp)
+		lateOrderCount++; // doesn't solve the issue
 }
 
 void CWaiter::DecreaseLateOrderCount()
