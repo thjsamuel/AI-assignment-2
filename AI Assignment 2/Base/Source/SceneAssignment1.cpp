@@ -521,7 +521,7 @@ void SceneAssignment1::GenerateCustomers()
         }
     }
 
-	if ((rand() % 800 + 1) == 1)
+	if ((rand() % 1000 + 1) == 1)
 	{
 		if (flock_to_join < Group::GROUP_MAX)
 			CreateFlock(theSeatPos);
