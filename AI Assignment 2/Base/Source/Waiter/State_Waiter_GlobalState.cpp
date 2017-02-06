@@ -101,143 +101,130 @@ bool CState_Waiter_GlobalState::OnMessage(CWaiter* waiter, const Telegram& teleg
 {
 	if (waiter->GetID() == ENT_WAITER)
 	{
-        if (telegram.extraInfo != nullptr && waiter->current_serving == -1)
-            waiter->current_serving = *((int*)telegram.extraInfo);
-        /*else*/ if (waiter->GetInToiletStatus() == false)
-        {
-            switch (telegram.msg)
-            {
-                //case MSG_ORDER_FOOD_1:
-                //{
-                //	// Can take order when waiter is NOT currently serving 
-                //	if (!waiter->GetFSM()->IsInState(*CState_Serve::GetInstance()))
-                //	{
-                //		waiter->GetFSM()->ChangeState(CState_TakeOrder::GetInstance());
-                //		//waiter->GetMsgQueue()->push(telegram);
-                //	}
-                //	//else
-                //		{
-                //			//waiter->SetTakeOrderLateStatus(true);
-                //			//waiter->IncreaseLateOrderCount();
-                //		}
+        //if (telegram.extraInfo != nullptr && waiter->current_serving == -1)
+            //waiter->current_serving = *((int*)telegram.extraInfo); // dont fucking take away for no reason, comment out also better
+		if (waiter->GetInToiletStatus() == false)
+		{
+			switch (telegram.msg)
+			{
+			case MSG_ORDER_FOOD_1:
+			{
+				// Can take order when waiter is NOT currently serving 
+				if (!waiter->GetFSM()->IsInState(*CState_Serve::GetInstance()))
+				{
+					waiter->GetFSM()->ChangeState(CState_TakeOrder::GetInstance());
+					//waiter->GetMsgQueue()->push(telegram);
+				}
+				//else
+					{
+						//waiter->SetTakeOrderLateStatus(true);
+						//waiter->IncreaseLateOrderCount();
+					}
 
-                //		break;
-                //}
+					break;
+			}
 
-            case MSG_COLLECT_ORDER:
-            {
-                //if (waiter->GetFSM()->IsInState(*CState_TakeOrder::GetInstance()))
-                //{
-                    //waiter->SetServedLateStatus(true);
-                    //waiter->IncreaseUnservedCount();
-                //}
+			case MSG_COLLECT_ORDER:
+			{
+				//if (waiter->GetFSM()->IsInState(*CState_TakeOrder::GetInstance()))
+				//{
+				//	//waiter->SetServedLateStatus(true);
+				//	waiter->IncreaseUnservedCount();
+				//}
 
-                //Can serve when waiter is NOT currently taking order
-                //if (!waiter->GetFSM()->IsInState(*CState_TakeOrder::GetInstance()))
-                    //waiter->GetFSM()->ChangeState(CState_Serve::GetInstance());
-                //waiter->GetMsgQueue()->push(telegram);
-                break;
-            }
+				// Can serve when waiter is NOT currently taking order
+				//if (!waiter->GetFSM()->IsInState(*CState_TakeOrder::GetInstance()))
+				waiter->GetFSM()->ChangeState(CState_Serve::GetInstance());
+				//waiter->GetMsgQueue()->push(telegram);
+				break;
+			}
+            
+            //case MSG_LEAVE:
+            //{
+            //    waiter->current_serving = -1;
+            //    break;
+            //}
 
-            case MSG_2CUSTOMER:
-            {
-                waiter->GetNumCustomersInGrp()->push(2);
-                waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
-                break;
-            }
-            case MSG_3CUSTOMER:
-            {
-                waiter->GetNumCustomersInGrp()->push(3);
-                waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
-                break;
-            }
-            case MSG_4CUSTOMER:
-            {
-                waiter->GetNumCustomersInGrp()->push(4);
-                waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
-                break;
-            }
-            case MSG_5CUSTOMERMAX:
-            {
-                waiter->GetNumCustomersInGrp()->push(5);
-                waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
-                break;
-            }
+			case MSG_2CUSTOMER:
+			{
+				waiter->GetNumCustomersInGrp()->push(2);
+				waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
+				break;
+			}
+			case MSG_3CUSTOMER:
+			{
+				waiter->GetNumCustomersInGrp()->push(3);
+				waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
+				break;
+			}
+			case MSG_4CUSTOMER:
+			{
+				waiter->GetNumCustomersInGrp()->push(4);
+				waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
+				break;
+			}
+			case MSG_5CUSTOMERMAX:
+			{
+				waiter->GetNumCustomersInGrp()->push(5);
+				waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
+				break;
+			}
 
-            // Successfully handled the message
-            return true;
-            }
-        }
-        if (waiter->GetInToiletStatus() == false /*&& telegram.extraInfo != nullptr && *((int*)telegram.extraInfo) == waiter->current_serving*/)
-        {
-            switch (telegram.msg)
-            {
-            case MSG_ORDER_FOOD_1:
-            {
-                // Can take order when waiter is NOT currently serving 
-                if (!waiter->GetFSM()->IsInState(*CState_Serve::GetInstance()) && !waiter->GetFSM()->IsInState(*CState_Arrange::GetInstance()))
-                {
-                    waiter->GetFSM()->ChangeState(CState_TakeOrder::GetInstance());
-                    //waiter->GetMsgQueue()->push(telegram);
-                }
-                //else
-                    {
-                        //waiter->SetTakeOrderLateStatus(true);
-                        //waiter->IncreaseLateOrderCount();
-                    }
-                    break;
-            }
-            case MSG_LEAVE:
-            {
-                waiter->current_serving = -1;
-                break;
-            }
-            }
-            return true;
-        }
+			// Successfully handled the message
+			return true;
+			}
+		}
 	}
-    else if (waiter->GetID() == ENT_WAITER_OUTSIDE)
-    {
-        switch (telegram.msg)
+
+	else if (waiter->GetID() == ENT_WAITER_OUTSIDE)
+	{
+		switch (telegram.msg)
+		{
+        case MSG_PAY:
         {
-        case MSG_2CUSTOMER:
-        {
-            CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
-                waiter->GetID(),
-                ENT_WAITER,
-                MSG_2CUSTOMER,
-                NO_EXTRA_INFO);
-            break;
+            if (telegram.extraInfo != nullptr)
+                waiter->serve_list.push_back(*((int*)telegram.extraInfo)); // Tells waiter which customer he is going to have to serve
+            waiter->GetFSM()->ChangeState(CState_Cashier::GetInstance());
         }
-        case MSG_3CUSTOMER:
-        {
-            CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
-                waiter->GetID(),
-                ENT_WAITER,
-                MSG_3CUSTOMER,
-                NO_EXTRA_INFO);
-            break;
-        }
-        case MSG_4CUSTOMER:
-        {
-            CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
-                waiter->GetID(),
-                ENT_WAITER,
-                MSG_4CUSTOMER,
-                NO_EXTRA_INFO);
-            break;
-        }
-        case MSG_5CUSTOMERMAX:
-        {
-            CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
-                waiter->GetID(),
-                ENT_WAITER,
-                MSG_5CUSTOMERMAX,
-                NO_EXTRA_INFO);
-            break;
-        }
-        }
-    }
+        break;
+		case MSG_2CUSTOMER:
+		{
+			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				waiter->GetID(),
+				ENT_WAITER,
+				MSG_2CUSTOMER,
+				NO_EXTRA_INFO);
+			break;
+		}
+		case MSG_3CUSTOMER:
+		{
+			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				waiter->GetID(),
+				ENT_WAITER,
+				MSG_3CUSTOMER,
+				NO_EXTRA_INFO);
+			break;
+		}
+		case MSG_4CUSTOMER:
+		{
+			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				waiter->GetID(),
+				ENT_WAITER,
+				MSG_4CUSTOMER,
+				NO_EXTRA_INFO);
+			break;
+		}
+		case MSG_5CUSTOMERMAX:
+		{
+			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				waiter->GetID(),
+				ENT_WAITER,
+				MSG_5CUSTOMERMAX,
+				NO_EXTRA_INFO);
+			break;
+		}
+		}
+	}
 
 	return false;
 }

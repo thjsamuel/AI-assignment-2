@@ -61,6 +61,10 @@ std::string CCustomer::GetStateInText()
 		return "Return tray";
 	else if (m_pStateMachine->GetCurrentState() == CState_Leave::GetInstance())
 		return "Leave";
+    else if (m_pStateMachine->GetCurrentState() == CState_Pay::GetInstance())
+        return "Pay";
+
+    return "No state";
 }
 
 CStateMachine<CCustomer>* CCustomer::GetFSM() const

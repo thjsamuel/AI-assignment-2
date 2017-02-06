@@ -261,7 +261,7 @@ void SceneAssignment1::FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken)
 
 void SceneAssignment1::CreateFlock(Vector3 seat_pos)
 {
-    const int MAX_CUSTOMERS = 2;  // max in a group
+    const int MAX_CUSTOMERS = 3;  // max in a group
 	Vector3 start_pos(145, 10, 0);
 	CCustomer* theLeader;
 
@@ -278,12 +278,12 @@ void SceneAssignment1::CreateFlock(Vector3 seat_pos)
         else
         {
             start_pos.x += i * i;
-            theCustomer = new CCustomer(entityMgr->GetNextID(), 0, false, start_pos, true);
+            theCustomer = new CCustomer(entityMgr->GetNextID(), 0, false, start_pos + i, true);
         }
 
         if (customer_list.size() > 0)
         {
-            if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
+            if (customer_list[0]->GetStateInText() == "Group up" || customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
             {
                 Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
                 behind_pos.x += away_distance;
@@ -319,8 +319,8 @@ void SceneAssignment1::AssignSeatsToGroup()
 		}
 	}*/
 
-	static CCustomer* theLeader = NULL;
-	static CTable* theTable = NULL;
+	CCustomer* theLeader = NULL;
+	CTable* theTable = NULL;
 
 	// Find the leader
 	for (std::vector<CCustomer*>::iterator it = customer_list.begin(); it != customer_list.end(); it++)
@@ -346,27 +346,35 @@ void SceneAssignment1::AssignSeatsToGroup()
 				break;
 			}
 		}
-	}
 
-	if (theTable)
-	{
-		std::cout << "got tables" << std::endl;
-		// Assign seat to the leader
-		theLeader->SetSeatPosition(theTable->GetSeatList()->at(0));
-		static int seatIndex = 1;
-
-		// Assign seats to others in the group
-		for (std::vector<CCustomer*>::iterator it = theLeader->GetMembers()->begin(); it != theLeader->GetMembers()->end(); it++)
+		if (theTable)
 		{
-			(*it)->SetSeatPosition(theTable->GetSeatList()->at(seatIndex));
+			std::cout << "got tables" << std::endl;
+			// Assign seat to the leader
+			theLeader->SetSeatPosition(theTable->GetSeatList()->at(0));
+			static int seatIndex = 1;
 
-			if (seatIndex != theTable->GetNumSeats() - 1)
-				seatIndex++;
+			// Assign seats to others in the group
+			for (std::vector<CCustomer*>::iterator it = theLeader->GetMembers()->begin(); it != theLeader->GetMembers()->end(); it++)
+			{
+				(*it)->SetSeatPosition(theTable->GetSeatList()->at(seatIndex));
+
+				if (seatIndex != theTable->GetNumSeats() - 1)
+					seatIndex++;
+			}
+
+			theTable->SetUsingState(true);
 		}
-	}
-	else
-	{
-		std::cout << "no available tables" << std::endl;
+		else
+		{
+			std::cout << "no available tables" << std::endl;
+
+			/*theLeader->GetFSM()->ChangeState(CState_QueueUp::GetInstance());
+			for (std::vector<CCustomer*>::iterator it = theLeader->GetMembers()->begin(); it != theLeader->GetMembers()->end(); it++)
+			{
+				(*it)->GetFSM()->ChangeState(CState_QueueUp::GetInstance());
+			}*/
+		}
 	}
 }
 
@@ -533,7 +541,7 @@ void SceneAssignment1::calculateCOM(std::vector<CCustomer*> list, CCustomer& ent
 
 void SceneAssignment1::calculateRepelVec(std::vector<CCustomer*> list, CCustomer& entity, float dt)
 {
-    float radiusSquared = 5 * 5; // hardcoded, scale value is from RenderEntities(), scale of customer sprite
+    float radiusSquared = 10 * 10; // hardcoded, scale value is from RenderEntities(), scale of customer sprite
     Vector3 repelVec;
     float dist_away; 
         for (int i = 0; i < list.size(); ++i)
@@ -552,7 +560,7 @@ void SceneAssignment1::calculateRepelVec(std::vector<CCustomer*> list, CCustomer
                 //}
                 if (isTooClose)
                 {
-                    if (repelVec != Vector3(0, 0, 0))
+                    //if (repelVec != Vector3(0, 0, 0))
                     {
                         //repelVec *= -1;
                         //repelVec.Normalize();
@@ -567,9 +575,35 @@ void SceneAssignment1::calculateRepelVec(std::vector<CCustomer*> list, CCustomer
         }
 }
 
-void calculateRepelVec(CCustomer& customer, CWaiter& waiter, float dt)
+void SceneAssignment1::calculateRepelVec(CCustomer& customer, CWaiter& waiter, float dt)
 {
+    float radiusSquared = 10 * 10; // hardcoded, scale value is from RenderEntities(), scale of customer sprite
+    Vector3 repelVec;
+    float dist_away;
 
+    repelVec = customer.GetPosition() - waiter.GetPosition();
+    dist_away = repelVec.LengthSquared();
+    //repelVec.x = (entity.GetPosition().x - list[i]->GetPosition().x) * (entity.GetPosition().x - list[i]->GetPosition().x);
+    //repelVec.y = (entity.GetPosition().y - list[i]->GetPosition().y) * (entity.GetPosition().y - list[i]->GetPosition().y);
+    bool isTooClose = (dist_away < radiusSquared);
+    //if (dist_away == 0)
+    //{
+    //    entity.position = (entity.position - (radiusSquared * dt));
+    //    repelVec = entity.GetPosition() - list[i]->GetPosition();
+    //}
+    if (isTooClose)
+    {
+        //if (repelVec != Vector3(0, 0, 0))
+        {
+            //repelVec *= -1;
+            //repelVec.Normalize();
+            customer.m_repelVec = repelVec;
+        }
+    }
+    //else if (dist_away != 0)
+    //{
+    //    entity.GetFSM()->ChangeState(CState_Customer_Idle::GetInstance(), dt);
+    //}
 }
 
 void SceneAssignment1::Update(double dt)
@@ -603,13 +637,16 @@ void SceneAssignment1::Update(double dt)
     GenerateCustomers();
 	AssignSeatsToGroup();
 
-    if (/*CheckIfCustomerReachDestination() &&*/ customer_list.size() >= 5) // if more than 5 customers are present in the scene, then flock together
+    //if (/*CheckIfCustomerReachDestination() &&*/ customer_list.size() >= 5) // if more than 5 customers are present in the scene, then flock together
     {
         for (int i = 0; i < customer_list.size(); ++i)
         {
             //if (customer_list[i]->m_repelVec == Vector3(0, 0, 0))
             calculateCOM(customer_list, *customer_list[i], customer_list[i]->group_num);
-            calculateRepelVec(customer_list, *customer_list[i], dt);
+            if (!customer_list[i]->GetFSM()->IsInState(*CState_Pay::GetInstance()))
+                calculateRepelVec(customer_list, *customer_list[i], dt);
+            else
+                calculateRepelVec(*customer_list[i], *usher, dt);
 
         }
     }

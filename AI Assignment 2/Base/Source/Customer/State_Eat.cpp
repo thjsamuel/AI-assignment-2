@@ -80,13 +80,15 @@ void CState_Eat::Execute(CCustomer* customer, double dt)
 
 			if (bSentMsgToCleaner == true)
 			{
-				// Leave tray on table
-				customer->GetFSM()->ChangeState(CState_Pay::GetInstance());
+				// Leave tray on table and go pay
+                int* pass = new int();
+                *pass = customer->GetID();
                 CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
                     customer->GetID(),
-                    ENT_WAITER,
+                    ENT_WAITER_OUTSIDE,
                     MSG_PAY,
-                    NO_EXTRA_INFO);
+                    pass);
+                customer->GetFSM()->ChangeState(CState_Pay::GetInstance());
 			}
 		}
 

@@ -23,19 +23,23 @@ void CState_FindSeat::Execute(CCustomer* customer, double dt)
 	static float speed = 25.f;
 
 	Vector3 targetPos = customer->GetSeatPosition();
-	Vector3 dir = (targetPos - customer->GetPosition()).Normalized();
 
-	if (targetPos.x > customer->GetPosition().x)
-		customer->SetSpriteInvertStatus(true);
-	else
-		customer->SetSpriteInvertStatus(false);
-
-	customer->position += dir * dt * speed;
-
-	if (customer->GetPosition().y >= targetPos.y)
+	if (targetPos != 0)
 	{
-		customer->SetSeatedStatus(true);
-		customer->GetFSM()->ChangeState(CState_OrderFood::GetInstance(), dt);
+		Vector3 dir = (targetPos - customer->GetPosition()).Normalized();
+
+		if (targetPos.x > customer->GetPosition().x)
+			customer->SetSpriteInvertStatus(true);
+		else
+			customer->SetSpriteInvertStatus(false);
+
+		customer->position += dir * dt * speed;
+
+		if (customer->GetPosition().y >= targetPos.y)
+		{
+			customer->SetSeatedStatus(true);
+			customer->GetFSM()->ChangeState(CState_OrderFood::GetInstance(), dt);
+		}
 	}
 }
 

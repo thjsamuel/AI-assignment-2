@@ -67,7 +67,7 @@ public:
     int tables_left;
     int chairs;
     bool need_help; // if too many customers need to be served, waiter is overwhelmed and asks for help
-    int current_serving; // Which customer waiter is currently serving
+    std::vector<int> serve_list; // Which customer waiter is currently serving
 
 private:
 	CStateMachine<CWaiter>* m_pStateMachine;
