@@ -9,6 +9,7 @@ CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader, Vector3 pos, bool 
 , group_num(Group::GROUP_MAX)
 , speed(25)
 , num_in_group(0)
+, move_to_front(false)
 {
 	m_pStateMachine = new CStateMachine<CCustomer>(this);
     //if (bIsLeader == false)

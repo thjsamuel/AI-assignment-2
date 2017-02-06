@@ -81,18 +81,35 @@ void CState_Flock::Seperate(CCustomer* customer, double dt)
 void CState_Flock::Execute(CCustomer* customer, double dt)
 {
     //Composite(customer, dt);
-    Vector3 des = customer->waypoints[0]; // First waypoint in the map is always customer's queue up spot 
-
+    Vector3 des;
+    if (customer->GetLeaderStatus())
+         des = customer->waypoints[0]; // First waypoint in the map is always customer's queue up spot 
+    else
+        des = customer->GetMembers()->at(0)->GetPosition();
     // position is not equal to entrance of restaurant, form a line behind entrance
-    if (customer->position != des)
+    if (customer->GetInGroupStatus())
     {
-        Vector3 direction = (customer->position - des).Normalized(); // direction towards destination with magnitude of 1
-        //direction += (customer->centre_of_mass + customer->m_repelVec);
-        customer->position -= direction * (float)(25 * dt); // move towards destination
+        //if (customer->position != des)
+        {
+            Vector3 direction = (customer->position - des).Normalized(); // direction towards destination with magnitude of 1
+            //direction += (customer->centre_of_mass + customer->m_repelVec);
+            customer->position -= direction * (float)(25 * dt); // move towards destination
+        }
+        if (customer->GetMembers()->at(0)->GetStateInText() == "Find seat" && customer->GetMembers()->at(0)->GetSeatPosition() != Vector3(0, 0, 0))
+            customer->GetFSM()->ChangeState(CState_FindSeat::GetInstance(), dt);
+    }
+    else // for single customers
+    {
+        if (customer->position != des)
+        {
+            Vector3 direction = (customer->position - des).Normalized(); // direction towards destination with magnitude of 1
+            //direction += (customer->centre_of_mass + customer->m_repelVec);
+            customer->position -= direction * (float)(25 * dt); // move towards destination
+        }
     }
     Seperate(customer, dt);
     
-    if (customer->position == des/* && customer->centre_of_mass != Vector3(0, 0, 0)*/ /*&& customer->GetLeaderStatus() == true*/)
+    if (customer->position == des/* && customer->centre_of_mass != Vector3(0, 0, 0)*/ && customer->GetLeaderStatus() == true)
     {
         if (customer->GetLeaderStatus())
         {
