@@ -7,6 +7,10 @@
 #include "../Messaging/MessageDispatcher.h"
 #include "../Messaging/MessageTypes.h"
 #include "../EntityNames.h"
+#include "../EntityManager.h"
+
+#include "../Customer/Customer.h"
+#include "../Chef/Chef.h"
 
 CState_Waiter_GlobalState::CState_Waiter_GlobalState() : bSetLateOrder(false)
 {
@@ -64,12 +68,28 @@ void CState_Waiter_GlobalState::Execute(CWaiter* waiter, double dt)
         }
 	}
 
-	if (Application::IsKeyPressed('V')) // if 10 secs past and still no group customers
+	//if (Application::IsKeyPressed('V')) // if 10 secs past and still no group customers
+	//{
+	//	//waiter->GetSeatArranger()->AddSeat(1, 1);
+	//	waiter->SetTableID(1);
+	//	waiter->SetRemoveSeatStatus(true);
+	//	waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
+	//}
+
+	// If 5 secs past and still no group customers
+	if (waiter->GetID() == ENT_WAITER)
 	{
-		//waiter->GetSeatArranger()->AddSeat(1, 1);
-		waiter->SetTableID(1);
-		waiter->SetRemoveSeatStatus(true);
-		waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
+		for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
+		{
+			CTable* table = CEntityManager::GetInstance()->GetTableList()->at(i);
+
+			if (table->GetRemoveStatus() && table->GetActive())
+			{
+				waiter->SetTableID(table->GetID());
+				waiter->SetRemoveSeatStatus(true);
+				waiter->GetFSM()->ChangeState(CState_Arrange::GetInstance());
+			}
+		}
 	}
 
 	/*if (waiter->GetUnservedCount() > 0 && waiter->GetInToiletStatus() == false &&
@@ -91,14 +111,34 @@ void CState_Waiter_GlobalState::Execute(CWaiter* waiter, double dt)
 	waiter->SetTakeOrderLateStatus(false);
 	}*/
 
-	if (!waiter->GetFSM()->IsInState(*CState_Serve::GetInstance()) 
-		&& !waiter->GetFSM()->IsInState(*CState_Arrange::GetInstance()
-		/*waiter->GetFSM()->IsInState(*CState_Waiter_Idle::GetInstance()*/)
+	if (/*!waiter->GetFSM()->IsInState(*CState_Serve::GetInstance()) 
+		&& !waiter->GetFSM()->IsInState(*CState_Arrange::GetInstance()*/
+		waiter->GetFSM()->IsInState(*CState_Waiter_Idle::GetInstance())
 		&& waiter->GetLateOrderCount() > 0)
 	{
 		// may have problems if doing this, since waiter will server in order of appearance, cannot go back to previous customer
 		// or maybe becauses havent decrement late order count
 		waiter->GetFSM()->ChangeState(CState_TakeOrder::GetInstance());
+	}
+
+	// If customer is idle and chef is also idle, order has been missed. So send order to chef again
+	CBaseGameEntity* entity = CEntityManager::GetInstance()->GetEntityFromID(ENT_CHEF);
+	CChef* chef = dynamic_cast<CChef*>(entity);
+
+	for (int i = CEntityManager::GetInstance()->GetStillHereID(); i <= CEntityManager::GetInstance()->GetLatestID(); i++)
+	{
+		CBaseGameEntity* entity = CEntityManager::GetInstance()->GetEntityFromID(i);
+		CCustomer* customer = dynamic_cast<CCustomer*>(entity);
+
+		if (customer->GetFSM()->IsInState(*CState_Customer_Idle::GetInstance()) && chef->GetFSM()->IsInState(*CState_Chef_Idle::GetInstance()))
+		{
+			// Send order to chef
+			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				waiter->GetID(),
+				ENT_CHEF,
+				MSG_ORDER_FOOD_1,
+				NO_EXTRA_INFO);
+		}
 	}
 
 	//std::cout << "late order count: " << waiter->GetLateOrderCount() << std::endl;

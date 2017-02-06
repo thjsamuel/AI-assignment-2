@@ -249,7 +249,7 @@ void SceneAssignment1::FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken)
 
 void SceneAssignment1::CreateFlock(Vector3 seat_pos)
 {
-    const int MAX_CUSTOMERS = Math::RandIntMinMax(2, 5);  // max in a group
+    const int MAX_CUSTOMERS = Math::RandIntMinMax(2, 3);  // max in a group
 	Vector3 start_pos(145, 10, 0);
 	CCustomer* theLeader;
 
@@ -303,6 +303,7 @@ void SceneAssignment1::AssignSeatsToGroup()
 
 	CCustomer* theLeader = NULL;
 	CTable* theTable = NULL;
+	static int seatIndex = 1;
 
 	// Find the leader
 	for (std::vector<CCustomer*>::iterator it = customer_list.begin(); it != customer_list.end(); it++)
@@ -333,8 +334,6 @@ void SceneAssignment1::AssignSeatsToGroup()
 		if (theTable)
 		{
 			//std::cout << "got tables" << std::endl;
-			
-			static int seatIndex = 1;
 
 			// Assign seats to others in the group
 			for (std::vector<CCustomer*>::iterator it = theLeader->GetMembers()->begin(); it != theLeader->GetMembers()->end(); it++)
@@ -361,6 +360,7 @@ void SceneAssignment1::AssignSeatsToGroup()
 		}
 		else
 		{
+			seatIndex = 1;
 			//std::cout << "no available tables" << std::endl;
 
 			/*theLeader->GetFSM()->ChangeState(CState_QueueUp::GetInstance());
@@ -376,6 +376,8 @@ void SceneAssignment1::UpdateTables()
 {
 	for (std::vector<CTable*>::iterator it = CEntityManager::GetInstance()->GetTableList()->begin(); it != CEntityManager::GetInstance()->GetTableList()->end(); it++)
 	{
+		(*it)->Update();
+
 		if ((*it)->GetActive()
 			&& (*it)->GetUsingState()
 			&& (*it)->CheckEmptySeats())
@@ -444,7 +446,7 @@ void SceneAssignment1::GenerateCustomers()
 
     if (!bSeat1Taken || !bSeat2Taken || !bSeat3Taken || !bSeat4Taken || !bSeat5Taken || !bSeat6Taken || !bSeat7Taken || !bSeat8Taken || !bSeat9Taken)
     {
-        if ((rand() % 500 + 1) == 1)
+        if ((rand() % 800 + 1) == 1)
         {
             if (bSeat1Taken == false)
             {
@@ -503,10 +505,14 @@ void SceneAssignment1::GenerateCustomers()
         }
     }
 
-	if ((rand() % 1000 + 1) == 1)
+	//static bool b = false;
+	//if (!b)//
+	if ((rand() % 2000 + 1) == 1)
 	{
 		if (flock_to_join < Group::GROUP_MAX)
 			CreateFlock(theSeatPos);
+
+		//b = true;
 	}
 
     // Don't remove this, this is for going to front of queue after the previous group left, i commented it away in case of weird behaviour
@@ -711,8 +717,8 @@ void SceneAssignment1::Update(double dt)
 			// when exited == true, don't update and render
 			if (entityMgr->GetEntityFromID(i)->GetExitStatus() == false)
 				entityMgr->GetEntityFromID(i)->Update(dt);
-			//else
-				//entityMgr->RemoveEntity(entityMgr->GetEntityFromID(i));
+			else
+				entityMgr->RemoveEntity(entityMgr->GetEntityFromID(i));
 
 			//else // customer has left, therefore kick him out of customer list, not working currently cuz this will never be called, customer list must be passed to state_leave
 			{
@@ -1102,7 +1108,7 @@ void SceneAssignment1::Render()
 		modelStack.PopMatrix();
 	}*/
 
-	for (int x = 0; x < pathfinder->GetGrid()->GetGridSizeX(); x++)
+	/*for (int x = 0; x < pathfinder->GetGrid()->GetGridSizeX(); x++)
 	{
 		for (int y = 0; y < pathfinder->GetGrid()->GetGridSizeY(); y++)
 		{
@@ -1115,7 +1121,7 @@ void SceneAssignment1::Render()
 				RenderMesh(meshList[GEO_BALL2], false);
 			modelStack.PopMatrix();
 		}
-	}
+	}*/
 
 	//On screen text
 	std::ostringstream ss;

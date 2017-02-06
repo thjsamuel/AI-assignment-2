@@ -9,7 +9,6 @@ Waiter outside puts up message of how many waiters there are
 Waiter outside becomes waiter inside
 All staff can work as Cashier
 Multiple AI of the same type
-Randomise the number of customers in group, make them wait for waiter to place tables first then can go, in the meantime they will flock
 
 Complex Things to do:
 Possibly flocking
@@ -30,11 +29,10 @@ Samuel Task list:
 Customer queue up, come as a group, similar to flocking but try to do workable one first
 
 Rayner Task list:
-- waiter and cleaner become cashier
-- fix astar pathfinding
 - add seat from already arranged table
 - remove table when no groups comes in 10 secs
-- pass seat position to customers
+
+- fix astar pathfinding
 - all go toilet
 
 Bug list:

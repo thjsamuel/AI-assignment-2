@@ -19,6 +19,8 @@ public:
 	CTable(Vector3 pos);
 	~CTable();
 
+	void Update();
+
 	void AddSeat(const Vector3& pos);
 	void FillUpSeats();
 	bool CheckEmptySeats();
@@ -29,18 +31,22 @@ public:
 	void SetUsingState(bool _bUsing);
 	bool GetUsingState();
 
+	bool GetRemoveStatus();
+
 	unsigned int GetNumSeats();
 
-	int GetID();
+	unsigned int GetID();
 	Vector3 GetPos();
 	std::vector<Seat*>* GetSeatList();
 
 private:
-	int m_ID;
+	unsigned int m_ID;
 	bool bActive;
 	bool bUsing;
+	bool bRemove;
 
 	Vector3 position;
+	double timer;
 
 	std::vector<Seat*> seatList;
 };

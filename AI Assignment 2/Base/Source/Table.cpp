@@ -3,7 +3,7 @@
 int index = 0;
 static int nextID = 0;
 
-CTable::CTable(Vector3 pos) : position(pos), bActive(true), bUsing(false), m_ID(0)
+CTable::CTable(Vector3 pos) : position(pos), bActive(true), bUsing(false), m_ID(0), timer(0.0), bRemove(false)
 {
 	m_ID = nextID + 1;
 	nextID++;
@@ -11,6 +11,23 @@ CTable::CTable(Vector3 pos) : position(pos), bActive(true), bUsing(false), m_ID(
 
 CTable::~CTable()
 {
+}
+
+void CTable::Update()
+{
+	if (!bUsing)
+	{
+		timer += 0.01;
+
+		if (timer > 5.0)
+		{
+			bRemove = true;
+		}
+	}
+	else
+	{
+		timer = 0.0;
+	}
 }
 
 void CTable::AddSeat(const Vector3& pos)
@@ -61,6 +78,11 @@ bool CTable::GetUsingState()
 	return bUsing;
 }
 
+bool CTable::GetRemoveStatus()
+{
+	return bRemove;
+}
+
 bool CTable::GetActive() const
 {
 	return bActive;
@@ -71,7 +93,7 @@ unsigned int CTable::GetNumSeats()
 	return seatList.size();
 }
 
-int CTable::GetID()
+unsigned int CTable::GetID()
 {
 	return m_ID;
 }

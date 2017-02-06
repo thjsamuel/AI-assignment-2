@@ -46,32 +46,36 @@ void CState_Arrange::Execute(CWaiter* waiter, double dt)
 
 	/****************************************************************************/
 	/****************************************************************************/
-	// If there are empty tables for customers already, go back to idle state
-	for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
-	{
-		if (CEntityManager::GetInstance()->GetTableList()->at(i)->GetActive()
-			&& !CEntityManager::GetInstance()->GetTableList()->at(i)->GetUsingState()
-			&& CEntityManager::GetInstance()->GetTableList()->at(i)->GetNumSeats() == waiter->GetNumCustomersInGrp()->front())
-		{
-			waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
-			break;
-		}
-	}
 
-	// When not currently setting table, check if there are already set tables which are not being used
-	if (!bSettingTable)
+	if (!waiter->GetRemoveSeatStatus())
 	{
+		// If there are empty tables for customers already, go back to idle state
 		for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
 		{
-			CTable* table = CEntityManager::GetInstance()->GetTableList()->at(i);
-			if (table->GetActive() && !table->GetUsingState())
+			if (CEntityManager::GetInstance()->GetTableList()->at(i)->GetActive()
+				&& !CEntityManager::GetInstance()->GetTableList()->at(i)->GetUsingState()
+				&& CEntityManager::GetInstance()->GetTableList()->at(i)->GetNumSeats() == waiter->GetNumCustomersInGrp()->front())
 			{
-				bEmptyTable = true;
+				waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
 				break;
 			}
-			else if (i == CEntityManager::GetInstance()->GetTableList()->size() - 1)
+		}
+
+		// When not currently setting table, check if there are already set tables which are not being used
+		if (!bSettingTable)
+		{
+			for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
 			{
-				bEmptyTable = false;
+				CTable* table = CEntityManager::GetInstance()->GetTableList()->at(i);
+				if (table->GetActive() && !table->GetUsingState() && !table->GetRemoveStatus())
+				{
+					bEmptyTable = true;
+					break;
+				}
+				else if (i == CEntityManager::GetInstance()->GetTableList()->size() - 1)
+				{
+					bEmptyTable = false;
+				}
 			}
 		}
 	}
