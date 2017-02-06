@@ -113,6 +113,8 @@ bool CState_Waiter_GlobalState::OnMessage(CWaiter* waiter, const Telegram& teleg
 {
 	if (waiter->GetID() == ENT_WAITER)
 	{
+        //if (telegram.extraInfo != nullptr && waiter->current_serving == -1)
+            //waiter->current_serving = *((int*)telegram.extraInfo); // dont fucking take away for no reason, comment out also better
 		if (waiter->GetInToiletStatus() == false)
 		{
 			switch (telegram.msg)
@@ -155,6 +157,12 @@ bool CState_Waiter_GlobalState::OnMessage(CWaiter* waiter, const Telegram& teleg
 				//waiter->GetMsgQueue()->push(telegram);
 				break;
 			}
+            
+            //case MSG_LEAVE:
+            //{
+            //    waiter->current_serving = -1;
+            //    break;
+            //}
 
 			case MSG_2CUSTOMER:
 			{
@@ -191,6 +199,13 @@ bool CState_Waiter_GlobalState::OnMessage(CWaiter* waiter, const Telegram& teleg
 	{
 		switch (telegram.msg)
 		{
+        case MSG_PAY:
+        {
+            if (telegram.extraInfo != nullptr)
+                waiter->serve_list.push_back(*((int*)telegram.extraInfo)); // Tells waiter which customer he is going to have to serve
+            waiter->GetFSM()->ChangeState(CState_Cashier::GetInstance());
+        }
+        break;
 		case MSG_2CUSTOMER:
 		{
 			CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,

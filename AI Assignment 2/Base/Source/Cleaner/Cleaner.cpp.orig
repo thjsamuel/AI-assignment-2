@@ -49,8 +49,12 @@ std::string CCleaner::GetStateInText()
 		return "Empty trash bin";
 	else if (m_pStateMachine->GetCurrentState() == CState_EmptyTrashbag::GetInstance())
 		return "Empty trash bag";
+<<<<<<< HEAD
 
 	return "No state";
+=======
+    return "No state";
+>>>>>>> 4bf886f88420846592cb5b453cbd484e0f00b3ba
 }
 
 CStateMachine<CCleaner>* CCleaner::GetFSM() const

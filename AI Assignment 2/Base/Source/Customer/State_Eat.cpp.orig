@@ -112,15 +112,26 @@ void CState_Eat::Execute(CCustomer* customer, double dt)
 
 			if (bSentMsgToCleaner == true)
 			{
+<<<<<<< HEAD
+				// Leave tray on table
+				customer->GetFSM()->ChangeState(CState_Leave::GetInstance());
+				//customer->GetFSM()->ChangeState(CState_Pay::GetInstance());
+                /*CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+=======
 				// Leave tray on table and go pay
                 int* pass = new int();
                 *pass = customer->GetID();
                 CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+>>>>>>> 4bf886f88420846592cb5b453cbd484e0f00b3ba
                     customer->GetID(),
                     ENT_WAITER_OUTSIDE,
                     MSG_PAY,
+<<<<<<< HEAD
+                    NO_EXTRA_INFO);*/
+=======
                     pass);
                 customer->GetFSM()->ChangeState(CState_Pay::GetInstance());
+>>>>>>> 4bf886f88420846592cb5b453cbd484e0f00b3ba
 			}
 		}
 

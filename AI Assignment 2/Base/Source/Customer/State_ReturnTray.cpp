@@ -2,6 +2,7 @@
 
 #include "../Messaging/Telegram.h"
 #include "../Messaging/MessageTypes.h"
+#include "../Messaging/MessageDispatcher.h"
 
 #include "../Locations.h"
 
@@ -44,7 +45,14 @@ void CState_ReturnTray::Execute(CCustomer* customer, double dt)
 
 		if (customer->GetPosition().y <= BEFORE_TRASHBIN.y)
 		{
-			customer->GetFSM()->ChangeState(CState_Leave::GetInstance());
+            int* pass = new int();
+            *pass = customer->GetID();
+            CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+                customer->GetID(),
+                ENT_WAITER_OUTSIDE,
+                MSG_PAY,
+                pass);
+			customer->GetFSM()->ChangeState(CState_Pay::GetInstance());
 			bReturned = false;
 		}
 	}

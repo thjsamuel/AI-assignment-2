@@ -35,8 +35,12 @@ std::string CChef::GetStateInText()
 		return "Idle";
 	else if (m_pStateMachine->GetCurrentState() == CState_Cook::GetInstance())
 		return "Cook";
+<<<<<<< HEAD
 	
 	return "No state";
+=======
+    return "No state";
+>>>>>>> 4bf886f88420846592cb5b453cbd484e0f00b3ba
 }
 
 CStateMachine<CChef>* CChef::GetFSM() const

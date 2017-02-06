@@ -37,7 +37,7 @@ void CState_Flock::Composite(CCustomer* customer, double dt)
 
 void CState_Flock::Seperate(CCustomer* customer, double dt)
 {
-    float detect_radius = 5;
+    float detect_radius = 10;
     if (customer->m_repelVec != Vector3(0, 0, 0))
     {
         float dist_away = customer->m_repelVec.Length(); // how far is the distance of this entity away from the entity in its detection radius'
@@ -92,7 +92,7 @@ void CState_Flock::Execute(CCustomer* customer, double dt)
     }
     Seperate(customer, dt);
     
-    if (customer->position == des/* && customer->centre_of_mass != Vector3(0, 0, 0)*//* && customer->GetLeaderStatus() == false*/)
+    if (customer->position == des/* && customer->centre_of_mass != Vector3(0, 0, 0)*/ /*&& customer->GetLeaderStatus() == true*/)
     {
         if (customer->GetLeaderStatus())
         {
@@ -115,7 +115,8 @@ void CState_Flock::Execute(CCustomer* customer, double dt)
                 break;
             }
         }
-        customer->GetFSM()->ChangeState(CState_FindSeat::GetInstance(), dt);
+        //if (!customer->GetInGroupStatus())
+            customer->GetFSM()->ChangeState(CState_FindSeat::GetInstance(), dt);
     }
 }
 
