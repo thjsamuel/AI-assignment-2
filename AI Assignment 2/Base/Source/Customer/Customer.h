@@ -52,7 +52,7 @@ public:
     Group group_num; // Flock this entity belongs to
     float speed;
     int num_in_group; // Number of customers in the flock that he belongs in
-
+    bool move_to_front;
 private:
 	CStateMachine<CCustomer>* m_pStateMachine;
 	bool bIsLeader;

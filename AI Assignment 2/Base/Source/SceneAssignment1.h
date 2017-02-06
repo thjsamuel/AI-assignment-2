@@ -64,6 +64,7 @@ private:
 	CEntityManager* entityMgr;
 
 	CCustomer* customer;
+    //CCustomer* front_leader; // The leader in front of the queue
 	CWaiter* waiter;
     CWaiter* usher;
 	CChef* chef;
@@ -79,9 +80,6 @@ private:
 
     // a list of customers
     std::vector<CCustomer*> customer_list;
-
-	// Container for all the different flocks of customers
-	std::vector<std::vector<CCustomer*>> flock_list;
 
 	// List of nodes
 	std::vector<CNode*> gridList;
