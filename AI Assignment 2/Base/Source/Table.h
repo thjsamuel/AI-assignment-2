@@ -4,6 +4,15 @@
 #include <vector>
 #include "Vector3.h"
 
+struct Seat
+{
+	Seat() : position(0, 0, 0), bUsing(false) {};
+	~Seat() {};
+
+	Vector3 position;
+	bool bUsing;
+};
+
 class CTable
 {
 public:
@@ -11,6 +20,8 @@ public:
 	~CTable();
 
 	void AddSeat(const Vector3& pos);
+	void FillUpSeats();
+	bool CheckEmptySeats();
 
 	void SetActive(bool _bActive);
 	bool GetActive() const;
@@ -22,16 +33,16 @@ public:
 
 	int GetID();
 	Vector3 GetPos();
-	std::vector<Vector3>* GetSeatList();
+	std::vector<Seat*>* GetSeatList();
 
 private:
-	static int m_ID;
+	int m_ID;
 	bool bActive;
 	bool bUsing;
 
 	Vector3 position;
 
-	std::vector<Vector3> seatList;
+	std::vector<Seat*> seatList;
 };
 
 #endif // TABLE_H

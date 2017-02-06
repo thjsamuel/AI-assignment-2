@@ -46,6 +46,7 @@ bool CState_OrderFood::OnMessage(CCustomer* customer, const Telegram& telegram)
 	{
 		case MSG_ORDER_TAKEN:
 		{
+			customer->SetOrderedStatus(true);
 			customer->GetFSM()->ChangeState(CState_Customer_Idle::GetInstance());
 			break;
 		}

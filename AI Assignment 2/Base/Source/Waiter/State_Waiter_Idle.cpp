@@ -60,23 +60,23 @@ void CState_Waiter_Idle::Exit(CWaiter* waiter, double dt)
 bool CState_Waiter_Idle::OnMessage(CWaiter* waiter, const Telegram& telegram)
 {
 	// think can move all to global state
-	//switch (telegram.msg)
-	//{
-	//	case MSG_ORDER_FOOD_1:
-	//	{
-	//		waiter->GetFSM()->ChangeState(CState_TakeOrder::GetInstance());
-	//		break;
-	//	}
+	switch (telegram.msg)
+	{
+		case MSG_ORDER_FOOD_1:
+		{
+			waiter->GetFSM()->ChangeState(CState_TakeOrder::GetInstance());
+			break;
+		}
 
-	//	case MSG_COLLECT_ORDER:
-	//	{
-	//		waiter->GetFSM()->ChangeState(CState_Serve::GetInstance());
-	//		break;
-	//	}
+		case MSG_COLLECT_ORDER:
+		{
+			waiter->GetFSM()->ChangeState(CState_Serve::GetInstance());
+			break;
+		}
 
-	//	// Successfully handled the message
-	//	return true;
-	//}
+		// Successfully handled the message
+		return true;
+	}
 
 	return false;
 }

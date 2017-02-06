@@ -4,7 +4,6 @@
 
 CState_EmptyTrashbag::CState_EmptyTrashbag()
 {
-	srand(time(NULL));
 }
 
 CState_EmptyTrashbag* CState_EmptyTrashbag::GetInstance()

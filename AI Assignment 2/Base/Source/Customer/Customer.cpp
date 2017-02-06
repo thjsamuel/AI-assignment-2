@@ -6,6 +6,8 @@ CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader, Vector3 pos, bool 
 , bIsLeader(bIsLeader)
 , bInGroup(bInGroup)
 , bHasSeat(false)
+, bOrdered(false)
+, tableID(0)
 , group_num(Group::GROUP_MAX)
 , speed(25)
 , num_in_group(0)
@@ -61,6 +63,10 @@ std::string CCustomer::GetStateInText()
 		return "Return tray";
 	else if (m_pStateMachine->GetCurrentState() == CState_Leave::GetInstance())
 		return "Leave";
+	else if (m_pStateMachine->GetCurrentState() == CState_Pay::GetInstance())
+		return "Pay";
+
+	return "No state";
 }
 
 CStateMachine<CCustomer>* CCustomer::GetFSM() const
@@ -96,6 +102,26 @@ void CCustomer::SetHasSeatStatus(bool bHasSeat)
 bool CCustomer::GetHasSeatStatus()
 {
 	return bHasSeat;
+}
+
+void CCustomer::SetOrderedStatus(bool bOrdered)
+{
+	this->bOrdered = bOrdered;
+}
+
+bool CCustomer::GetOrderedStatus()
+{
+	return bOrdered;
+}
+
+void CCustomer::SetTableID(unsigned int tableID)
+{
+	this->tableID = tableID;
+}
+
+unsigned int CCustomer::GetTableID()
+{
+	return tableID;
 }
 
 void CCustomer::AddMember(CCustomer* customer)

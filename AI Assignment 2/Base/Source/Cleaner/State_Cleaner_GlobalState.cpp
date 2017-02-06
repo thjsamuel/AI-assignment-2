@@ -6,7 +6,6 @@
 
 CState_Cleaner_GlobalState::CState_Cleaner_GlobalState()
 {
-	srand(time(NULL));
 }
 
 CState_Cleaner_GlobalState* CState_Cleaner_GlobalState::GetInstance()

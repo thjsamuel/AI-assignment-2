@@ -33,7 +33,7 @@ void CState_TakeOrder::Execute(CWaiter* waiter, double dt)
 	static unsigned int currentSize = entityMgr->GetStartingSize();
 	static CBaseGameEntity* customer = entityMgr->GetEntityFromID(currentSize);
 
-	if (customer->GetSeatedStatus() == true)
+	if (customer->GetSeatedStatus() == true /*&& currentSize <= entityMgr->GetEntityMap().size()*/)
 	{
 		customer = entityMgr->GetEntityFromID(currentSize);
 

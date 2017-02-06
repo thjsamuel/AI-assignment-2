@@ -38,6 +38,12 @@ public:
 	void SetHasSeatStatus(bool bHasSeat);
 	bool GetHasSeatStatus();
 
+	void SetOrderedStatus(bool bOrdered);
+	bool GetOrderedStatus();
+
+	void SetTableID(unsigned int tableID);
+	unsigned int GetTableID();
+
 	void AddMember(CCustomer* customer);
 	std::vector<CCustomer*>* GetMembers();
 
@@ -46,11 +52,14 @@ public:
     Group group_num; // Flock this entity belongs to
     float speed;
     int num_in_group; // Number of customers in the flock that he belongs in
+
 private:
 	CStateMachine<CCustomer>* m_pStateMachine;
 	bool bIsLeader;
 	bool bInGroup;
 	bool bHasSeat;
+	bool bOrdered;
+	unsigned int tableID;
 	std::vector<CCustomer*>* groupMembers;
 };
 

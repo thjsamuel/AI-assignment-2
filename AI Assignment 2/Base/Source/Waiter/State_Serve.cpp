@@ -59,7 +59,7 @@ void CState_Serve::Execute(CWaiter* waiter, double dt)
 		}
 	}*/
 
-	if (bCollectedOrder == true)
+	if (bCollectedOrder == true /*&& currentSize <= entityMgr->GetEntityMap().size()*/)
 	{
 		customer = entityMgr->GetEntityFromID(currentSize);
 

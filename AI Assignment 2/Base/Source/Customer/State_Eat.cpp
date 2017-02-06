@@ -4,14 +4,20 @@
 #include "../Messaging/MessageDispatcher.h"
 #include "../Messaging/MessageTypes.h"
 #include "../EntityNames.h"
+#include "../EntityManager.h"
 
 #include "../MyTimer.h"
 
 CMyTimer* eatingTimer = CMyTimer::GetInstance();
 
-CState_Eat::CState_Eat()
+CState_Eat::CState_Eat() 
+	: bTimerSet(false)
+	, timeTillDone(0.0)
+	, bCoinFlipped(false)
+	, coin(-1)
+	, bSentMsgToCleaner(false)
+	, bLeftTable(false)
 {
-	srand(time(NULL));
 }
 
 CState_Eat* CState_Eat::GetInstance()
@@ -23,17 +29,11 @@ CState_Eat* CState_Eat::GetInstance()
 
 void CState_Eat::Enter(CCustomer* customer, double dt)
 {
-
+	bLeftTable = false;
 }
 
 void CState_Eat::Execute(CCustomer* customer, double dt)
 {
-	static bool bTimerSet = false;
-	static double timeTillDone = 0.0;
-	static bool bCoinFlipped = false;
-	static int coin = -1;
-	static bool bSentMsgToCleaner = false;
-
 	if (bTimerSet == false)
 	{
 		timeTillDone = eatingTimer->GetCurrentTime_() + 10.0;
@@ -44,10 +44,42 @@ void CState_Eat::Execute(CCustomer* customer, double dt)
 	{
 		if (eatingTimer->GetCurrentTime_() >= timeTillDone)
 		{
-			if (bCoinFlipped == false)
+			// Leave seat at table
+			//if (!bLeftTable)
 			{
-				coin = rand() % 2;
-				bCoinFlipped = true;
+				if (customer->GetInGroupStatus())
+				{
+					for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
+					{
+						if (CEntityManager::GetInstance()->GetTableList()->at(i)->GetID() == customer->GetTableID())
+						{
+							CTable* table = CEntityManager::GetInstance()->GetTableList()->at(i);
+
+							for (int j = 0; j < table->GetNumSeats(); j++)
+							{
+								if (table->GetSeatList()->at(j)->position == customer->GetSeatPosition())
+								{
+									table->GetSeatList()->at(j)->bUsing = false;
+									bLeftTable = true;
+									break;
+								}
+							}
+
+							//break;
+						}
+					}
+				}
+				else
+					bLeftTable = true;
+			}
+
+			if (bLeftTable)
+			{
+				if (bCoinFlipped == false)
+				{
+					coin = rand() % 2;
+					bCoinFlipped = true;
+				}
 			}
 		}
 	}
@@ -81,12 +113,13 @@ void CState_Eat::Execute(CCustomer* customer, double dt)
 			if (bSentMsgToCleaner == true)
 			{
 				// Leave tray on table
-				customer->GetFSM()->ChangeState(CState_Pay::GetInstance());
-                CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
+				customer->GetFSM()->ChangeState(CState_Leave::GetInstance());
+				//customer->GetFSM()->ChangeState(CState_Pay::GetInstance());
+                /*CMessageDispatcher::GetInstance()->DispatchMessage_(SEND_MSG_IMMEDIATELY,
                     customer->GetID(),
                     ENT_WAITER,
                     MSG_PAY,
-                    NO_EXTRA_INFO);
+                    NO_EXTRA_INFO);*/
 			}
 		}
 

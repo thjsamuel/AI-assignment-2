@@ -8,7 +8,7 @@
 #include "../Messaging/MessageTypes.h"
 #include "../EntityNames.h"
 
-CState_Arrange::CState_Arrange() : bAtTable(false), bEmptyTable(false), bSettingTable(false)
+CState_Arrange::CState_Arrange() : bAtTable(false), bEmptyTable(false), bSettingTable(false), bTableSet(false), bFoundSpot(false)
 {
 }
 
@@ -21,28 +21,44 @@ CState_Arrange* CState_Arrange::GetInstance()
 
 void CState_Arrange::Enter(CWaiter* waiter, double dt)
 {
-
+	bTableSet = false;
+	bFoundSpot = false;
 }
 
 void CState_Arrange::Execute(CWaiter* waiter, double dt)
 {
     //// There are still tables left
-	Vector3 des;
-    if (waiter->chairs >= 0)
-    {
-        des = waiter->waypoints[0]; // set destination to the random coordinates, i just realised if each waiter has their own tables_left, that's trouble since one storeroom. So need to make tables_left static later
-        if (waiter->position != des)
-        {
-            Vector3 direction = (waiter->position - des).Normalized();
-            waiter->position -= direction * (float)(25 * dt);
-            //reachDes[tables - 1] = true; // to check whether waiter has reached destination in the future
-        }
-        else
-            --waiter->chairs;
-    }
+	//Vector3 des;
+ //   if (waiter->chairs >= 0)
+ //   {
+ //       des = waiter->waypoints[0]; // set destination to the random coordinates, i just realised if each waiter has their own tables_left, that's trouble since one storeroom. So need to make tables_left static later
+ //       if (waiter->position != des)
+ //       {
+ //           Vector3 direction = (waiter->position - des).Normalized();
+ //           waiter->position -= direction * (float)(25 * dt);
+ //           //reachDes[tables - 1] = true; // to check whether waiter has reached destination in the future
+ //       }
+ //       else
+ //           --waiter->chairs;
+ //   }
     /*if (waiter->chairs == 0)
         waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());*/
 
+	/****************************************************************************/
+	/****************************************************************************/
+	// If there are empty tables for customers already, go back to idle state
+	for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
+	{
+		if (CEntityManager::GetInstance()->GetTableList()->at(i)->GetActive()
+			&& !CEntityManager::GetInstance()->GetTableList()->at(i)->GetUsingState()
+			&& CEntityManager::GetInstance()->GetTableList()->at(i)->GetNumSeats() == waiter->GetNumCustomersInGrp()->front())
+		{
+			waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
+			break;
+		}
+	}
+
+	// When not currently setting table, check if there are already set tables which are not being used
 	if (!bSettingTable)
 	{
 		for (int i = 0; i < CEntityManager::GetInstance()->GetTableList()->size(); i++)
@@ -63,13 +79,50 @@ void CState_Arrange::Execute(CWaiter* waiter, double dt)
 	/*if (CEntityManager::GetInstance()->GetTableList()->size() <= 0)
 		bEmptyTable = true;*/
 
+	//std::cout << "number of grps: " << waiter->GetNumCustomersInGrp()->size() << std::endl;
+
 	if (!waiter->GetRemoveSeatStatus() && !waiter->GetAddSeatStatus() && !bEmptyTable)
 	{
-		bSettingTable = true;
-		if (waiter->GetSeatArranger()->ArrangeSeats(waiter->GetNumCustomersInGrp()->front(), des, dt))
+		static Vector3 targetPos = Vector3(0, 0, 0);
+
+		if (!bFoundSpot)
 		{
-			bSettingTable = false;
-			waiter->GetNumCustomersInGrp()->pop(); // must also pop when this group of customers leave?
+			targetPos = waiter->GetSeatArranger()->GetTablePosition();
+
+			if (targetPos != Vector3(0, 0, 0))
+				bFoundSpot = true;
+			else
+				waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance()); // no more space for tables, group customers have to wait
+		}
+
+		else
+		{
+			// Move to table position
+			if (!bAtTable)
+			{
+				if ((targetPos - waiter->position).LengthSquared() > 1.f)
+				{
+					Vector3 dir = (targetPos - waiter->position).Normalized();
+					waiter->position += dir * (float)(25 * dt);
+				}
+				else
+					bAtTable = true;
+			}
+
+			// If waiter is not removing and adding, and there are no empty tables to use, set a new table
+			else
+			{
+				bSettingTable = true;
+				if (waiter->GetSeatArranger()->ArrangeSeats(waiter->GetNumCustomersInGrp()->front(), targetPos, dt))
+				{
+					bSettingTable = false;
+					waiter->GetNumCustomersInGrp()->pop(); // must also pop when this group of customers leave?
+					bTableSet = true;
+					bAtTable = false;
+
+					waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
+				}
+			}
 		}
 	}
 
@@ -85,10 +138,13 @@ void CState_Arrange::Execute(CWaiter* waiter, double dt)
 	}
 
 	// If there are no more groups, change to idle state
-	if (waiter->GetNumCustomersInGrp()->size() <= 0)
+	//if (waiter->GetNumCustomersInGrp()->size() <= 0)
+
+	// If table set, change to idle state
+	/*if (bTableSet)
 	{
 		waiter->GetFSM()->ChangeState(CState_Waiter_Idle::GetInstance());
-	}
+	}*/
 }
 
 void CState_Arrange::AddSeats(CWaiter* waiter, double dt)

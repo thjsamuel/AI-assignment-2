@@ -40,4 +40,9 @@
 #define SEAT_8				Vector3 (125.48, 48.6)
 #define SEAT_9				Vector3 (125.48, 30.6)
 
+// Table positions
+#define TABLE_1				Vector3(35, 50, 0)
+#define TABLE_2				Vector3(70, 50, 0)
+#define TABLE_3				Vector3(90, 50, 0)
+
 #endif // LOCATIONS_H
