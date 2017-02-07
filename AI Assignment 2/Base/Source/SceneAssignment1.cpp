@@ -253,6 +253,7 @@ void SceneAssignment1::CreateFlock(Vector3 seat_pos)
 	Vector3 start_pos(145, 10, 0);
 	CCustomer* theLeader;
 
+    if (flock_to_join < Group::GROUP_MAX)
     for (int i = 0; i < MAX_CUSTOMERS; ++i)
     {
         const int away_distance = 10; // distance away from the previous group
@@ -272,18 +273,28 @@ void SceneAssignment1::CreateFlock(Vector3 seat_pos)
         if (customer_list.size() > 0)
         {
             //if (/*customer_list[0]->GetStateInText() == "Group up" || customer_list[0]->GetStateInText() == "Queue up"*/theCustomer->GetLeaderStatus()) // if first customer is queueing up, line up at back of queue
+            if (customer_list.back() != nullptr)
             {
                 Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
                 behind_pos.x += away_distance;
                 theCustomer->waypoints[0] = behind_pos;
             }
         }
-        
+
         theCustomer->group_num = static_cast<Group>(flock_to_join); // customer is assigned a flock to join
         theCustomer->num_in_group = MAX_CUSTOMERS;
 
         entityMgr->RegisterEntity(theCustomer);
-        customer_list.push_back(theCustomer);
+        bool noplace = true;
+        for (int i = 0; i < customer_list.size(); ++i)
+            if (customer_list[i] == nullptr)
+            {
+                customer_list.insert(customer_list.begin() + i, theCustomer);
+                noplace = false;
+                break;
+            }
+        if (noplace == true)
+            customer_list.push_back(theCustomer);
 
         if (theLeader != theCustomer)
         {
@@ -293,9 +304,15 @@ void SceneAssignment1::CreateFlock(Vector3 seat_pos)
         
     }
 	
-    flock_to_join++; // the max number of customers in a flock has been reached, the next time this function is called, the new customers will join the next flock
-    if (flock_to_join > Group::GROUP_MAX)
-        flock_to_join = 0; // Sorta loops but doesnt check back to see if the previous groups has left, so i am going to make the customers stops coming if flock to join is MAX
+    if (flock_to_join < Group::GROUP_MAX)
+        flock_to_join++; // the max number of customers in a flock has been reached, the next time this function is called, the new customers will join the next flock
+    if (flock_to_join >= Group::GROUP_MAX)
+    {
+        if (customer_list.size() >= 8)
+            flock_to_join = Group::GROUP_MAX;
+        else if (customer_list.size() < 8)
+            flock_to_join = 0; // Sorta loops but doesnt check back to see if the previous groups has left, so i am going to make the customers stops coming if flock to join is MAX
+    }
 }
 
 void SceneAssignment1::AssignSeatsToGroup()
@@ -308,12 +325,15 @@ void SceneAssignment1::AssignSeatsToGroup()
 	// Find the leader
 	for (std::vector<CCustomer*>::iterator it = customer_list.begin(); it != customer_list.end(); it++)
 	{
-		if ((*it)->GetLeaderStatus() && !(*it)->GetHasSeatStatus() && (*it)->GetInGroupStatus())
-		{
-			theLeader = *it;
-			//std::cout << theLeader->GetMembers()->size() << std::endl;
-			break;
-		}
+        if ((*it) != nullptr)
+        {
+            if ((*it)->GetLeaderStatus() && !(*it)->GetHasSeatStatus() && (*it)->GetInGroupStatus())
+            {
+                theLeader = *it;
+                //std::cout << theLeader->GetMembers()->size() << std::endl;
+                break;
+            }
+        }
 	}
 
 	if (theLeader && !theLeader->GetHasSeatStatus())
@@ -490,7 +510,7 @@ void SceneAssignment1::GenerateCustomers()
 			CCustomer* theCustomer = new CCustomer(entityMgr->GetNextID(), theSeatPos, true);
 			if (customer_list.size() > 0)
 			{
-				if (customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
+                if (customer_list[0] != nullptr && customer_list[0]->GetStateInText() == "Queue up") // if first customer is queueing up, line up at back of queue
 				{
 					Vector3 behind_pos = customer_list.back()->waypoints[0]; // this assumes that the latest customer is queueing up as well and that the new customer should line up behind him by away_distance
 					behind_pos.x += away_distance;
@@ -501,7 +521,16 @@ void SceneAssignment1::GenerateCustomers()
 			}
 
 			entityMgr->RegisterEntity(theCustomer);
-			customer_list.push_back(theCustomer);
+            bool noplace = true;
+            for (int i = 0; i < customer_list.size(); ++i)
+                if (customer_list[i] == nullptr)
+                {
+                    customer_list.insert(customer_list.begin() + i, theCustomer);
+                    noplace = false;
+                    break;
+                }
+            if (noplace == true)
+                customer_list.push_back(theCustomer);
         }
     }
 
@@ -509,7 +538,7 @@ void SceneAssignment1::GenerateCustomers()
 	//if (!b)//
 	if ((rand() % 2000 + 1) == 1)
 	{
-		if (flock_to_join < Group::GROUP_MAX)
+		//if (flock_to_join < Group::GROUP_MAX)
 			CreateFlock(theSeatPos);
 
 		//b = true;
@@ -540,6 +569,19 @@ void SceneAssignment1::GenerateCustomers()
     //        }
     //    }
     //}
+}
+
+void SceneAssignment1::DestroyCustomers()
+{
+    std::vector<CCustomer*>::iterator it = customer_list.begin();
+    for (it; it != customer_list.end(); it++)
+    {
+        if ((*it) != nullptr && (*it)->GetExitStatus())
+        {
+            //delete (*it);
+            (*it) = nullptr;
+        }
+    }
 }
 
 bool SceneAssignment1::CheckIfCustomerReachDestination()
@@ -585,31 +627,34 @@ void SceneAssignment1::calculateRepelVec(std::vector<CCustomer*> list, CCustomer
     float dist_away; 
         for (int i = 0; i < list.size(); ++i)
         {
-            if (list[i] != &entity && list[i]->group_num == entity.group_num)
+            if (list[i] != nullptr)
             {
-                repelVec = entity.GetPosition() - list[i]->GetPosition();
-                dist_away = repelVec.LengthSquared();
-                //repelVec.x = (entity.GetPosition().x - list[i]->GetPosition().x) * (entity.GetPosition().x - list[i]->GetPosition().x);
-                //repelVec.y = (entity.GetPosition().y - list[i]->GetPosition().y) * (entity.GetPosition().y - list[i]->GetPosition().y);
-                bool isTooClose = (dist_away < radiusSquared);
-                //if (dist_away == 0)
-                //{
-                //    entity.position = (entity.position - (radiusSquared * dt));
-                //    repelVec = entity.GetPosition() - list[i]->GetPosition();
-                //}
-                if (isTooClose)
+                if (list[i] != &entity && list[i]->group_num == entity.group_num)
                 {
-                    //if (repelVec != Vector3(0, 0, 0))
+                    repelVec = entity.GetPosition() - list[i]->GetPosition();
+                    dist_away = repelVec.LengthSquared();
+                    //repelVec.x = (entity.GetPosition().x - list[i]->GetPosition().x) * (entity.GetPosition().x - list[i]->GetPosition().x);
+                    //repelVec.y = (entity.GetPosition().y - list[i]->GetPosition().y) * (entity.GetPosition().y - list[i]->GetPosition().y);
+                    bool isTooClose = (dist_away < radiusSquared);
+                    //if (dist_away == 0)
+                    //{
+                    //    entity.position = (entity.position - (radiusSquared * dt));
+                    //    repelVec = entity.GetPosition() - list[i]->GetPosition();
+                    //}
+                    if (isTooClose)
                     {
-                        //repelVec *= -1;
-                        //repelVec.Normalize();
-                        entity.m_repelVec = repelVec;
+                        //if (repelVec != Vector3(0, 0, 0))
+                        {
+                            //repelVec *= -1;
+                            //repelVec.Normalize();
+                            entity.m_repelVec = repelVec;
+                        }
                     }
+                    //else if (dist_away != 0)
+                    //{
+                    //    entity.GetFSM()->ChangeState(CState_Customer_Idle::GetInstance(), dt);
+                    //}
                 }
-                //else if (dist_away != 0)
-                //{
-                //    entity.GetFSM()->ChangeState(CState_Customer_Idle::GetInstance(), dt);
-                //}
             }
         }
 }
@@ -674,6 +719,7 @@ void SceneAssignment1::Update(double dt)
 		vButtonState = false;*/
 
     GenerateCustomers();
+    DestroyCustomers();
 	AssignSeatsToGroup();
 	UpdateTables();
 
@@ -681,30 +727,32 @@ void SceneAssignment1::Update(double dt)
     {
         for (int i = 0; i < customer_list.size(); ++i)
         {
-            //if (customer_list[i]->m_repelVec == Vector3(0, 0, 0))
-            calculateCOM(customer_list, *customer_list[i], customer_list[i]->group_num);
-            if (!customer_list[i]->GetFSM()->IsInState(*CState_Pay::GetInstance()))
-                calculateRepelVec(customer_list, *customer_list[i], dt);
-            else
-                calculateRepelVec(*customer_list[i], *usher, dt);
-
+            if (customer_list[i] != nullptr)
+            {
+                //if (customer_list[i]->m_repelVec == Vector3(0, 0, 0))
+                //calculateCOM(customer_list, *customer_list[i], customer_list[i]->group_num);
+                if (!customer_list[i]->GetFSM()->IsInState(*CState_Pay::GetInstance()))
+                    calculateRepelVec(customer_list, *customer_list[i], dt);
+                else
+                    calculateRepelVec(*customer_list[i], *usher, dt);
+            }
         }
     }
-    //for (int i = 0; i < customer_list.size(); ++i)
-    {
-        //if (customer_list[i]->GetLeaderStatus() == false)
-    }
-
+    
+    // Makes sure customer does not wonder out of screen bounds
     for (int i = 0; i < customer_list.size(); ++i)
     {
-        if (customer_list[i]->position.x > m_worldWidth)
-            customer_list[i]->position.x -= (10 * dt);
-        else if (customer_list[i]->position.x < 0)
-            customer_list[i]->position.x += (10 * dt);
-        if (customer_list[i]->position.y > m_worldHeight)
-            customer_list[i]->position.y -= (10 * dt);
-        else if (customer_list[i]->position.y < 0)
-            customer_list[i]->position.y += (10 * dt);
+        if (customer_list[i] != nullptr)
+        {
+            if (customer_list[i]->position.x > m_worldWidth)
+                customer_list[i]->position.x -= (10 * dt);
+            else if (customer_list[i]->position.x < 0)
+                customer_list[i]->position.x += (10 * dt);
+            if (customer_list[i]->position.y > m_worldHeight)
+                customer_list[i]->position.y -= (10 * dt);
+            else if (customer_list[i]->position.y < 0)
+                customer_list[i]->position.y += (10 * dt);
+        }
     }
 
 	// Update customers
@@ -731,7 +779,7 @@ void SceneAssignment1::Update(double dt)
 		}
 	}
 
-	if (customer_list.size() > 4)
+	if (customer_list.size() > 8)
 		waiter->need_help = true;
 	else
 		waiter->need_help = false;

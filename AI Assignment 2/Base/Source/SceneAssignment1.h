@@ -35,7 +35,8 @@ public:
 	GameObject* FetchGO();
 
 	bool CheckCollision(GameObject *go, GameObject *go2, float dt);
-	void GenerateCustomers();
+	void GenerateCustomers(); // Contains generation of single and group customers
+    void DestroyCustomers(); // Contains destruction of single and group customers after they leave using getExitStatus()
 	void AssignSeatsToGroup();
 	void CloseSeat(int index, Vector3 seatPos, bool &bSeatTaken);
 	void FreeSeat(int index, Vector3 seatPos, bool &bSeatTaken);

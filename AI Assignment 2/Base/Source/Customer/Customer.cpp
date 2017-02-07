@@ -29,11 +29,11 @@ CCustomer::~CCustomer()
 	if (m_pStateMachine)
 		delete m_pStateMachine;
 
-	for (std::vector<CCustomer*>::iterator it = groupMembers->begin(); it != groupMembers->end(); it++)
-	{
-		delete *it;
-		groupMembers->erase(it);
-	}
+	//for (std::vector<CCustomer*>::iterator it = groupMembers->begin(); it != groupMembers->end(); it++)
+	//{
+	//	delete *it;
+	//	groupMembers->erase(it);
+	//}
 }
 
 void CCustomer::Update(double dt)
