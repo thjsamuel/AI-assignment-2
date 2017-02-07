@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\AStar\TestGrid.cpp" />
+    <ClCompile Include="Source\BaseGameEntity.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Chef\Chef.cpp" />
+    <ClCompile Include="Source\Chef\State_Chef_Idle.cpp" />
+    <ClCompile Include="Source\Chef\State_Cook.cpp" />
+    <ClCompile Include="Source\Cleaner\Cleaner.cpp" />
+    <ClCompile Include="Source\Cleaner\State_Clean.cpp" />
+    <ClCompile Include="Source\Cleaner\State_EmptyTrashbag.cpp" />
+    <ClCompile Include="Source\Cleaner\State_EmptyTrashbin.cpp" />
+    <ClCompile Include="Source\Cleaner\State_Cleaner_GlobalState.cpp" />
+    <ClCompile Include="Source\Cleaner\State_Cleaner_GoToilet.cpp" />
+    <ClCompile Include="Source\Cleaner\State_Cleaner_Idle.cpp" />
+    <ClCompile Include="Source\Customer\Customer.cpp" />
+    <ClCompile Include="Source\Customer\State_Eat.cpp" />
+    <ClCompile Include="Source\Customer\State_FindSeat.cpp" />
+    <ClCompile Include="Source\Customer\State_Customer_Idle.cpp" />
+    <ClCompile Include="Source\Customer\State_Flock.cpp" />
+    <ClCompile Include="Source\Customer\State_Leave.cpp" />
+    <ClCompile Include="Source\Customer\State_OrderFood.cpp" />
+    <ClCompile Include="Source\Customer\State_QueueUp.cpp" />
+    <ClCompile Include="Source\Customer\State_ReturnTray.cpp" />
+    <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\EntityNames.cpp" />
+    <ClCompile Include="Source\Flocking\Flocking.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\LoadOBJ.cpp" />
+    <ClCompile Include="Source\LoadTGA.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\Messaging\MessageDispatcher.cpp" />
+    <ClCompile Include="Source\SceneAssignment1.cpp" />
+    <ClCompile Include="Source\SceneBase.cpp" />
+    <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\Waiter\State_Arrange.cpp" />
+    <ClCompile Include="Source\Waiter\State_Usher.cpp" />
+    <ClCompile Include="Source\Waiter\State_Waiter_GlobalState.cpp" />
+    <ClCompile Include="Source\Waiter\State_Waiter_GoToilet.cpp" />
+    <ClCompile Include="Source\Waiter\State_Waiter_Idle.cpp" />
+    <ClCompile Include="Source\Waiter\State_Serve.cpp" />
+    <ClCompile Include="Source\Waiter\State_TakeOrder.cpp" />
+    <ClCompile Include="Source\Waiter\Waiter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\AStar\TestGrid.h" />
+    <ClInclude Include="Source\BaseGameEntity.h" />
+    <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Chef\Chef.h" />
+    <ClInclude Include="Source\Chef\State_Chef_Idle.h" />
+    <ClInclude Include="Source\Chef\State_Cook.h" />
+    <ClInclude Include="Source\Cleaner\Cleaner.h" />
+    <ClInclude Include="Source\Cleaner\State_Clean.h" />
+    <ClInclude Include="Source\Cleaner\State_EmptyTrashbag.h" />
+    <ClInclude Include="Source\Cleaner\State_EmptyTrashbin.h" />
+    <ClInclude Include="Source\Cleaner\State_Cleaner_GlobalState.h" />
+    <ClInclude Include="Source\Cleaner\State_Cleaner_GoToilet.h" />
+    <ClInclude Include="Source\Cleaner\State_Cleaner_Idle.h" />
+    <ClInclude Include="Source\Customer\Customer.h" />
+    <ClInclude Include="Source\Customer\State_Eat.h" />
+    <ClInclude Include="Source\Customer\State_FindSeat.h" />
+    <ClInclude Include="Source\Customer\State_Customer_Idle.h" />
+    <ClInclude Include="Source\Customer\State_Flock.h" />
+    <ClInclude Include="Source\Customer\State_Leave.h" />
+    <ClInclude Include="Source\Customer\State_OrderFood.h" />
+    <ClInclude Include="Source\Customer\State_QueueUp.h" />
+    <ClInclude Include="Source\Customer\State_ReturnTray.h" />
+    <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\EntityNames.h" />
+    <ClInclude Include="Source\Flocking\Flocking.h" />
+    <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\Geometry.h" />
+    <ClInclude Include="Source\Light.h" />
+    <ClInclude Include="Source\LoadOBJ.h" />
+    <ClInclude Include="Source\LoadTGA.h" />
+    <ClInclude Include="Source\Locations.h" />
+    <ClInclude Include="Source\Material.h" />
+    <ClInclude Include="Source\Mesh.h" />
+    <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\Messaging\MessageDispatcher.h" />
+    <ClInclude Include="Source\Messaging\MessageTypes.h" />
+    <ClInclude Include="Source\Messaging\Telegram.h" />
+    <ClInclude Include="Source\MyTimer.h" />
+    <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\SceneAssignment1.h" />
+    <ClInclude Include="Source\SceneBase.h" />
+    <ClInclude Include="Source\shader.hpp" />
+    <ClInclude Include="Source\State.h" />
+    <ClInclude Include="Source\StateMachine.h" />
+    <ClInclude Include="Source\Utility.h" />
+    <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\Waiter\State_Arrange.h" />
+    <ClInclude Include="Source\Waiter\State_Usher.h" />
+    <ClInclude Include="Source\Waiter\State_Waiter_GlobalState.h" />
+    <ClInclude Include="Source\Waiter\State_Waiter_GoToilet.h" />
+    <ClInclude Include="Source\Waiter\State_Waiter_Idle.h" />
+    <ClInclude Include="Source\Waiter\State_Serve.h" />
+    <ClInclude Include="Source\Waiter\State_TakeOrder.h" />
+    <ClInclude Include="Source\Waiter\Waiter.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9B172635-4E2B-46F1-A403-08F4194D00F5}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Base</RootNamespace>
+    <ProjectName>Base</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration);$(SolutionDir)/glfw/lib-msvc100;$(SolutionDir)/glew/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;winmm.lib;opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration);$(SolutionDir)/glfw/lib-msvc100;$(SolutionDir)/glew/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;winmm.lib;opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

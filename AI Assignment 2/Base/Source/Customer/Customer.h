@@ -53,6 +53,7 @@ public:
     float speed;
     int num_in_group; // Number of customers in the flock that he belongs in
     bool move_to_front;
+    bool b_sendmsg;
 private:
 	CStateMachine<CCustomer>* m_pStateMachine;
 	bool bIsLeader;

@@ -1,0 +1,1 @@
+Variables for player to set(num of customers, num of waiters)

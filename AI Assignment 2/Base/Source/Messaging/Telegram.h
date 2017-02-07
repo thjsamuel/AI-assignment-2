@@ -11,7 +11,7 @@ struct Telegram
     // Identification of EntityType Aka Entities enum
 	int senderID;
 	int receiverID;
-
+    int nextMsg;
 	int msg;
 	double dispatchTime; // time before sending out message
 	void* extraInfo; // extra info, can be dynamically cast to any type
@@ -24,7 +24,8 @@ struct Telegram
 		senderID(_senderID),
 		receiverID(_receiverID),
 		msg(_msg),
-		extraInfo(_extraInfo)
+		extraInfo(_extraInfo),
+        nextMsg(0)
     {
     }
 
@@ -51,6 +52,8 @@ struct Telegram
 		{
 		case MSG_ORDER_FOOD_1:
 			return "I'd would like to order";
+        case MSG_GROUP_NUMBER:
+            return "Msg: There is 1 customer";
 		case MSG_1CUSTOMER:
 			return "Msg: There is 1 customer";
 		case MSG_2CUSTOMER:
@@ -67,12 +70,16 @@ struct Telegram
 			return"Food is ready! Come collect";
 		case MSG_ORDER_ARRIVED:
 			return"Msg: Here is your food";
-			//case MSG_CLEAN:
-			//return"I'd would like to order" << std::endl;
+	    case MSG_CLEAN:
+			return"Msg: Let me clean the table";
 		case MSG_HELP_INSIDE:
 			return"Msg: Help me, there are too many customers";
         case MSG_HELP_USHER:
             return"Msg: Thanks, you can go back to ushering now";
+        case MSG_PAY:
+            return"Msg: I want to pay";
+        case MSG_LEAVE:
+            return"Msg: Bye bye, i am leaving.";
 		}
 	}
 

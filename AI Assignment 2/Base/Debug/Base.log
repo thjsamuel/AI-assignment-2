@@ -1,0 +1,198 @@
+﻿  Waiter.cpp
+  State_TakeOrder.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_takeorder.cpp(58): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Serve.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_serve.cpp(47): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_serve.cpp(74): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_serve.cpp(81): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Waiter_Idle.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_idle.cpp(39): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_idle.cpp(44): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Waiter_GoToilet.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_gotoilet.cpp(28): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_gotoilet.cpp(29): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_gotoilet.cpp(31): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_gotoilet.cpp(34): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_gotoilet.cpp(41): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_gotoilet.cpp(43): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_gotoilet.cpp(50): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_gotoilet.cpp(52): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_gotoilet.cpp(63): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Waiter_GlobalState.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_globalstate.cpp(82): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_waiter_globalstate.cpp(128): warning C4018: '<=' : signed/unsigned mismatch
+  State_Usher.cpp
+  State_Cashier.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_cashier.cpp(37): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_cashier.cpp(59): warning C4018: '<' : signed/unsigned mismatch
+  State_Arrange.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_arrange.cpp(53): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_arrange.cpp(67): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_arrange.cpp(159): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\waiter\state_arrange.cpp(208): warning C4018: '<' : signed/unsigned mismatch
+  Utility.cpp
+  Table.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\table.cpp(44): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\table.cpp(52): warning C4018: '<' : signed/unsigned mismatch
+  shader.cpp
+  SeatArranger.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\seatarranger.cpp(26): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\seatarranger.cpp(93): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\seatarranger.cpp(94): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\seatarranger.cpp(142): warning C4018: '<' : signed/unsigned mismatch
+  SceneBase.cpp
+  SceneAssignment1.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(24): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(27): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(31): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(39): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(82): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(229): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(270): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(436): warning C4018: '<=' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(442): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(443): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(444): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(445): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(446): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(447): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(448): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(449): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(450): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(454): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(455): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(456): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(457): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(458): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(459): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(460): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(461): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(462): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(473): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(477): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(481): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(485): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(489): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(493): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(497): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(501): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(505): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(592): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(604): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(630): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(730): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(737): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(739): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(745): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(750): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(752): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(754): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(756): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(761): warning C4018: '<=' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(797): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(799): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(801): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(803): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(823): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(824): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(825): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(826): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(827): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(828): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(829): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(830): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(831): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(993): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(998): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1012): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1013): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1014): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1015): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1016): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1017): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1018): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1019): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1020): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1025): warning C4018: '<=' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(1105): warning C4018: '<=' : signed/unsigned mismatch
+  MessageDispatcher.cpp
+  MeshBuilder.cpp
+  Mesh.cpp
+  main.cpp
+  LoadTGA.cpp
+  Generating Code...
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\messaging\telegram.h(84): warning C4715: 'Telegram::GetMsgInText' : not all control paths return a value
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\sceneassignment1.cpp(236): warning C4715: 'SceneAssignment1::CheckCollision' : not all control paths return a value
+  Compiling...
+  LoadOBJ.cpp
+  GameObject.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\gameobject.cpp(72): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\gameobject.cpp(91): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  EntityNames.cpp
+  EntityManager.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\entitymanager.cpp(28): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\entitymanager.cpp(34): warning C4018: '<' : signed/unsigned mismatch
+  State_ReturnTray.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\customer\state_returntray.cpp(36): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\customer\state_returntray.cpp(38): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\customer\state_returntray.cpp(61): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_QueueUp.cpp
+  State_Pay.cpp
+  State_OrderFood.cpp
+  State_Leave.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\customer\state_leave.cpp(74): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Flock.cpp
+  State_Customer_Idle.cpp
+  State_FindSeat.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\customer\state_findseat.cpp(36): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Eat.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\customer\state_eat.cpp(52): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\customer\state_eat.cpp(58): warning C4018: '<' : signed/unsigned mismatch
+  Customer.cpp
+  State_Cleaner_Idle.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_idle.cpp(37): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_idle.cpp(42): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Cleaner_GoToilet.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_gotoilet.cpp(28): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_gotoilet.cpp(29): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_gotoilet.cpp(31): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_gotoilet.cpp(34): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_gotoilet.cpp(41): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_gotoilet.cpp(43): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_gotoilet.cpp(50): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_gotoilet.cpp(52): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_cleaner_gotoilet.cpp(63): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Cleaner_GlobalState.cpp
+  State_EmptyTrashbin.cpp
+  State_EmptyTrashbag.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_emptytrashbag.cpp(42): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_emptytrashbag.cpp(44): warning C4305: 'argument' : truncation from 'double' to 'float'
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_emptytrashbag.cpp(69): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Clean.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\cleaner\state_clean.cpp(45): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\gameobject.cpp(49): warning C4715: 'GameObject::GetSpawnLoc' : not all control paths return a value
+  Compiling...
+  Cleaner.cpp
+  State_Cook.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\chef\state_cook.cpp(85): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  State_Chef_Idle.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\chef\state_chef_idle.cpp(32): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+  Chef.cpp
+  Camera.cpp
+  BaseGameEntity.cpp
+  Pathfinding.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\astar\pathfinding.cpp(31): warning C4018: '<' : signed/unsigned mismatch
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\astar\pathfinding.cpp(78): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\astar\pathfinding.cpp(78): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\astar\pathfinding.cpp(79): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\astar\pathfinding.cpp(79): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\astar\pathfinding.cpp(105): warning C4018: '<' : signed/unsigned mismatch
+  Node.cpp
+  Grid.cpp
+e:\blackboardlocal\year 2\sem2\ai\assignment2_repo\ai assignment 2\base\source\astar\grid.cpp(83): warning C4018: '<' : signed/unsigned mismatch
+  Application.cpp
+  Generating Code...
+Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Base.vcxproj -> E:\BlackboardLocal\Year 2\Sem2\AI\Assignment2_repo\AI Assignment 2\Debug\Base.exe

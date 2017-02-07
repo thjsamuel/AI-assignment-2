@@ -68,7 +68,7 @@ public:
     int chairs;
     bool need_help; // if too many customers need to be served, waiter is overwhelmed and asks for help
     std::vector<int> serve_list; // Which customer waiter is currently serving
-
+    bool sendmsg;
 private:
 	CStateMachine<CWaiter>* m_pStateMachine;
 	std::queue <Telegram>* msgQueue;

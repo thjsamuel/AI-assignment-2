@@ -12,6 +12,7 @@ CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader, Vector3 pos, bool 
 , speed(25)
 , num_in_group(0)
 , move_to_front(false)
+, b_sendmsg(false)
 {
 	m_pStateMachine = new CStateMachine<CCustomer>(this);
     //if (bIsLeader == false)
@@ -26,14 +27,18 @@ CCustomer::CCustomer(int ID, Vector3 seatPos, bool bIsLeader, Vector3 pos, bool 
 
 CCustomer::~CCustomer()
 {
-	if (m_pStateMachine)
-		delete m_pStateMachine;
+    if (m_pStateMachine)
+    {
+        delete m_pStateMachine;
+        //m_pStateMachine = nullptr;
+    }
 
-	//for (std::vector<CCustomer*>::iterator it = groupMembers->begin(); it != groupMembers->end(); it++)
-	//{
-	//	delete *it;
-	//	groupMembers->erase(it);
-	//}
+	for (std::vector<CCustomer*>::iterator it = groupMembers->begin(); it != groupMembers->end(); it++)
+	{
+		//delete (*it);
+        //(*it) = nullptr;
+		groupMembers->erase(it);
+	}
 }
 
 void CCustomer::Update(double dt)

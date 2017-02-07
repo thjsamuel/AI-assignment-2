@@ -285,15 +285,15 @@ void SceneAssignment1::CreateFlock(Vector3 seat_pos)
         theCustomer->num_in_group = MAX_CUSTOMERS;
 
         entityMgr->RegisterEntity(theCustomer);
-        bool noplace = true;
-        for (int i = 0; i < customer_list.size(); ++i)
-            if (customer_list[i] == nullptr)
-            {
-                customer_list.insert(customer_list.begin() + i, theCustomer);
-                noplace = false;
-                break;
-            }
-        if (noplace == true)
+        //bool noplace = true;
+        //for (int i = 0; i < customer_list.size(); ++i)
+        //    if (customer_list[i] == nullptr)
+        //    {
+        //        customer_list.insert(customer_list.begin() + i, theCustomer);
+        //        noplace = false;
+        //        break;
+        //    }
+        //if (noplace == true)
             customer_list.push_back(theCustomer);
 
         if (theLeader != theCustomer)
@@ -521,15 +521,15 @@ void SceneAssignment1::GenerateCustomers()
 			}
 
 			entityMgr->RegisterEntity(theCustomer);
-            bool noplace = true;
-            for (int i = 0; i < customer_list.size(); ++i)
-                if (customer_list[i] == nullptr)
-                {
-                    customer_list.insert(customer_list.begin() + i, theCustomer);
-                    noplace = false;
-                    break;
-                }
-            if (noplace == true)
+            //bool noplace = true;
+            //for (int i = 0; i < customer_list.size(); ++i)
+            //    if (customer_list[i] == nullptr)
+            //    {
+            //        customer_list.insert(customer_list.begin() + i, theCustomer);
+            //        noplace = false;
+            //        break;
+            //    }
+            //if (noplace == true)
                 customer_list.push_back(theCustomer);
         }
     }
@@ -579,7 +579,9 @@ void SceneAssignment1::DestroyCustomers()
         if ((*it) != nullptr && (*it)->GetExitStatus())
         {
             //delete (*it);
-            (*it) = nullptr;
+            //(*it) = nullptr;
+            customer_list.erase(it);
+
         }
     }
 }
@@ -719,7 +721,7 @@ void SceneAssignment1::Update(double dt)
 		vButtonState = false;*/
 
     GenerateCustomers();
-    DestroyCustomers();
+    //DestroyCustomers();
 	AssignSeatsToGroup();
 	UpdateTables();
 
@@ -765,8 +767,8 @@ void SceneAssignment1::Update(double dt)
 			// when exited == true, don't update and render
 			if (entityMgr->GetEntityFromID(i)->GetExitStatus() == false)
 				entityMgr->GetEntityFromID(i)->Update(dt);
-			else
-				entityMgr->RemoveEntity(entityMgr->GetEntityFromID(i));
+			//else
+				//entityMgr->RemoveEntity(entityMgr->GetEntityFromID(i));
 
 			//else // customer has left, therefore kick him out of customer list, not working currently cuz this will never be called, customer list must be passed to state_leave
 			{
@@ -1075,11 +1077,11 @@ void SceneAssignment1::RenderEntities()
 	modelStack.PopMatrix();
 
 	// For debugging
-	modelStack.PushMatrix();
-	modelStack.Translate(debugPos.x, debugPos.y, debugPos.z);
-	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_BALL3], false);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(debugPos.x, debugPos.y, debugPos.z);
+	//modelStack.Scale(1, 1, 1);
+	//RenderMesh(meshList[GEO_BALL3], false);
+	//modelStack.PopMatrix();
 }
 
 void SceneAssignment1::RenderEntities_States()
@@ -1174,6 +1176,12 @@ void SceneAssignment1::Render()
 	//On screen text
 	std::ostringstream ss;
 
+    modelStack.PushMatrix();
+    modelStack.Translate(0, 0, -9);
+    modelStack.Scale(500, 500, 10);
+    RenderMesh(meshList[GEO_BACKGROUND], false);
+    modelStack.PopMatrix();
+
 	RenderLocationNames();
 
 	ss.str("");
@@ -1186,10 +1194,10 @@ void SceneAssignment1::Render()
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 55);
 
-	//RenderTextOnScreen(meshList[GEO_TEXT], "Restaurant", Color(0, 1, 0), 3, 0, 0);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(/*chef->GetOrderList()->size()*/entityMgr->GetLatestID()), Color(0, 1, 0), 3, 0, 0);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Restaurant", Color(0, 1, 0), 3, 0, 0);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(/*chef->GetOrderList()->size()*/entityMgr->GetLatestID()), Color(0, 1, 0), 3, 0, 0);
 
-	RenderTextOnScreen(meshList[GEO_TEXT], "debugPos: (" + std::to_string(debugPos.x) + ", " + std::to_string(debugPos.y) + ")", Color(0, 1, 0), 3, 20, 3);
+	//RenderTextOnScreen(meshList[GEO_TEXT], "debugPos: (" + std::to_string(debugPos.x) + ", " + std::to_string(debugPos.y) + ")", Color(0, 1, 0), 3, 20, 3);
 
 	RenderEntities();
 	RenderRestaurant();

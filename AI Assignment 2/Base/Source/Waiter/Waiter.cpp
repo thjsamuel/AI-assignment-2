@@ -15,6 +15,7 @@ CWaiter::CWaiter(int ID)
     , tables_left(0)
     , chairs(0)
     , need_help(false)
+    , sendmsg(false)
 {
     // Depending on waiter's ID provided by SceneAssignment1, initialize waiter's Finite State Machine to be inside restaurant or outside restaurant
 	m_pStateMachine = new CStateMachine<CWaiter>(this);

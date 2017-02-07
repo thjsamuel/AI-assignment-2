@@ -45,7 +45,15 @@ void CEntityManager::RegisterEntity(CBaseGameEntity* newEntity)
 
 void CEntityManager::RemoveEntity(CBaseGameEntity* entity)
 {
-	m_EntityMap.erase(m_EntityMap.find(entity->GetID()));
+    std::map<int, CBaseGameEntity*>::iterator temp = m_EntityMap.find(entity->GetID());
+    //if (temp != m_EntityMap.end())
+        m_EntityMap.erase(temp);
+        //delete (*temp).second;
+        //(*temp).second = nullptr;
+    //else
+    {
+     //   return;
+    }
 }
 
 CBaseGameEntity* CEntityManager::GetEntityFromID(int id) const

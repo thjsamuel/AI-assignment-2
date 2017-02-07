@@ -1,3 +1,0 @@
-- sometimes customers don't take correct path when leaving
-- re-enable waiter to go toilet
-- more/extra stuff on phone notes

@@ -2,6 +2,8 @@
 #include "../BaseGameEntity.h"
 #include "../EntityManager.h"
 #include "../MyTimer.h"
+#include "../Customer/Customer.h"
+#include "../Waiter/Waiter.h"
 
 CEntityManager* entityMgr = CEntityManager::GetInstance();
 CMyTimer* _clock = CMyTimer::GetInstance();
@@ -38,15 +40,34 @@ void CMessageDispatcher::DispatchMessage_(double delay,
 
 	if (delay <= 0.0)
 	{
-		//if (telegram.GetSenderIDInText() != "Customer" || bSent == false)
-		//{
-  //          // Note: If it crashes here, it is probably due to the GetSenderInTextFunctions not accounting for a new ENT_TYPE
-		//	std::cout << "From: " << telegram.GetSenderIDInText() << " To: " << receiver->GetIDInText() << " " << telegram.GetMsgInText() << std::endl;
-		//	if (telegram.GetSenderIDInText() == "Customer")
-		//		bSent = true;
-		//	//return;
-		//}
-
+        CBaseGameEntity *entity = entityMgr->GetEntityFromID(senderID);
+        if (telegram.GetSenderIDInText() == "Customer")
+        {
+            CCustomer *temp_customer = dynamic_cast<CCustomer*>(entity);
+            if (temp_customer->b_sendmsg == false)
+            {
+                // Note: If it crashes here, it is probably due to the GetSenderInTextFunctions not accounting for a new ENT_TYPE
+                std::cout << "From: " << telegram.GetSenderIDInText() << " To: " << receiver->GetIDInText() << " " << telegram.GetMsgInText() << std::endl;
+                temp_customer->b_sendmsg = true;
+                //return;
+            }
+        }
+        else if (telegram.GetSenderIDInText() == "Waiter Inside")
+        {
+            CWaiter *temp_waiter = dynamic_cast<CWaiter*>(entity);
+            if (receiver->GetIDInText() != "Waiter Outside" && telegram.msg == Message_Type::MSG_HELP_USHER || temp_waiter->sendmsg == false)
+            {
+                // Note: If it crashes here, it is probably due to the GetSenderInTextFunctions not accounting for a new ENT_TYPE
+                std::cout << "From: " << telegram.GetSenderIDInText() << " To: " << receiver->GetIDInText() << " " << telegram.GetMsgInText() << std::endl;
+                temp_waiter->sendmsg = true;
+                //return;
+            }
+        }
+        else
+        {
+                // Note: If it crashes here, it is probably due to the GetSenderInTextFunctions not accounting for a new ENT_TYPE
+                std::cout << "From: " << telegram.GetSenderIDInText() << " To: " << receiver->GetIDInText() << " " << telegram.GetMsgInText() << std::endl;
+        }
 		/*if (telegram.GetSenderIDInText() != "Customer")
 		{
 			std::cout << "From: " << telegram.GetSenderIDInText() << "  To: " << receiver->GetIDInText() << " " << telegram.GetMsgInText() << std::endl;

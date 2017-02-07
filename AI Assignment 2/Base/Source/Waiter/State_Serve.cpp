@@ -142,8 +142,7 @@ bool CState_Serve::OnMessage(CWaiter* waiter, const Telegram& telegram)
     {
     case MSG_HELP_USHER:
     {
-        if (waiter->GetID() == ENT_WAITER_OUTSIDE)
-            waiter->GetFSM()->ChangeState(CState_Usher::GetInstance());
+        waiter->GetFSM()->ChangeState(CState_Usher::GetInstance());
         break;
     }
     return true;
